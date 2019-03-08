@@ -1,10 +1,12 @@
-package com.fyp.kweku.cbtoganisation.data.model
+package com.fyp.kweku.cbtoganisation.tasks.data.model
 
 
-import com.fyp.kweku.cbtoganisation.domain.Model.Task
-import com.fyp.kweku.cbtoganisation.domain.Repository.ModelMapper
+import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
+import com.fyp.kweku.cbtoganisation.tasks.domain.model.TaskCategory
+import com.fyp.kweku.cbtoganisation.tasks.domain.repository.ModelMapper
 
-class TaskMapper : ModelMapper<TaskDataModel, Task> {
+class TaskMapper :
+    ModelMapper<TaskDataModel, Task> {
 
     private var tcMapper = TaskCategoryMapper()
     override fun fromEntity(from: TaskDataModel) = Task(
@@ -14,8 +16,7 @@ class TaskMapper : ModelMapper<TaskDataModel, Task> {
         from.taskDescription,
         from.taskDate,
         from.taskStartTime,
-        from.taskLength,
-        tcMapper.fromEntity(from.taskCategoryDataModel)
+        from.taskLength
     )
 
     override fun toEntity(from: Task) = TaskDataModel(
@@ -25,7 +26,6 @@ class TaskMapper : ModelMapper<TaskDataModel, Task> {
         from.taskDescription,
         from.taskDate,
         from.taskStartTime,
-        from.taskLength,
-        tcMapper.toEntity(from.taskCategory)
+        from.taskLength
     )
 }

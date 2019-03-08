@@ -1,4 +1,4 @@
-package com.fyp.kweku.cbtoganisation.domain.Repository
+package com.fyp.kweku.cbtoganisation.tasks.domain.repository
 
 interface ModelMapper<E, M> {
     fun fromEntity(from: E): M

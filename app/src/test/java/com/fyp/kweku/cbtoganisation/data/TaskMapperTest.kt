@@ -1,11 +1,11 @@
 package com.fyp.kweku.cbtoganisation.data
 
 
-import com.fyp.kweku.cbtoganisation.data.model.TaskCategoryDataModel
-import com.fyp.kweku.cbtoganisation.data.model.TaskDataModel
-import com.fyp.kweku.cbtoganisation.data.model.TaskMapper
-import com.fyp.kweku.cbtoganisation.domain.Model.Task
-import com.fyp.kweku.cbtoganisation.domain.Model.TaskCategory
+import com.fyp.kweku.cbtoganisation.tasks.data.model.TaskCategoryDataModel
+import com.fyp.kweku.cbtoganisation.tasks.data.model.TaskDataModel
+import com.fyp.kweku.cbtoganisation.tasks.data.model.TaskMapper
+import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
+import com.fyp.kweku.cbtoganisation.tasks.domain.model.TaskCategory
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
@@ -24,9 +24,17 @@ class TaskMapperTest {
 
     @Test
     fun fromTaskDataModel() {
-        var inputTaskCategoryDataModel = TaskCategoryDataModel("dog")
+
         var inputTaskDataModel =
-            TaskDataModel(1, "s1", "s2", "s3", "11/01/2002", "10:00", 12, inputTaskCategoryDataModel)
+            TaskDataModel(
+                "1",
+                "s1",
+                "s2",
+                "s3",
+                "11/01/2002",
+                "10:00",
+                12
+            )
         var output = taskMapper.fromEntity(inputTaskDataModel)
         assertEquals(inputTaskDataModel.taskID, output.taskID)
         assertEquals(inputTaskDataModel.taskName, output.taskName)
@@ -35,16 +43,22 @@ class TaskMapperTest {
         assertEquals(inputTaskDataModel.taskDate, output.taskDate)
         assertEquals(inputTaskDataModel.taskStartTime, output.taskStartTime)
         assertEquals(inputTaskDataModel.taskLength, output.taskLength)
-        assertEquals(inputTaskDataModel.taskCategoryDataModel.taskCategory, output.taskCategory.taskCategory)
         assertEquals(1, output.taskID)
-        assertTrue(output.taskCategory is TaskCategory)
+
     }
 
     @Test
     fun toTaskDataModel() {
+        var inputTask = Task(
+            "1",
+            "s1",
+            "s2",
+            "s3",
+            "11/01/2002",
+            "10:00",
+            12
 
-        var inputTaskCategory = TaskCategory("cat")
-        var inputTask = Task(1, "s1", "s2", "s3", "11/01/2002", "10:00", 12, inputTaskCategory)
+        )
         var output = taskMapper.toEntity(inputTask)
         assertEquals(inputTask.taskID, output.taskID)
         assertEquals(inputTask.taskName, output.taskName)
@@ -53,9 +67,7 @@ class TaskMapperTest {
         assertEquals(inputTask.taskDate, output.taskDate)
         assertEquals(inputTask.taskStartTime, output.taskStartTime)
         assertEquals(inputTask.taskLength, output.taskLength)
-        assertEquals(inputTask.taskCategory.taskCategory, output.taskCategoryDataModel.taskCategory)
         assertEquals(1, output.taskID)
-        assertTrue(output.taskCategoryDataModel is TaskCategoryDataModel)
 
     }
 }

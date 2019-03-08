@@ -1,6 +1,6 @@
-package com.fyp.kweku.cbtoganisation.domain.Repository
+package com.fyp.kweku.cbtoganisation.tasks.domain.repository
 
-import com.fyp.kweku.cbtoganisation.domain.Model.TaskCategory
+import com.fyp.kweku.cbtoganisation.tasks.domain.model.TaskCategory
 
 interface taskCategoryRepository {
     fun SaveTaskCatgory()
