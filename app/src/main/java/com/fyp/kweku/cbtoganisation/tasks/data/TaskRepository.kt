@@ -12,7 +12,7 @@ class TaskRepository constructor(val taskDao: TaskDao) : TaskRepositoryInterface
         return this.taskDao.loadAllTasks().map { taskMapper.fromEntity(it) }
     }
 
-    override fun getTaskById(taskId: Int): Task {
+    override fun getTaskById(taskId: String): Task {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

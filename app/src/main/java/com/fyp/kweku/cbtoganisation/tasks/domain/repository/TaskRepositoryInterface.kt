@@ -4,7 +4,7 @@ import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
 
 interface TaskRepositoryInterface {
     fun getAlltasks(): List<Task>
-    fun getTaskById(taskId: Int): Task
+    fun getTaskById(taskId: String): Task
     fun saveTask(vararg tasks: Task)
     fun newTask(task:Task)
 

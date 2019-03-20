@@ -1,13 +1,10 @@
 package com.fyp.kweku.cbtoganisation.data
 
 
-import com.fyp.kweku.cbtoganisation.tasks.data.model.TaskCategoryDataModel
 import com.fyp.kweku.cbtoganisation.tasks.data.model.TaskDataModel
 import com.fyp.kweku.cbtoganisation.tasks.data.model.TaskMapper
 import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
-import com.fyp.kweku.cbtoganisation.tasks.domain.model.TaskCategory
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -42,7 +39,7 @@ class TaskMapperTest {
         assertEquals(inputTaskDataModel.taskDescription, output.taskDescription)
         assertEquals(inputTaskDataModel.taskDate, output.taskDate)
         assertEquals(inputTaskDataModel.taskStartTime, output.taskStartTime)
-        assertEquals(inputTaskDataModel.taskLength, output.taskLength)
+        assertEquals(inputTaskDataModel.taskEndTime, output.taskEndTime)
         assertEquals(1, output.taskID)
 
     }
@@ -66,7 +63,7 @@ class TaskMapperTest {
         assertEquals(inputTask.taskDescription, output.taskDescription)
         assertEquals(inputTask.taskDate, output.taskDate)
         assertEquals(inputTask.taskStartTime, output.taskStartTime)
-        assertEquals(inputTask.taskLength, output.taskLength)
+        assertEquals(inputTask.taskEndTime, output.taskEndTime)
         assertEquals(1, output.taskID)
 
     }

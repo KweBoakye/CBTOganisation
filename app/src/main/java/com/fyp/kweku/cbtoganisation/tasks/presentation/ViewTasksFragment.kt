@@ -1,4 +1,4 @@
-package com.fyp.kweku.cbtoganisation.tasks.domain.interactors
+package com.fyp.kweku.cbtoganisation.tasks.presentation
 
 
 import android.os.Bundle
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.fyp.kweku.cbtoganisation.R
-import com.fyp.kweku.cbtoganisation.tasks.presentation.ViewTasks.ViewTasksContract
+import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtasks.ViewTasksContract
 import org.koin.android.ext.android.inject
 
 // TODO: Rename parameter arguments, choose names that match

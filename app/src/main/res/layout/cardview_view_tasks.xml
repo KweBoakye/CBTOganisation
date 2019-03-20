@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent" android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
             android:layout_margin="3dp"
@@ -15,7 +15,41 @@
             <TextView
                     android:text="TextView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/textView3"/>
+                    android:layout_height="wrap_content" android:id="@+id/textViewTaskName"
+                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                    android:textAlignment="center"/>
+            <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textViewTaskLocation"
+                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                    android:textAlignment="textStart"/>
+            <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textView4" android:textAlignment="textStart"
+            />
+            <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textView5" android:textAlignment="textStart"/>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="49dp">
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" android:id="@+id/textViewTaskDate" android:layout_weight="1"/>
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" android:id="@+id/textViewStartTime" android:layout_weight="1"/>
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" android:id="@+id/textViewLength" android:layout_weight="1"/>
+            </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

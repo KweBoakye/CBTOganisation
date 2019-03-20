@@ -1,4 +1,4 @@
-package com.fyp.kweku.cbtoganisation.tasks.presentation.ViewTasks
+package com.fyp.kweku.cbtoganisation.tasks.presentation.viewtasks
 
 import com.fyp.kweku.cbtoganisation.common.presentation.BasePresenter
 import com.fyp.kweku.cbtoganisation.common.presentation.BaseView

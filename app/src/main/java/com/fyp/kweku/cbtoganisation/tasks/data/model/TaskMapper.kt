@@ -2,7 +2,6 @@ package com.fyp.kweku.cbtoganisation.tasks.data.model
 
 
 import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
-import com.fyp.kweku.cbtoganisation.tasks.domain.model.TaskCategory
 import com.fyp.kweku.cbtoganisation.tasks.domain.repository.ModelMapper
 
 class TaskMapper :
@@ -16,7 +15,7 @@ class TaskMapper :
         from.taskDescription,
         from.taskDate,
         from.taskStartTime,
-        from.taskLength
+        from.taskEndTime
     )
 
     override fun toEntity(from: Task) = TaskDataModel(
@@ -26,6 +25,6 @@ class TaskMapper :
         from.taskDescription,
         from.taskDate,
         from.taskStartTime,
-        from.taskLength
+        from.taskEndTime
     )
 }

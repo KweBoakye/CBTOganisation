@@ -4,4 +4,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_task">TaskActivity</string>
+    <string name="TaskNameInputHint">Task Name</string>
+    <string name="TaskLocationInputHint">Location</string>
+    <string name="TaskDateInputHint">Date</string>
+    <string name="TaskStartTimeInputHint">Start Time</string>
+    <string name="TaskEndTimeInputHint">Task Length</string>
+    <string name="TaskDescriptionInputHint">Task Description</string>
+    <string name="SaveTaskButtonText">Save Task</string>
+    <string name="CreateNewTaskButtonText">Create New Task</string>
 </resources>

@@ -27,9 +27,9 @@ class CreateNewTaskInteractorTest {
 
     @Test
     fun testGeneratedIdIsString()
-    {val testID = createNewTaskInteractor.generateID()
+    {val testID = createNewTaskInteractor.generateTaskID()
         repeat(10)
-        { assertNotEquals(testID,createNewTaskInteractor.generateID())}
+        { assertNotEquals(testID,createNewTaskInteractor.generateTaskID())}
     }
 
     @Test
@@ -37,7 +37,7 @@ class CreateNewTaskInteractorTest {
         val testNewTask =createNewTaskInteractor.createNewTaskObject(taskMock)
     assertTrue(testNewTask is Task)
         repeat(10)
-        { assertNotEquals(testNewTask.taskID,createNewTaskInteractor.generateID())}}
+        { assertNotEquals(testNewTask.taskID,createNewTaskInteractor.generateTaskID())}}
 
     @Test
     fun testSaveTasksCallsRepositoryMethod(){
