@@ -8,26 +8,23 @@ import kotlinx.coroutines.reactive.*
 
 
 class GetTasksInteractor(
-    private val taskRepositoryInterface: TaskRepositoryInterface, private val getTasksInteracterOutput: GetTasksInteracterOutput
+    private val taskRepositoryInterface: TaskRepositoryInterface, private val taskOutput: TaskOutput
 ) : GetTasksInteractorInterface {
 
 
 
-    override fun allTasks(): List<Task> = taskRepositoryInterface.getAlltasks()//safe call
+    override suspend fun allTasks(): List<Task> = taskRepositoryInterface.getAlltasks()//safe call
 
-    override fun getTaskByID(taskID: String): Task = taskRepositoryInterface.getTaskById(taskID)
+    override suspend fun getTaskByID(taskID: String): Task = taskRepositoryInterface.getTaskById(taskID)
 
     @ExperimentalCoroutinesApi
     override fun sendSingleTaskToPresentationLayer(task: Task)= runBlocking<Unit>{
 val presentTask = publish<Task>{send(task)}
-        presentTask.consumeEach { getTasksInteracterOutput.showTask(it) }
+        presentTask.consumeEach { taskOutput.showTask(it) }
 
     }
 
-    override fun sendTasksToPresentationLayer(tasks: List<Task>) = getTasksInteracterOutput.showAllTasks(tasks)
+    override fun sendTasksToPresentationLayer(tasks: List<Task>) = taskOutput.showAllTasks(tasks)
 }
 
-interface GetTasksInteracterOutput{
-    fun showAllTasks(task: List<Task>)
-    fun showTask(task: Task)
-}
+

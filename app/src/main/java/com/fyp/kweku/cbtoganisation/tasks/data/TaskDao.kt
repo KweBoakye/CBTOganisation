@@ -9,9 +9,12 @@ import com.fyp.kweku.cbtoganisation.tasks.data.model.TaskDataModel
 @Dao
 interface TaskDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTasks(vararg Tasks: TaskDataModel)
+    fun insertTasks(vararg Tasks: TaskDataModel):List<Long>
 
     @Query("SELECT * FROM tasks")
     fun loadAllTasks(): List<TaskDataModel>
+
+    @Query("SELECT * FROM  tasks WHERE taskID=:taskID")
+    fun findTaskById(taskID: String): TaskDataModel
 
 }

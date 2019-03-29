@@ -2,8 +2,10 @@ package com.fyp.kweku.cbtoganisation.tasks.domain.interactors
 
 import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
 import com.fyp.kweku.cbtoganisation.tasks.domain.repository.TaskRepositoryInterface
+import io.mockk.coVerify
 import io.mockk.mockk
 import io.mockk.verify
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -40,8 +42,8 @@ class CreateNewTaskInteractorTest {
         { assertNotEquals(testNewTask.taskID,createNewTaskInteractor.generateTaskID())}}
 
     @Test
-    fun testSaveTasksCallsRepositoryMethod(){
-        val a = createNewTaskInteractor.SendTaskToDataLayer(taskMock)
-        verify(exactly = 1) { taskRepositoryInterfaceMock.saveTask(a) }
+     fun testSaveTasksCallsRepositoryMethod(){
+        val output = runBlocking { createNewTaskInteractor.SendTaskToDataLayer(taskMock)}
+        verify(exactly = 1) { runBlocking {taskRepositoryInterfaceMock.saveTask(output)} }
     }
 }

@@ -7,7 +7,7 @@ data class Task(
     val taskDescription: String,/*Description of the task*/
     val taskDate: String, /* Date task will take place*/
     val taskStartTime: String, /* Time task will start*/
-    val taskEndTime: Int /* Length/duration of task*/
+    val taskEndTime: String /* Length/duration of task*/
 )
 
 

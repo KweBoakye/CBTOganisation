@@ -3,10 +3,10 @@ package com.fyp.kweku.cbtoganisation.tasks.domain.repository
 import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
 
 interface TaskRepositoryInterface {
-    fun getAlltasks(): List<Task>
-    fun getTaskById(taskId: String): Task
-    fun saveTask(vararg tasks: Task)
-    fun newTask(task:Task)
+    suspend fun getAlltasks(): List<Task>
+    suspend fun getTaskById(taskId: String): Task
+    suspend fun saveTask(vararg tasks: Task)
+    suspend fun newTask(task:Task)
 
 
 

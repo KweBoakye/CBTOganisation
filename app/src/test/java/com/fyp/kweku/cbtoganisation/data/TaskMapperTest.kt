@@ -30,7 +30,7 @@ class TaskMapperTest {
                 "s3",
                 "11/01/2002",
                 "10:00",
-                12
+                "12:00"
             )
         var output = taskMapper.fromEntity(inputTaskDataModel)
         assertEquals(inputTaskDataModel.taskID, output.taskID)
@@ -40,7 +40,6 @@ class TaskMapperTest {
         assertEquals(inputTaskDataModel.taskDate, output.taskDate)
         assertEquals(inputTaskDataModel.taskStartTime, output.taskStartTime)
         assertEquals(inputTaskDataModel.taskEndTime, output.taskEndTime)
-        assertEquals(1, output.taskID)
 
     }
 
@@ -53,7 +52,7 @@ class TaskMapperTest {
             "s3",
             "11/01/2002",
             "10:00",
-            12
+            "12:00"
 
         )
         var output = taskMapper.toEntity(inputTask)
@@ -64,7 +63,6 @@ class TaskMapperTest {
         assertEquals(inputTask.taskDate, output.taskDate)
         assertEquals(inputTask.taskStartTime, output.taskStartTime)
         assertEquals(inputTask.taskEndTime, output.taskEndTime)
-        assertEquals(1, output.taskID)
 
     }
 }

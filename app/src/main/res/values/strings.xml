@@ -10,7 +10,7 @@
     <string name="TaskLocationInputHint">Location</string>
     <string name="TaskDateInputHint">Date</string>
     <string name="TaskStartTimeInputHint">Start Time</string>
-    <string name="TaskEndTimeInputHint">Task Length</string>
+    <string name="TaskEndTimeInputHint">End Time</string>
     <string name="TaskDescriptionInputHint">Task Description</string>
     <string name="SaveTaskButtonText">Save Task</string>
     <string name="CreateNewTaskButtonText">Create New Task</string>

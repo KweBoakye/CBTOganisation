@@ -1,4 +1,4 @@
-package com.fyp.kweku.cbtoganisation.tasks.presentation
+package com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel
 
 data class TaskPresentationModel(
     val taskID: String,
@@ -7,5 +7,5 @@ data class TaskPresentationModel(
     val taskDescription: String,/*Description of the task*/
     val taskDate: String, /* Date task will take place*/
     val taskStartTime: String, /* Time task will start*/
-    val taskLength: Int /* Length/duration of task*/
+    val taskEndTime: String /* Length/duration of task*/
 )

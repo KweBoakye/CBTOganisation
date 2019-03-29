@@ -7,14 +7,14 @@ import androidx.room.RoomDatabase
 import com.fyp.kweku.cbtoganisation.tasks.data.model.TaskDataModel
 
 @Database(entities = [TaskDataModel::class], version = 1)
-public abstract class appRoomDatabase : RoomDatabase() {
+abstract class AppRoomDatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDao
 
     companion object {
         @Volatile
-        private var INSTANCE: appRoomDatabase? = null
+        private var INSTANCE: AppRoomDatabase? = null
 
-        fun getDatabase(context: Context): appRoomDatabase {
+        fun getDatabase(context: Context): AppRoomDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
@@ -22,7 +22,7 @@ public abstract class appRoomDatabase : RoomDatabase() {
             synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    appRoomDatabase::class.java,
+                    AppRoomDatabase::class.java,
                     "App_database"
                 ).build()
                 INSTANCE = instance

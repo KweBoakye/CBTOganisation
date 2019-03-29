@@ -1,10 +1,11 @@
 package com.fyp.kweku.cbtoganisation.tasks.domain.interactors
 
-import com.fyp.kweku.cbtoganisation.tasks.domain.interactors.GetTasksInteractor
+
 import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
 import com.fyp.kweku.cbtoganisation.tasks.domain.repository.TaskRepositoryInterface
 import io.mockk.mockk
 import io.mockk.verify
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.BeforeEach
@@ -28,14 +29,15 @@ class GetTasksInteractorTest {
 
     @Test
     fun testGetAllTasks() {
-        getTasksInteractor.allTasks()
-        verify(exactly = 1) { taskrepositorymock.getAlltasks() }
-    }
+        runBlocking { getTasksInteractor.allTasks() }
+        verify(exactly = 1) { runBlocking { taskrepositorymock.getAlltasks() }}
+        }
+
 
   @Test
     fun testGetTaskByID() {
-        getTasksInteractor.getTaskByID(task.taskID)
-        verify(exactly = 1) { taskrepositorymock.getTaskById(task.taskID) }
+      runBlocking {getTasksInteractor.getTaskByID(task.taskID)}
+          verify(exactly = 1) { runBlocking{taskrepositorymock.getTaskById(task.taskID) }}
     }
 
     @Test

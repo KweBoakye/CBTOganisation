@@ -9,13 +9,13 @@ import com.fyp.kweku.cbtoganisation.tasks.domain.repository.TaskRepositoryInterf
 
 class CreateNewTaskInteractor(private val taskRepositoryInterface: TaskRepositoryInterface) : CreateNewTaskInteractorInterface {
 
-     fun generateTaskID(): String { val ID = UuidSource.random().toString()
+     override fun generateTaskID(): String { val ID = UuidSource.random().toString()
         return ID}
 
-     fun createNewTaskObject(task: Task):Task{val newTaskObject  = task.copy(taskID = generateTaskID())
+     override fun createNewTaskObject(task: Task):Task{val newTaskObject  = task.copy(taskID = generateTaskID())
         return newTaskObject}
 
-override fun SendTaskToDataLayer(task: Task):Task {
+override suspend fun SendTaskToDataLayer(task: Task):Task {
     val newTaskObject = createNewTaskObject(task)
     taskRepositoryInterface.saveTask(newTaskObject)
     return newTaskObject}
