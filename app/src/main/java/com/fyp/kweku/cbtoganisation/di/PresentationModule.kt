@@ -7,6 +7,9 @@ import com.fyp.kweku.cbtoganisation.tasks.presentation.createnewtask.CreateNewTa
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.HomeController
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.HomeViewClass
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.HomeViewClassInterface
+import com.fyp.kweku.cbtoganisation.tasks.presentation.home.recyclerview.mvc.HorizontalCalendarController
+import com.fyp.kweku.cbtoganisation.tasks.presentation.home.recyclerview.mvc.HorizontalCalendarViewClass
+import com.fyp.kweku.cbtoganisation.tasks.presentation.home.recyclerview.mvc.HorizontalCalendarViewClassInterface
 import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtasks.ViewTasksController
 import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtasks.ViewTasksViewClass
 import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtasks.ViewTasksViewClassInterface
@@ -15,7 +18,7 @@ import org.koin.dsl.module.module
 val PresentationModule = module {
     factory<CreateNewTaskViewClassInterface> { CreateNewTaskViewClass(get(),get()) }
 
-    factory{CreateNewTaskController(get())}
+    factory{ CreateNewTaskController(get())}
 
     factory<ViewTasksViewClassInterface> { ViewTasksViewClass(get(),get()) }
 
@@ -24,6 +27,10 @@ val PresentationModule = module {
     factory<HomeViewClassInterface> { HomeViewClass(get(),get())  }
 
     factory { HomeController() }
+
+    factory<HorizontalCalendarViewClassInterface> { HorizontalCalendarViewClass(get(), get()) }
+
+    factory { HorizontalCalendarController() }
 
 
 }

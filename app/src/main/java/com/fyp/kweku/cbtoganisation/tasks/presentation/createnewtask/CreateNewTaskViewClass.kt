@@ -38,7 +38,7 @@ class CreateNewTaskViewClass( val inflater: LayoutInflater,  val parent: ViewGro
 
     override fun setListener(listener: CreateNewTaskViewClassInterface.CreateNewTaskListener?) {
         this.listener = listener
-        Timber.i("listener set")
+        Timber.i("HorizontalCalendarViewClassListener set")
     }
 
     override fun getRootView():View {
@@ -56,8 +56,9 @@ class CreateNewTaskViewClass( val inflater: LayoutInflater,  val parent: ViewGro
             (taskStartTimeInput.text.toString()),
             (taskEndTimeInput.text.toString())
         )
-       return input
         Timber.i("get task input called")
+       return input
+
     }
 
 //Validation functions for Ui that stem from Valdiation functions in the Controller

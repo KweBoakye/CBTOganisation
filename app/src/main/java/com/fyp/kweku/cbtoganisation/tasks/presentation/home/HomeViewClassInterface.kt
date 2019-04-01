@@ -1,8 +1,9 @@
 package com.fyp.kweku.cbtoganisation.tasks.presentation.home
 
-import android.content.Context
+
 import android.view.View
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskActivity
+
 
 
 interface HomeViewClassInterface {
@@ -21,4 +22,6 @@ interface HomeViewClassInterface {
     fun setTaskActivity(taskActivity: TaskActivity)
 
     fun setgoToCreateNewTaskFragmentButtonOnClickListener()
+
+
 }

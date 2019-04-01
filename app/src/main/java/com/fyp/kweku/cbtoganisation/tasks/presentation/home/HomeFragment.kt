@@ -7,28 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SnapHelper
-import com.fyp.kweku.cbtoganisation.R
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskActivity
-import com.fyp.kweku.cbtoganisation.tasks.presentation.home.recyclerview.HorizontalCalendarAdapter
-import com.fyp.kweku.cbtoganisation.tasks.presentation.home.recyclerview.HorizontalCalendarItem
-import com.fyp.kweku.cbtoganisation.tasks.presentation.home.recyclerview.HorizontalCalendarProperties
-import com.fyp.kweku.cbtoganisation.tasks.presentation.home.recyclerview.HorizontalCalendarUtils
-import kotlinx.android.synthetic.main.fragment_home.view.*
+import com.fyp.kweku.cbtoganisation.tasks.presentation.home.recyclerview.mvc.HorizontalCalendarController
+import com.fyp.kweku.cbtoganisation.tasks.presentation.home.recyclerview.mvc.HorizontalCalendarViewClass
+import com.fyp.kweku.cbtoganisation.tasks.presentation.home.recyclerview.mvc.HorizontalCalendarViewClassInterface
 import org.koin.android.ext.android.get
-import java.util.Calendar
-import java.util.Date
+
 
 class HomeFragment : Fragment() {
 
     private lateinit var taskActivity: TaskActivity
     private lateinit var homeController: HomeController
-    private lateinit var calendarAdapter: HorizontalCalendarAdapter
-    private lateinit var calendarProperties: HorizontalCalendarProperties
-    private lateinit var calendarRecycler: RecyclerView
+    private lateinit var horizontalCalendarController: HorizontalCalendarController
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -52,14 +42,16 @@ class HomeFragment : Fragment() {
 
         return binding.root*/
         val homeViewClassInterface: HomeViewClassInterface = HomeViewClass(layoutInflater, container)
+        val horizontalCalendarViewClassInterface: HorizontalCalendarViewClassInterface = HorizontalCalendarViewClass(this.context!!, homeViewClassInterface.getRootView())
         homeController = get()
         homeController.bindView(homeViewClassInterface)
         homeController.onCreateView(taskActivity)
-        val root = homeViewClassInterface.getRootView()
-        calendarRecycler = root.calender_recycler as RecyclerView
-        initHorizontalCalendar()
+        horizontalCalendarController = get()
+        horizontalCalendarController.bindView(horizontalCalendarViewClassInterface)
+        horizontalCalendarController.setControllerAsHorizontalCalendarViewClassListener()
+        horizontalCalendarController.initHorizontalCalendar()
 
-        return root
+        return homeViewClassInterface.getRootView()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,47 +63,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    fun initHorizontalCalendar() {
-        val calendar: Calendar = Calendar.getInstance();
-        calendar.time = Date()
-        setCalenderProperties(calendar.get(Calendar.MONTH), calendar.get(Calendar.YEAR))
-
-        val layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        calendarRecycler.layoutManager = layoutManager
-
-
-        val onDaySelectedListener: HorizontalCalendarAdapter.OnDaySelectedListener =
-            object : HorizontalCalendarAdapter.OnDaySelectedListener {
-                override fun onDaySelected(view: View, date: String, position: Int) {}
-            }
-
-        val onEndReachedListener: HorizontalCalendarAdapter.OnEndReachedListener =
-            object : HorizontalCalendarAdapter.OnEndReachedListener {
-                override fun onEndReached() {}
-
-                override fun onStartReached() {}
-            }
-
-
-        calendarAdapter = HorizontalCalendarAdapter(this.context!!, onDaySelectedListener, onEndReachedListener)
-        val snapHelper: SnapHelper = LinearSnapHelper()
-        snapHelper.attachToRecyclerView(calendarRecycler)
-        calendarRecycler.adapter = calendarAdapter
-        calendarAdapter.setData(getCalendarItems(calendarProperties.currentMonth, calendarProperties.currentYear))
-
-    }
-
-    fun getCalendarItems(month: Int, year: Int): List<HorizontalCalendarItem> {
-        val items = ArrayList<HorizontalCalendarItem>()
-        for (day in 0 until HorizontalCalendarUtils.calculateMonthLength(month)) {
-            items.add(HorizontalCalendarItem(day + 1, month, R.color.colorPrimary, year))
-        }
-        return items
-    }
-
-    fun setCalenderProperties(currentMonth: Int, currentYear: Int) {
-        calendarProperties = HorizontalCalendarProperties(currentMonth, currentYear)
-    }
 
     override fun onDetach() {
         super.onDetach()
