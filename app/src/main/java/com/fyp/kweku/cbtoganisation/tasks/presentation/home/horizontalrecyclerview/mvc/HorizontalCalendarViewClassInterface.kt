@@ -1,9 +1,8 @@
-package com.fyp.kweku.cbtoganisation.tasks.presentation.home.recyclerview.mvc
+package com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerview.mvc
 
-import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
-import com.fyp.kweku.cbtoganisation.tasks.presentation.home.HomeViewClassInterface
-import com.fyp.kweku.cbtoganisation.tasks.presentation.home.recyclerview.HorizontalCalendarItem
+import com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerview.HorizontalCalendarItem
+import com.fyp.kweku.cbtoganisation.tasks.presentation.home.tasksbybydayrecyclerview.TasksByDayRecyclerViewClassInterface
 
 interface HorizontalCalendarViewClassInterface {
 
@@ -24,4 +23,6 @@ interface HorizontalCalendarViewClassInterface {
 
 
     fun initHorizontalCalendar()
+
+
 }

@@ -12,12 +12,46 @@
         android:layout_height="match_parent"
         tools:context=".HomeFragment">
 
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/calender_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="138dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/horizontal_calendar_item" />
+
+
+        <TextView
+            android:id="@+id/empty_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="384dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/no_tasks_layout_text"
+            android:textColor="?attr/colorOnBackground"
+            android:textSize="32sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tasks_by_day_recycler"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="244dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -25,20 +59,23 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.057"></androidx.recyclerview.widget.RecyclerView>
-
+            app:layout_constraintVertical_bias="0.361"
+            tools:listitem="@layout/itemcard_viewtasksbyday" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/go_to_create_new_task_fragment_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="528dp"
+            android:layout_marginTop="476dp"
             android:layout_marginEnd="8dp"
             android:text="@string/CreateNewTaskButtonText"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.923"
+            app:layout_constraintHorizontal_bias="0.917"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

@@ -1,10 +1,12 @@
 package com.fyp.kweku.cbtoganisation.tasks.domain.interactors
 
+import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
 import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
 import com.fyp.kweku.cbtoganisation.tasks.domain.repository.TaskRepositoryInterface
 import kotlinx.coroutines.*
 import kotlinx.coroutines.reactive.*
-
+import org.threeten.bp.LocalDate
+import timber.log.Timber
 
 
 class GetTasksInteractor(
@@ -24,7 +26,17 @@ val presentTask = publish<Task>{send(task)}
 
     }
 
-    override fun sendTasksToPresentationLayer(tasks: List<Task>) = taskOutput.showAllTasks(tasks)
+    override suspend fun sendTasksToPresentationLayer() {
+        val tasks = allTasks()
+         taskOutput.showAllTasks(tasks)
+    Timber.i("sendTasksToPresentationLayer used")}
+
+
+
+   override suspend fun getTasksByDay(date: LocalDate) {
+       taskOutput.postTasksByDay(date)
+   Timber.i("${date.format(ProjectDateTimeUtils.getCustomDateFormatter())}")}
 }
+
 
 

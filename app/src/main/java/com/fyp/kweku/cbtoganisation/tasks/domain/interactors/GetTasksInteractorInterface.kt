@@ -1,10 +1,12 @@
 package com.fyp.kweku.cbtoganisation.tasks.domain.interactors
 
 import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
+import org.threeten.bp.LocalDate
 
 interface GetTasksInteractorInterface {
     suspend fun allTasks(): List<Task>
     suspend fun getTaskByID(taskID: String): Task
     fun sendSingleTaskToPresentationLayer(task: Task)
-    fun sendTasksToPresentationLayer(tasks: List<Task>)
+    suspend fun sendTasksToPresentationLayer()
+    suspend fun getTasksByDay(date: LocalDate)
 }

@@ -1,8 +1,11 @@
 package com.fyp.kweku.cbtoganisation.tasks.data.model
 
 
+import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
 import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
 import com.fyp.kweku.cbtoganisation.tasks.domain.repository.ModelMapper
+import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalTime
 
 class TaskMapper :
     ModelMapper<TaskDataModel, Task> {
@@ -13,9 +16,10 @@ class TaskMapper :
         from.taskName,
         from.taskLocation,
         from.taskDescription,
-        from.taskDate,
-        from.taskStartTime,
-        from.taskEndTime
+        LocalDate.parse(from.taskStartDate, ProjectDateTimeUtils.getCustomDateFormatter()),// from string to date
+        LocalDate.parse(from.taskEndDate, ProjectDateTimeUtils.getCustomDateFormatter()),
+        LocalTime.parse(from.taskStartTime),
+        LocalTime.parse(from.taskEndTime)
     )
 
     override fun toEntity(from: Task) = TaskDataModel(
@@ -23,8 +27,9 @@ class TaskMapper :
         from.taskName,
         from.taskLocation,
         from.taskDescription,
-        from.taskDate,
-        from.taskStartTime,
-        from.taskEndTime
+        from.taskStartDate.format(ProjectDateTimeUtils.getCustomDateFormatter()),//from date to string
+        from.taskEndDate.format(ProjectDateTimeUtils.getCustomDateFormatter()),
+        from.taskStartTime.toString(),
+        from.taskEndTime.toString()
     )
 }

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "322197eafc3e598a21b5d7df72cd8176",
+    "identityHash": "0be93bfede8e1471eef9a4133c43a9e3",
     "entities": [
       {
         "tableName": "tasks",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`taskID` TEXT NOT NULL, `taskName` TEXT NOT NULL, `taskLocation` TEXT NOT NULL, `taskDescription` TEXT NOT NULL, `taskDate` TEXT NOT NULL, `taskStartTime` TEXT NOT NULL, `taskEndTime` TEXT NOT NULL, PRIMARY KEY(`taskID`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`taskID` TEXT NOT NULL, `taskName` TEXT NOT NULL, `taskLocation` TEXT NOT NULL, `taskDescription` TEXT NOT NULL, `taskStartDate` TEXT NOT NULL, `taskEndDate` TEXT NOT NULL, `taskStartTime` TEXT NOT NULL, `taskEndTime` TEXT NOT NULL, PRIMARY KEY(`taskID`))",
         "fields": [
           {
             "fieldPath": "taskID",
@@ -33,8 +33,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "taskDate",
-            "columnName": "taskDate",
+            "fieldPath": "taskStartDate",
+            "columnName": "taskStartDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "taskEndDate",
+            "columnName": "taskEndDate",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -64,7 +70,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"322197eafc3e598a21b5d7df72cd8176\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"0be93bfede8e1471eef9a4133c43a9e3\")"
     ]
   }
 }

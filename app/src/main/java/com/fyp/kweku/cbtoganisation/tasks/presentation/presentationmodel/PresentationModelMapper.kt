@@ -1,7 +1,9 @@
 package com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel
 
+import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
 import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
 import com.fyp.kweku.cbtoganisation.tasks.domain.repository.ModelMapper
+import org.threeten.bp.LocalDate
 
 class PresentationModelMapper:  ModelMapper<TaskPresentationModel, Task> {
 
@@ -11,7 +13,8 @@ class PresentationModelMapper:  ModelMapper<TaskPresentationModel, Task> {
         from.taskName,
         from.taskLocation,
         from.taskDescription,
-        from.taskDate,
+        LocalDate.parse( from.taskStartDate.format(ProjectDateTimeUtils.getCustomDateFormatter()),ProjectDateTimeUtils.getCustomDateFormatter()),
+        LocalDate.parse( from.taskEndDate.format(ProjectDateTimeUtils.getCustomDateFormatter()),ProjectDateTimeUtils.getCustomDateFormatter()),
         from.taskStartTime,
         from.taskEndTime
     )
@@ -22,7 +25,8 @@ class PresentationModelMapper:  ModelMapper<TaskPresentationModel, Task> {
             from.taskName,
             from.taskLocation,
             from.taskDescription,
-            from.taskDate,
+            LocalDate.parse( from.taskStartDate.format(ProjectDateTimeUtils.getCustomDateFormatter()),ProjectDateTimeUtils.getCustomDateFormatter()),
+            LocalDate.parse( from.taskEndDate.format(ProjectDateTimeUtils.getCustomDateFormatter()),ProjectDateTimeUtils.getCustomDateFormatter()),
             from.taskStartTime,
             from.taskEndTime
         )

@@ -20,6 +20,7 @@ open class TaskDAOTest:TestDatabase() {
             "Test Location",
         "Test Description",
             "12/03/2002",
+            "16/07/2002",
             "10:00",
         "12:00")
     }

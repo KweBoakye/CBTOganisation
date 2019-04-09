@@ -1,4 +1,4 @@
-package com.fyp.kweku.cbtoganisation.tasks.presentation.home.recyclerview
+package com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerview
 
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager

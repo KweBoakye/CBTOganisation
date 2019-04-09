@@ -1,4 +1,4 @@
-package com.fyp.kweku.cbtoganisation.tasks.presentation.home.recyclerview
+package com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerview
 
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
@@ -10,40 +10,40 @@ class HorizontalCalendarUtils {
         fun calculateMonthLength(month: Int): Int {
             var monthLength: Int = 0
             when (month) {
-                0 -> {
-                    monthLength = 31
-                }
                 1 -> {
-                    monthLength = 28
+                    monthLength = 31
                 }
                 2 -> {
-                    monthLength = 31
+                    monthLength = 28
                 }
                 3 -> {
-                    monthLength = 30
+                    monthLength = 31
                 }
                 4 -> {
-                    monthLength = 31
-                }
-                5 -> {
                     monthLength = 30
                 }
-                6 -> {
+                5 -> {
                     monthLength = 31
+                }
+                6 -> {
+                    monthLength = 30
                 }
                 7 -> {
                     monthLength = 31
                 }
                 8 -> {
-                    monthLength = 30
-                }
-                9 -> {
                     monthLength = 31
                 }
-                10 -> {
+                9 -> {
                     monthLength = 30
                 }
+                10 -> {
+                    monthLength = 31
+                }
                 11 -> {
+                    monthLength = 30
+                }
+                12 -> {
                     monthLength = 31
                 }
 
@@ -54,51 +54,51 @@ class HorizontalCalendarUtils {
         fun returnMonthName(month: Int): String {
             var monthName: String = ""
             when (month) {
-                0 -> {
+                1 -> {
                     monthName = "Jan"
 
                 }
-                1 -> {
+                2 -> {
                     monthName = "Feb"
 
                 }
-                2 -> {
+                3 -> {
                     monthName = "Mar"
 
                 }
-                3 -> {
+                4 -> {
                     monthName = "Apr"
 
                 }
-                4 -> {
+                5 -> {
                     monthName = "May";
 
                 }
-                5 -> {
+                6 -> {
                     monthName = "Jun"
 
                 }
-                6 -> {
+                7 -> {
                     monthName = "Jul"
 
                 }
-                7 -> {
+                8-> {
                     monthName = "Aug"
 
                 }
-                8 -> {
+                9 -> {
                     monthName = "Sep"
 
                 }
-                9 -> {
+                10 -> {
                     monthName = "Oct"
 
                 }
-                10 -> {
+                11 -> {
                     monthName = "Nov"
 
                 }
-                11 -> {
+                12 -> {
                     monthName = "Dec"
 
                 }
@@ -115,10 +115,28 @@ class HorizontalCalendarUtils {
             layout.setBackground(shape)
         }
 
+        fun arrayMonthNumberToReal(month: Int):Int{
+            return month + 1
+        }
+
         fun returnStringDate(day: Int, month: Int, year: Int): String {
-            var date: String = "$day/$month/$year"
+
+            var date: String = if(day <10 && month< 10  ) "0$day/0$month/$year"
+            else if (day<10) "0$day/$month/$year"
+            else if (month< 10) "$day/0$month/$year"
+            else
+                "$day/$month/$year"
             return date
         }
 
+        /*fun returnStringDate(day: Int, month: Int, year: Int): String {
+
+            var date: String = if(day <10 && month< 10  ) "$year-0$month-0$day"
+            else if (day<10) "$year-$month-0$day"
+            else if (month< 10) "$year-0$month-$day"
+            else
+                "$year-$month-$day"
+            return date
+        }*/
     }
 }

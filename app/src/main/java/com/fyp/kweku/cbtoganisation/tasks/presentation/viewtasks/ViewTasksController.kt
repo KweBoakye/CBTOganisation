@@ -6,7 +6,7 @@ class ViewTasksController(val getTasksInteractorInterface: GetTasksInteractorInt
 
     private lateinit var viewTasksViewClassInterface: ViewTasksViewClassInterface
 
-    fun bindView(viewClassInterface: ViewTasksViewClassInterface){
+    fun bindView(viewTasksViewClassInterface: ViewTasksViewClassInterface){
         this.viewTasksViewClassInterface = viewTasksViewClassInterface
     }
 }

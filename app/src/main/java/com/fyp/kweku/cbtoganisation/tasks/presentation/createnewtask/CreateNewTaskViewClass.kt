@@ -20,10 +20,11 @@ class CreateNewTaskViewClass( val inflater: LayoutInflater,  val parent: ViewGro
         DataBindingUtil.inflate(inflater, R.layout.fragment_create_new_task, parent, false)
     private var taskNameInput: TextInputEditText = binding.TaskNameInput
     private var taskLocationInput: TextInputEditText = binding.TaskLocationInput
-    private var taskDateInput: TextInputEditText = binding.TaskDateInput
-    private var taskDescriptionInput: TextInputEditText = binding.TaskDescriptionInput
+    private var taskStartDateInput: TextInputEditText = binding.TaskStatDateInput
+    private var taskEndDateInput: TextInputEditText = binding.TaskEndDateInput
     private var taskStartTimeInput: TextInputEditText = binding.TaskStartTimeInput
     private var taskEndTimeInput: TextInputEditText = binding.TaskEndTimeInput
+    private var taskDescriptionInput: TextInputEditText = binding.TaskDescriptionInput
     private var rootView: View = binding.root
     private var saveNewTaskButton: MaterialButton = binding.SaveNewTaskButton
     private var listener : CreateNewTaskViewClassInterface.CreateNewTaskListener? = null
@@ -38,7 +39,7 @@ class CreateNewTaskViewClass( val inflater: LayoutInflater,  val parent: ViewGro
 
     override fun setListener(listener: CreateNewTaskViewClassInterface.CreateNewTaskListener?) {
         this.listener = listener
-        Timber.i("HorizontalCalendarViewClassListener set")
+        Timber.i("CreateNewTaskListenerListener set")
     }
 
     override fun getRootView():View {
@@ -49,12 +50,13 @@ class CreateNewTaskViewClass( val inflater: LayoutInflater,  val parent: ViewGro
 
     fun getTaskInput(): Array<String>{
         val input = arrayOf(
-            (taskNameInput.text.toString()),
-            (taskLocationInput.text.toString()),
-            (taskDateInput.text.toString()),
-            (taskDescriptionInput.text.toString()),
-            (taskStartTimeInput.text.toString()),
-            (taskEndTimeInput.text.toString())
+            (taskNameInput.text.toString().trim()),
+            (taskLocationInput.text.toString().trim()),
+            (taskDescriptionInput.text.toString().trim()),
+            (taskStartDateInput.text.toString().trim()),
+            (taskEndDateInput.text.toString().trim()),
+            (taskStartTimeInput.text.toString().trim()),
+            (taskEndTimeInput.text.toString().trim())
         )
         Timber.i("get task input called")
        return input

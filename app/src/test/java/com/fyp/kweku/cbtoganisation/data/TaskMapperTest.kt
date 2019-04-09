@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
+import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalTime
+
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class TaskMapperTest {
@@ -17,6 +20,7 @@ class TaskMapperTest {
     @BeforeEach
     fun init() {
         taskMapper = TaskMapper()
+
     }
 
     @Test
@@ -29,6 +33,7 @@ class TaskMapperTest {
                 "s2",
                 "s3",
                 "11/01/2002",
+                "16/04/2005",
                 "10:00",
                 "12:00"
             )
@@ -37,7 +42,8 @@ class TaskMapperTest {
         assertEquals(inputTaskDataModel.taskName, output.taskName)
         assertEquals(inputTaskDataModel.taskLocation, output.taskLocation)
         assertEquals(inputTaskDataModel.taskDescription, output.taskDescription)
-        assertEquals(inputTaskDataModel.taskDate, output.taskDate)
+        assertEquals(inputTaskDataModel.taskStartDate, output.taskStartDate)
+        assertEquals(inputTaskDataModel.taskEndDate, output.taskEndDate)
         assertEquals(inputTaskDataModel.taskStartTime, output.taskStartTime)
         assertEquals(inputTaskDataModel.taskEndTime, output.taskEndTime)
 
@@ -50,9 +56,10 @@ class TaskMapperTest {
             "s1",
             "s2",
             "s3",
-            "11/01/2002",
-            "10:00",
-            "12:00"
+            LocalDate.parse("11/01/2002"),
+            LocalDate.parse("16/05/2013"),
+            LocalTime.parse("10:00"),
+            LocalTime.parse("12:00")
 
         )
         var output = taskMapper.toEntity(inputTask)
@@ -60,7 +67,8 @@ class TaskMapperTest {
         assertEquals(inputTask.taskName, output.taskName)
         assertEquals(inputTask.taskLocation, output.taskLocation)
         assertEquals(inputTask.taskDescription, output.taskDescription)
-        assertEquals(inputTask.taskDate, output.taskDate)
+        assertEquals(inputTask.taskStartDate, output.taskStartDate)
+        assertEquals(inputTask.taskEndDate, output.taskEndDate)
         assertEquals(inputTask.taskStartTime, output.taskStartTime)
         assertEquals(inputTask.taskEndTime, output.taskEndTime)
 

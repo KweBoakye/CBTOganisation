@@ -1,4 +1,4 @@
-package com.fyp.kweku.cbtoganisation.tasks.presentation.home.recyclerview
+package com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerview
 
 // Holds data for the Horizontal Calendar View list Items
 //Background Colour allows for customisation off Each Items Background

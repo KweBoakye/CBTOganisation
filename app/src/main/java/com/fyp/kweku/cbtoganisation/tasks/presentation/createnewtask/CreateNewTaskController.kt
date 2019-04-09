@@ -1,12 +1,15 @@
 package com.fyp.kweku.cbtoganisation.tasks.presentation.createnewtask
 
 
+import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
 import com.fyp.kweku.cbtoganisation.tasks.domain.interactors.CreateNewTaskInteractorInterface
 import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalTime
 import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
@@ -30,7 +33,11 @@ class CreateNewTaskController(val createNewTaskInteractorInterface: CreateNewTas
 
     fun persistTask(input: Array<String>) = scope.launch(Dispatchers.IO){
         val taskID = createNewTaskInteractorInterface.generateTaskID()
-        val task = Task(taskID,input[0],input[1],input[2],input[3],input[4],input[5])
+        val task = Task(taskID,input[0],input[1],input[2],
+            LocalDate.parse(input[3],ProjectDateTimeUtils.getCustomDateFormatter()),
+            LocalDate.parse(input[4],ProjectDateTimeUtils.getCustomDateFormatter()),
+            LocalTime.parse(input[5]),
+            LocalTime.parse(input[6]))
         createNewTaskInteractorInterface.SendTaskToDataLayer(task)
         Timber.i("persisttask called")
     }

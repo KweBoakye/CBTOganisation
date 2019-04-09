@@ -16,15 +16,15 @@ class GetTasksInteractorTest {
 
     private lateinit var getTasksInteractor: GetTasksInteractor
     private lateinit var taskrepositorymock: TaskRepositoryInterface
-    private lateinit var getTasksInteracterOutput: GetTasksInteracterOutput
+    private lateinit var taskOutput: TaskOutput
     private lateinit var task: Task
 
     @BeforeEach
     fun init() {
         taskrepositorymock = mockk(relaxed = true) //relasxdd as don't need to specify behavior allows stubbing
-        getTasksInteracterOutput = mockk(relaxed = true)
+        taskOutput = mockk(relaxed = true)
         task = mockk(relaxed = true)
-        getTasksInteractor = GetTasksInteractor(taskrepositorymock, getTasksInteracterOutput)
+        getTasksInteractor = GetTasksInteractor(taskrepositorymock, taskOutput)
     }
 
     @Test
@@ -43,14 +43,14 @@ class GetTasksInteractorTest {
     @Test
     fun testSendSingleTaskToPresentationLayer(){
         getTasksInteractor.sendSingleTaskToPresentationLayer(task)
-        verify(exactly = 1) { getTasksInteracterOutput.showTask(task) }
+        verify(exactly = 1) { taskOutput.showTask(task) }
     }
 
     @Test
     fun testSendTasksToPresentationLayer(){
         val tasks = listOf(task,task)
-        getTasksInteractor.sendTasksToPresentationLayer(tasks)
-        verify(exactly = 1) { getTasksInteracterOutput.showAllTasks(tasks) }
+        runBlocking{getTasksInteractor.sendTasksToPresentationLayer()}
+        verify(exactly = 1) { runBlocking{taskOutput.showAllTasks(tasks) }}
     }
 
 

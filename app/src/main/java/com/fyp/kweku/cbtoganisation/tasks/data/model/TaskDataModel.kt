@@ -11,7 +11,8 @@ data class TaskDataModel (@PrimaryKey
     val taskName: String,       /*Denotes task Name*/
     val taskLocation: String,   /*Denotes Location Task will take place */
     val taskDescription: String,/*Description of the task*/
-    val taskDate: String, /* Date task will take place*/
+    val taskStartDate: String, /* Date task will take place*/
+    val taskEndDate: String,
     val taskStartTime: String, /* Time task will start*/
     val taskEndTime: String /* Length/duration of task*/
 )

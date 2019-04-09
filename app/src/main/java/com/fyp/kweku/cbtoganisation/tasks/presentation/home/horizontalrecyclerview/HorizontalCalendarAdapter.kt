@@ -1,4 +1,4 @@
-package com.fyp.kweku.cbtoganisation.tasks.presentation.home.recyclerview
+package com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerview
 
 import android.content.Context
 import android.os.Handler
@@ -13,10 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.fyp.kweku.cbtoganisation.R
 import com.fyp.kweku.cbtoganisation.databinding.HorizontalCalendarItemBinding
-
-
-
-
+import timber.log.Timber
 
 
 class HorizontalCalendarAdapter(private val context: Context,
@@ -29,15 +26,16 @@ class HorizontalCalendarAdapter(private val context: Context,
     private var isFirstBind: Boolean = true
 
     override fun onCreateViewHolder(
-        viewGroup: ViewGroup,
+        parent: ViewGroup,
         viewType: Int
     ): HorizontalCalendarAdapter.HorizontalCalendarViewHolder {
-        viewHolderBinding  = DataBindingUtil.inflate( LayoutInflater.from(context), R.layout.horizontal_calendar_item,
-            viewGroup,
+        viewHolderBinding  = DataBindingUtil.inflate( LayoutInflater.from(parent.context), R.layout.horizontal_calendar_item,
+            parent,
             false)
         val horizontalCalendarViewHolder = HorizontalCalendarAdapter.HorizontalCalendarViewHolder( viewHolderBinding.root)
         horizontalCalendarViewHolder.day = viewHolderBinding.calendarDay
         horizontalCalendarViewHolder.month = viewHolderBinding.calendarMonth
+        horizontalCalendarViewHolder.year = viewHolderBinding.calendarYear
         horizontalCalendarViewHolder.itemLayout = viewHolderBinding.calendarItem
         horizontalCalendarViewHolder.dateLayout = viewHolderBinding.dateLayout
         return horizontalCalendarViewHolder
@@ -51,21 +49,24 @@ class HorizontalCalendarAdapter(private val context: Context,
 
     override fun onBindViewHolder(holder: HorizontalCalendarAdapter.HorizontalCalendarViewHolder, position: Int) {
 
-        if (position == 0 ) {notifyEndReached()}
+        if (position == 0 && !isFirstBind) {notifyEndReached()}
         else if ((position + bottomAdvanceCallback) >= (itemCount-1)){notifyStartReached()}
         isFirstBind = false
         holder.day.text = data[position].day.toString()
         holder.month.text = HorizontalCalendarUtils.returnMonthName(data[position].month)
-        holder.itemLayout.setOnClickListener{ onDaySelectedListener.onDaySelected(it,
-            HorizontalCalendarUtils.returnStringDate(data[position].day,data[position].month, data[position].year), position)}
+        holder.year.text = data[position].year.toString()
+        holder.itemLayout.setOnClickListener{view -> onDaySelectedListener.onDaySelected(view,
+            HorizontalCalendarUtils.returnStringDate(data[position].day,data[position].month, data[position].year), position)
+        Timber.i("${data[position].month}")}
 
-        HorizontalCalendarUtils.configCallLayout(context,holder.itemLayout,data[position].backgroundColor )
+        HorizontalCalendarUtils.configCallLayout(context,holder.dateLayout,data[position].backgroundColor )
 
     }
 
     class HorizontalCalendarViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView){
     lateinit var day: TextView
         lateinit var month: TextView
+        lateinit var year: TextView
         lateinit var itemLayout: ConstraintLayout
         lateinit var dateLayout: LinearLayout
 

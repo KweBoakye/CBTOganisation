@@ -1,16 +1,13 @@
 package com.fyp.kweku.cbtoganisation.tasks.presentation.home
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.fyp.kweku.cbtoganisation.R
 import com.fyp.kweku.cbtoganisation.databinding.FragmentHomeBinding
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskActivity
-import com.fyp.kweku.cbtoganisation.tasks.presentation.home.recyclerview.HorizontalCalendarAdapter
-import com.fyp.kweku.cbtoganisation.tasks.presentation.home.recyclerview.HorizontalCalendarLayoutManager
+import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskViewModel
+import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
+import java.util.Observer
 
 class HomeViewClass(val inflater: LayoutInflater, val parent: ViewGroup?):HomeViewClassInterface {
 
@@ -19,6 +16,7 @@ class HomeViewClass(val inflater: LayoutInflater, val parent: ViewGroup?):HomeVi
     private var rootView = binding.root
     private var listener: HomeViewClassInterface.HomeListener? = null
     private lateinit var taskActivity: TaskActivity
+    private lateinit var taskViewModel: TaskViewModel
     val goToCreateNewTaskFragmentButton = binding.goToCreateNewTaskFragmentButton
 
     init{}
@@ -42,5 +40,11 @@ class HomeViewClass(val inflater: LayoutInflater, val parent: ViewGroup?):HomeVi
     override fun getTaskActivity():TaskActivity{
         return this.taskActivity
     }
+
+    override fun bindTaskViewModel(taskViewModel: TaskViewModel){
+        this.taskViewModel = taskViewModel
+    }
+
+
 
 }

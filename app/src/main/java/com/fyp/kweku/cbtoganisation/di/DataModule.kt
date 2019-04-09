@@ -4,7 +4,8 @@ import com.fyp.kweku.cbtoganisation.tasks.data.AppRoomDatabase
 import com.fyp.kweku.cbtoganisation.tasks.data.TaskDao
 import com.fyp.kweku.cbtoganisation.tasks.data.TaskRepository
 import com.fyp.kweku.cbtoganisation.tasks.domain.repository.TaskRepositoryInterface
-import org.koin.dsl.module.module
+import org.koin.dsl.module
+
 
 
     val DataModule = module {

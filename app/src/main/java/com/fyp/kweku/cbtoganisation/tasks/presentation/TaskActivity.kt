@@ -9,6 +9,7 @@ import androidx.navigation.ui.NavigationUI
 import com.fyp.kweku.cbtoganisation.R
 import com.fyp.kweku.cbtoganisation.databinding.ActivityTaskBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class TaskActivity : AppCompatActivity() {
@@ -16,6 +17,7 @@ class TaskActivity : AppCompatActivity() {
     lateinit var navController: NavController
     lateinit var navHostFragment: NavHostFragment
      lateinit var binding: ActivityTaskBinding
+     val taskViewModel by viewModel<TaskViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,4 +30,6 @@ class TaskActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.mainBottomNavigation, navHostFragment.navController)
 
     }
+
+
 }

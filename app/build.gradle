@@ -132,9 +132,9 @@ dependencies {
     kapt 'com.android.databinding:compiler:3.1.4'
 
     // Koin for Android - dEPENDENCY iNJECTION
-    def koin_version = "1.0.2"
+    def koin_version = "2.0.0-rc-2"
     implementation "org.koin:koin-android:$koin_version"
-    implementation "org.koin:koin-android-viewmodel:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
     //Backport For Java 8 Time Library
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.0'
@@ -148,5 +148,10 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0-alpha04'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
+
+
+    //Moshi Json parser
+    implementation "com.squareup.moshi:moshi:1.8.0"
+    implementation "com.squareup.moshi:moshi-kotlin:1.8.0"
 
 }
