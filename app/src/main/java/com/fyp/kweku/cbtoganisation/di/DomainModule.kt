@@ -9,6 +9,6 @@ val DomainModule = module{
 
     factory<CreateNewTaskInteractorInterface> {CreateNewTaskInteractor(get()) }
 factory<GetTasksInteractorInterface> { GetTasksInteractor(get(),get()) }
-   // single<TaskOutput> {  TaskViewModel()  }
+    single<TaskOutput> {  TaskViewModel()  }
 
 }

@@ -17,27 +17,37 @@ import timber.log.Timber
 
 
 class HorizontalCalendarAdapter(private val context: Context,
-                                private val onDaySelectedListener: HorizontalCalendarAdapter.OnDaySelectedListener,
+                                private val onDaySelectedListener: OnDaySelectedListener,
+
                                 val onEndReachedListener: OnEndReachedListener): RecyclerView.Adapter<HorizontalCalendarAdapter.HorizontalCalendarViewHolder>() {
+
+    fun onScrollStopped(layoutPosition: Int) {
+        onDaySelectedListener.onDayScrolled( HorizontalCalendarUtils.returnStringDate(data[layoutPosition].day,data[layoutPosition].month, data[layoutPosition].year))
+
+    }
+
     private lateinit var data: MutableList<HorizontalCalendarItem>
-    private var bottomAdvanceCallback = 0
+
+
 
     lateinit var viewHolderBinding: HorizontalCalendarItemBinding
+    lateinit var  horizontalCalendarViewHolder: HorizontalCalendarViewHolder
     private var isFirstBind: Boolean = true
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): HorizontalCalendarAdapter.HorizontalCalendarViewHolder {
+    ): HorizontalCalendarViewHolder {
         viewHolderBinding  = DataBindingUtil.inflate( LayoutInflater.from(parent.context), R.layout.horizontal_calendar_item,
             parent,
             false)
-        val horizontalCalendarViewHolder = HorizontalCalendarAdapter.HorizontalCalendarViewHolder( viewHolderBinding.root)
+        horizontalCalendarViewHolder = HorizontalCalendarViewHolder( viewHolderBinding.root)
         horizontalCalendarViewHolder.day = viewHolderBinding.calendarDay
         horizontalCalendarViewHolder.month = viewHolderBinding.calendarMonth
         horizontalCalendarViewHolder.year = viewHolderBinding.calendarYear
         horizontalCalendarViewHolder.itemLayout = viewHolderBinding.calendarItem
         horizontalCalendarViewHolder.dateLayout = viewHolderBinding.dateLayout
+
         return horizontalCalendarViewHolder
     }
 
@@ -47,15 +57,15 @@ class HorizontalCalendarAdapter(private val context: Context,
 
 
 
-    override fun onBindViewHolder(holder: HorizontalCalendarAdapter.HorizontalCalendarViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: HorizontalCalendarViewHolder, position: Int) {
 
         if (position == 0 && !isFirstBind) {notifyEndReached()}
-        else if ((position + bottomAdvanceCallback) >= (itemCount-1)){notifyStartReached()}
+        else if ((position ) >= (itemCount-1)){notifyStartReached()}
         isFirstBind = false
         holder.day.text = data[position].day.toString()
         holder.month.text = HorizontalCalendarUtils.returnMonthName(data[position].month)
         holder.year.text = data[position].year.toString()
-        holder.itemLayout.setOnClickListener{view -> onDaySelectedListener.onDaySelected(view,
+        holder.itemLayout.setOnClickListener{view ->   onDaySelectedListener.onDaySelected(view,
             HorizontalCalendarUtils.returnStringDate(data[position].day,data[position].month, data[position].year), position)
         Timber.i("${data[position].month}")}
 
@@ -93,22 +103,16 @@ class HorizontalCalendarAdapter(private val context: Context,
 
 
     fun notifyEndReached(){
-        val handler: Handler = Handler(Looper.getMainLooper())
+        val handler = Handler(Looper.getMainLooper())
         handler.postDelayed( { onEndReachedListener.onEndReached()},50)
     }
 
     fun notifyStartReached(){
-        val handler: Handler = Handler(Looper.getMainLooper())
+        val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({ onEndReachedListener.onStartReached()},50)
     }
 
-    fun setBottomAdvanceCallback(bottomAdvance: Int) {
-        if (bottomAdvance < 0) {
-            throw IndexOutOfBoundsException("Invalid index, bottom index must be greater than 0")
-        }
 
-        bottomAdvanceCallback = bottomAdvance
-    }
 
     //this function is used to populate adapter with data
     //It takes a list of Horizontal Calendar Items
@@ -118,6 +122,7 @@ class HorizontalCalendarAdapter(private val context: Context,
 
     interface OnDaySelectedListener {
         fun onDaySelected(view: View, date: String, position: Int)
+        fun onDayScrolled(date: String)
     }
 
     interface OnEndReachedListener {

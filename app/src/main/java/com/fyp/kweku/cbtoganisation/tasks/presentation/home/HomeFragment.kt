@@ -7,21 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.fyp.kweku.cbtoganisation.tasks.domain.interactors.TaskOutput
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskActivity
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskViewModel
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerview.mvc.HorizontalCalendarController
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerview.mvc.HorizontalCalendarViewClass
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerview.mvc.HorizontalCalendarViewClassInterface
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.tasksbybydayrecyclerview.TasksByDayController
-import com.fyp.kweku.cbtoganisation.tasks.presentation.home.tasksbybydayrecyclerview.TasksByDayRecyclerAdapter
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.tasksbybydayrecyclerview.TasksByDayRecyclerViewClass
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.tasksbybydayrecyclerview.TasksByDayRecyclerViewClassInterface
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
-import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -69,10 +65,10 @@ tasksByDayController = get()
             HorizontalCalendarViewClass(this.context!!, container,homeViewClassInterface.getRootView())
         val tasksByDayRecyclerViewClassInterface: TasksByDayRecyclerViewClassInterface = TasksByDayRecyclerViewClass(this.context!!, homeViewClassInterface.getRootView(),this)
         horizontalCalendarController = get()
-        horizontalCalendarController.run {
-            this.bindView(horizontalCalendarViewClassInterface)
-            this.setControllerAsHorizontalCalendarViewClassListener()
-            this.initHorizontalCalendar()
+        horizontalCalendarController.let {horizontalCalendarController ->
+            horizontalCalendarController.bindView(horizontalCalendarViewClassInterface)
+            horizontalCalendarController.setControllerAsHorizontalCalendarViewClassListener()
+            horizontalCalendarController.initHorizontalCalendar()
         }
 
 
@@ -80,12 +76,17 @@ tasksByDayController = get()
 
         val tasksByDayObserver = Observer<MutableList<TaskPresentationModel>> {tasks -> tasksByDayRecyclerViewClassInterface.setTasks(tasks)}
 
-        taskViewModel.tasksByDay.observe(
+        reConvertedTasksByDayLiveData().observe(
             this,
             tasksByDayObserver
         )
 
         return homeViewClassInterface.getRootView()
+    }
+
+    private fun reConvertedTasksByDayLiveData(): LiveData<MutableList<TaskPresentationModel>> {
+        @Suppress("UNCHECKED_CAST")
+        return   ( tasksByDayController.getTasksInteractorInterface.getTasksByLiveDataAsAny() as LiveData<MutableList<TaskPresentationModel>>)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

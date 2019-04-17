@@ -6,11 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.fyp.kweku.cbtoganisation.common.CBTOrganisationApplication
+import com.fyp.kweku.cbtoganisation.common.migrations.MIGRATION_1_2
 import com.fyp.kweku.cbtoganisation.common.prepopulation.prepoulator
 import com.fyp.kweku.cbtoganisation.tasks.data.model.TaskDataModel
 import org.json.JSONObject
 
-@Database(entities = [TaskDataModel::class], version = 1)
+@Database(entities = [TaskDataModel::class], version = 2)
 abstract class AppRoomDatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDao
 
@@ -33,7 +34,8 @@ abstract class AppRoomDatabase : RoomDatabase() {
                         super.onCreate(db)
                         Thread(Runnable { prepopulateDb(getDatabase(context)) }).start()
                     }
-                }).build()
+                }).fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 return instance
             }

@@ -4,15 +4,20 @@
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
             app:startDestination="@id/homeFragment">
 
-    <fragment android:id="@+id/homeFragment"
-              android:name="com.fyp.kweku.cbtoganisation.tasks.presentation.home.HomeFragment"
-              android:label="fragment_home" tools:layout="@layout/fragment_home">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.fyp.kweku.cbtoganisation.tasks.presentation.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_createNewTaskFragment"
             app:destination="@id/createNewTaskFragment" />
         <action
             android:id="@+id/action_homeFragment_to_viewTasksFragment"
             app:destination="@id/viewTasksFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_monthCalendarFragment"
+            app:destination="@id/monthCalendarFragment" />
     </fragment>
     <fragment
         android:id="@+id/createNewTaskFragment"
@@ -24,4 +29,9 @@
         android:name="com.fyp.kweku.cbtoganisation.tasks.presentation.viewtasks.ViewTasksFragment"
         android:label="fragment_view_tasks"
         tools:layout="@layout/fragment_view_tasks" />
+    <fragment
+        android:id="@+id/monthCalendarFragment"
+        android:name="com.fyp.kweku.cbtoganisation.tasks.presentation.monthcalendar.MonthCalendarFragment"
+        android:label="fragment_month_calendar"
+        tools:layout="@layout/fragment_month_calendar" />
 </navigation>

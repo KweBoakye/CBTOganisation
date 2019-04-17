@@ -8,5 +8,7 @@ interface GetTasksInteractorInterface {
     suspend fun getTaskByID(taskID: String): Task
     fun sendSingleTaskToPresentationLayer(task: Task)
     suspend fun sendTasksToPresentationLayer()
-    suspend fun getTasksByDay(date: LocalDate)
+    suspend fun filterTasksByDay(date: LocalDate)
+    fun getTasksByLiveDataAsAny():Any
+    suspend fun filterListOfTasksByDay(listOfDates:MutableList<LocalDate>)
 }

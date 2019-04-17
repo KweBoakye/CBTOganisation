@@ -13,6 +13,9 @@ class GetTasksInteractor(
     private val taskRepositoryInterface: TaskRepositoryInterface, private val taskOutput: TaskOutput
 ) : GetTasksInteractorInterface {
 
+    override fun getTasksByLiveDataAsAny(): Any {
+        return taskOutput.getTasksByDay()
+    }
 
 
     override suspend fun allTasks(): List<Task> = taskRepositoryInterface.getAlltasks()//safe call
@@ -33,9 +36,14 @@ val presentTask = publish<Task>{send(task)}
 
 
 
-   override suspend fun getTasksByDay(date: LocalDate) {
+   override suspend fun filterTasksByDay(date: LocalDate) {
        taskOutput.postTasksByDay(date)
    Timber.i("${date.format(ProjectDateTimeUtils.getCustomDateFormatter())}")}
+
+    override suspend fun filterListOfTasksByDay(listOfDates: MutableList<LocalDate>) {
+        taskOutput.postMonthCalendarTasksByDay(listOfDates)
+    }
+
 }
 
 

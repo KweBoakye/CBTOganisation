@@ -19,11 +19,12 @@ class prepoulator {
 
 lateinit var testData: String
 fun getResult():List<TaskDataModel>?{
-        val jsonAdapter: JsonAdapter<TaskDataModel> = moshi.adapter(TaskDataModel::class.java)
+        //val jsonAdapter: JsonAdapter<TaskDataModel> = moshi.adapter(TaskDataModel::class.java)
         val listType = Types.newParameterizedType(List::class.java, TaskDataModel::class.java)
         val adapter: JsonAdapter<List<TaskDataModel>> = moshi.adapter(listType)
-        return adapter.fromJson(testData)
     Timber.i("prepopulator.result called")
+        return adapter.fromJson(testData)
+
 }
     }
 

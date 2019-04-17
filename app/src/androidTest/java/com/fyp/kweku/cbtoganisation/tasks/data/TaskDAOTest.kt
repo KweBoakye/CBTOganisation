@@ -15,14 +15,7 @@ open class TaskDAOTest:TestDatabase() {
 
     @Before
     fun init(){
-        taskDataModel = TaskDataModel("testID",
-            "TestName",
-            "Test Location",
-        "Test Description",
-            "12/03/2002",
-            "16/07/2002",
-            "10:00",
-        "12:00")
+        taskDataModel = TaskDataModel("testID", "TestName", "Test Location", "Test Description", "12/03/2002", "16/07/2002", "10:00", "12:00")
     }
 
     @Test

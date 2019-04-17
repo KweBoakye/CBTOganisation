@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_margin="3dp"
+        android:padding="4dp"
         app:cardBackgroundColor="?attr/colorPrimary">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +26,6 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="TextView"
                 android:textColor="?attr/colorOnPrimary"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -39,13 +39,13 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="TextView"
                 android:textAlignment="textStart"
                 android:textColor="?attr/colorOnPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/textviewTaskStartTime" />
+                app:layout_constraintTop_toBottomOf="@+id/textviewTaskStartTime"
+                tools:text="Task End Time" />
 
             <TextView
                 android:id="@+id/textViewTaskName"
@@ -53,12 +53,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="TextView"
                 android:textAlignment="center"
                 android:textColor="?attr/colorOnPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Task Name" />
 
             <TextView
                 android:id="@+id/textViewTaskLocation"
@@ -67,13 +67,13 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="TextView"
                 android:textAlignment="textStart"
                 android:textColor="?attr/colorOnPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTaskName" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewTaskName"
+                tools:text="Task Location" />
 
             <TextView
                 android:id="@+id/textViewTaskStarDate"
@@ -83,12 +83,12 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="TextView"
                 android:textColor="?attr/colorOnPrimary"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTaskLocation" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewTaskLocation"
+                tools:text="Task Start Date" />
 
             <TextView
                 android:id="@+id/textviewTaskStartTime"
@@ -97,13 +97,13 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="TextView"
                 android:textAlignment="textStart"
                 android:textColor="?attr/colorOnPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTaskLocation" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewTaskLocation"
+                tools:text="Task Start Time" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
@@ -114,6 +114,23 @@
                 app:layout_constraintGuide_begin="202dp"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/checkboxTaskCompleted"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/checkboxTaskCompletedText"
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.924" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

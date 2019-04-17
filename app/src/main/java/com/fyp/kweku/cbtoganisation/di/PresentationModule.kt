@@ -14,6 +14,9 @@ import com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclervi
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.tasksbybydayrecyclerview.TasksByDayController
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.tasksbybydayrecyclerview.TasksByDayRecyclerViewClass
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.tasksbybydayrecyclerview.TasksByDayRecyclerViewClassInterface
+import com.fyp.kweku.cbtoganisation.tasks.presentation.monthcalendar.MonthCalendarController
+import com.fyp.kweku.cbtoganisation.tasks.presentation.monthcalendar.MonthCalendarViewClass
+import com.fyp.kweku.cbtoganisation.tasks.presentation.monthcalendar.MonthCalendarViewClassInterface
 import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtasks.ViewTasksController
 import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtasks.ViewTasksViewClass
 import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtasks.ViewTasksViewClassInterface
@@ -43,7 +46,11 @@ val PresentationModule = module {
 
     factory<TasksByDayRecyclerViewClassInterface> { TasksByDayRecyclerViewClass(get(),get(), get()) }
 
-    factory { TasksByDayController(get()) }
+    factory { TasksByDayController(get(), get()) }
+
+    factory<MonthCalendarViewClassInterface> { MonthCalendarViewClass(get(), get()) }
+
+    factory { MonthCalendarController(get()) }
 
 
 }

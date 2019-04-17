@@ -12,12 +12,14 @@ import java.util.Observer
 class HomeViewClass(val inflater: LayoutInflater, val parent: ViewGroup?):HomeViewClassInterface {
 
 
+
     private var binding: FragmentHomeBinding = FragmentHomeBinding.inflate(inflater, parent, false)
     private var rootView = binding.root
     private var listener: HomeViewClassInterface.HomeListener? = null
     private lateinit var taskActivity: TaskActivity
     private lateinit var taskViewModel: TaskViewModel
-    val goToCreateNewTaskFragmentButton = binding.goToCreateNewTaskFragmentButton
+    private val goToCreateNewTaskFragmentButton = binding.goToCreateNewTaskFragmentButton
+    private val goToMonthCalendarFragmentButton = binding.goToMonthCalendarFragmentButton
 
     init{}
 
@@ -25,8 +27,12 @@ class HomeViewClass(val inflater: LayoutInflater, val parent: ViewGroup?):HomeVi
         return this.rootView
     }
 
-   override fun setgoToCreateNewTaskFragmentButtonOnClickListener(){
+   override fun setGoToCreateNewTaskFragmentButtonOnClickListener(){
         goToCreateNewTaskFragmentButton.setOnClickListener {listener?.onGoToCreateNewTaskFragmentButtonClicked(getTaskActivity()) }
+    }
+
+    override fun setGoToMonthCalendarFragmentButtonOnClickListener() {
+        goToMonthCalendarFragmentButton.setOnClickListener{listener?.onGoToMonthCalendarFragmentButtonClicked(getTaskActivity())}
     }
 
     override fun setListener(listener: HomeViewClassInterface.HomeListener) {

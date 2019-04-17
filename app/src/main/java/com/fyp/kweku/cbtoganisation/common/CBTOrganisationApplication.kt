@@ -21,7 +21,7 @@ class CBTOrganisationApplication : Application(){
 
         // Start Koin
         startKoin{
-            AndroidLogger(Level.INFO)
+            AndroidLogger()
             androidContext(this@CBTOrganisationApplication)
         modules(DomainModule, DataModule, PresentationModule)}
         //Initialize time zone information

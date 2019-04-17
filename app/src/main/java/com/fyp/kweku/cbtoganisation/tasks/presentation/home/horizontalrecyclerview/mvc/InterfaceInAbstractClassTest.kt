@@ -3,7 +3,7 @@ package com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerv
 abstract class InterfaceInAbstractClassTest {
     interface interfaceInAbstarct{
 
-        val
+
 
     }
 }

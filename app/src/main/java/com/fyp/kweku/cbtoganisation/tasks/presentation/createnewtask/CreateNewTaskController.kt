@@ -37,7 +37,8 @@ class CreateNewTaskController(val createNewTaskInteractorInterface: CreateNewTas
             LocalDate.parse(input[3],ProjectDateTimeUtils.getCustomDateFormatter()),
             LocalDate.parse(input[4],ProjectDateTimeUtils.getCustomDateFormatter()),
             LocalTime.parse(input[5]),
-            LocalTime.parse(input[6]))
+            LocalTime.parse(input[6]),
+           false)
         createNewTaskInteractorInterface.SendTaskToDataLayer(task)
         Timber.i("persisttask called")
     }

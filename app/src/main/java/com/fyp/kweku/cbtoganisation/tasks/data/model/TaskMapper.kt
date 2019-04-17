@@ -19,7 +19,8 @@ class TaskMapper :
         LocalDate.parse(from.taskStartDate, ProjectDateTimeUtils.getCustomDateFormatter()),// from string to date
         LocalDate.parse(from.taskEndDate, ProjectDateTimeUtils.getCustomDateFormatter()),
         LocalTime.parse(from.taskStartTime),
-        LocalTime.parse(from.taskEndTime)
+        LocalTime.parse(from.taskEndTime),
+        from.taskCompleted
     )
 
     override fun toEntity(from: Task) = TaskDataModel(
@@ -30,6 +31,7 @@ class TaskMapper :
         from.taskStartDate.format(ProjectDateTimeUtils.getCustomDateFormatter()),//from date to string
         from.taskEndDate.format(ProjectDateTimeUtils.getCustomDateFormatter()),
         from.taskStartTime.toString(),
-        from.taskEndTime.toString()
+        from.taskEndTime.toString(),
+        from.taskCompleted
     )
 }

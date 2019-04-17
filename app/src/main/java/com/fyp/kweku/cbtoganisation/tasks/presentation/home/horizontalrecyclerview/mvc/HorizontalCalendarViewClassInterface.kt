@@ -12,14 +12,14 @@ interface HorizontalCalendarViewClassInterface {
         fun fetchHorizontalCalenderItemMutableListForOnEndReached():MutableList<HorizontalCalendarItem>
         fun onStartReached()
         fun horizontalCalenderItemMutableListForOnStartReached():MutableList<HorizontalCalendarItem>
-        fun SmoothScrollToPosionParameters(): Int
+        fun SmoothScrollToPositionParameters(): Int
         fun CalenderAdapterSetDataParameters():MutableList<HorizontalCalendarItem>
     }
 
 
     fun getCalendarRecycler():RecyclerView
 
-    fun setListener(HorizontalCalendarViewClassListener: HorizontalCalendarViewClassInterface.HorizontalCalendarViewClassListener)
+    fun setListener(horizontalCalendarViewClassListener: HorizontalCalendarViewClassListener)
 
 
     fun initHorizontalCalendar()

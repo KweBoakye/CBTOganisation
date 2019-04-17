@@ -24,8 +24,7 @@ class TasksByDayRecyclerViewClass(val context: Context, val view: View,val homeF
          override fun setTasks(tasks: MutableList<TaskPresentationModel>) {
              noTasksLayout.visibility = View.GONE
              if (tasks.isEmpty()) noTasksLayout.visibility = View.VISIBLE
-             tasksByDayRecyclerAdapter.run { setData(tasks)
-             notifyDataSetChanged()}
+             tasksByDayRecyclerAdapter.submitList(tasks.toMutableList())
          }
 
 

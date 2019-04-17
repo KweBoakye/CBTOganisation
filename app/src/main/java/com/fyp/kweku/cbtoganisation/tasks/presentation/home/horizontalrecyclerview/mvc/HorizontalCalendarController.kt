@@ -64,7 +64,7 @@ class HorizontalCalendarController(val getTasksInteractorInterface: GetTasksInte
         return getCalendarItems( calendarProperties.monthAtStart, calendarProperties.yearAtStart)
     }
 
-    override fun SmoothScrollToPosionParameters(): Int{
+    override fun SmoothScrollToPositionParameters(): Int{
         return calendar.dayOfMonth // day of month as Integer
     }
 
@@ -85,7 +85,7 @@ class HorizontalCalendarController(val getTasksInteractorInterface: GetTasksInte
 
     fun getCalendarItems(month: Int, year: Int): MutableList<HorizontalCalendarItem> {
         val items = ArrayList<HorizontalCalendarItem>()
-        for (day in 0 until HorizontalCalendarUtils.calculateMonthLength(month)) {
+        for (day in 0 until HorizontalCalendarUtils.calculateMonthLength(month,year)) {
             items.add(HorizontalCalendarItem(day + 1, month, R.color.colorPrimary, year))
         }
         return items
@@ -95,7 +95,7 @@ class HorizontalCalendarController(val getTasksInteractorInterface: GetTasksInte
         calendarProperties = HorizontalCalendarProperties(currentMonth, currentYear)
     }
 
-     fun updateEntries(date: String)= scope.launch(Dispatchers.IO){getTasksInteractorInterface.getTasksByDay(LocalDate.parse(date,ProjectDateTimeUtils.getCustomDateFormatter()))
+     fun updateEntries(date: String)= scope.launch(Dispatchers.IO){getTasksInteractorInterface.filterTasksByDay(LocalDate.parse(date,ProjectDateTimeUtils.getCustomDateFormatter()))
 
     }
 

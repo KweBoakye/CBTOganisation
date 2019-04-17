@@ -19,4 +19,6 @@ interface TaskOutput {
 
 
    suspend fun postTasksByDay(date: LocalDate)
+
+    suspend fun postMonthCalendarTasksByDay(listOfDates:MutableList<LocalDate>)
 }

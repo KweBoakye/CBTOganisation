@@ -6,6 +6,9 @@ package com.fyp.kweku.cbtoganisation.tasks.presentation.home
 import com.fyp.kweku.cbtoganisation.R
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskActivity
 class HomeController:HomeViewClassInterface.HomeListener {
+    override fun onGoToMonthCalendarFragmentButtonClicked(taskActivity: TaskActivity) {
+        taskActivity.navController.navigate(R.id.action_homeFragment_to_monthCalendarFragment)
+    }
 
 
     private lateinit var homeViewClassInterface: HomeViewClassInterface
@@ -24,7 +27,8 @@ class HomeController:HomeViewClassInterface.HomeListener {
 
     fun onviewCreated() {
         homeViewClassInterface.setListener(this)
-        homeViewClassInterface.setgoToCreateNewTaskFragmentButtonOnClickListener()
+        homeViewClassInterface.setGoToCreateNewTaskFragmentButtonOnClickListener()
+        homeViewClassInterface.setGoToMonthCalendarFragmentButtonOnClickListener()
     }
 
 
