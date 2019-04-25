@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/MonthCalendarDaysOfWeekHeader"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:showDividers="middle|beginning|end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="56dp">
+
+            <TextView
+                android:id="@+id/textViewMonday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:text="@string/MonthCalendarDayMon" />
+
+            <TextView
+                android:id="@+id/textViewTuesday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:text="@string/MonthCalendarDayTue" />
+
+            <TextView
+                android:id="@+id/textViewWednesday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:text="@string/MonthCalendarDayWed" />
+
+            <TextView
+                android:id="@+id/textViewThursday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:text="@string/MonthCalendarDayThurs" />
+
+            <TextView
+                android:id="@+id/textViewFriday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:text="@string/MonthCalendarDayFri" />
+
+            <TextView
+                android:id="@+id/textViewSaturday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:text="@string/MonthCalendarDaySat" />
+
+            <TextView
+                android:id="@+id/textViewSunday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:text="@string/MonthCalendarDaysun" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/MonCalendarRecyclerViewForViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/MonthCalendarDaysOfWeekHeader"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

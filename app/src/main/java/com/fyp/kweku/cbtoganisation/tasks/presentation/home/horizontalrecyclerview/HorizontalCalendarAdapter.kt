@@ -71,6 +71,7 @@ class HorizontalCalendarAdapter(private val context: Context,
 
         HorizontalCalendarUtils.configCallLayout(context,holder.dateLayout,data[position].backgroundColor )
 
+
     }
 
     class HorizontalCalendarViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView){
@@ -104,11 +105,13 @@ class HorizontalCalendarAdapter(private val context: Context,
 
     fun notifyEndReached(){
         val handler = Handler(Looper.getMainLooper())
+        Timber.i("End called")
         handler.postDelayed( { onEndReachedListener.onEndReached()},50)
     }
 
     fun notifyStartReached(){
         val handler = Handler(Looper.getMainLooper())
+        Timber.i("Start called")
         handler.postDelayed({ onEndReachedListener.onStartReached()},50)
     }
 

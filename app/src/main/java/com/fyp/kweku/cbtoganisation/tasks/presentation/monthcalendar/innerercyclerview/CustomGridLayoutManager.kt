@@ -1,4 +1,4 @@
-package com.fyp.kweku.cbtoganisation.tasks.presentation.monthcalendar
+package com.fyp.kweku.cbtoganisation.tasks.presentation.monthcalendar.innerercyclerview
 
 import android.content.Context
 import android.util.AttributeSet
@@ -60,6 +60,22 @@ class CustomGridLayoutManager:GridLayoutManager {
 
     override fun checkLayoutParams(lp: RecyclerView.LayoutParams?): Boolean {
         return super.checkLayoutParams(lp)
+    }
+
+    override fun collectAdjacentPrefetchPositions(
+        dx: Int,
+        dy: Int,
+        state: RecyclerView.State?,
+        layoutPrefetchRegistry: LayoutPrefetchRegistry?
+    ) {
+        super.collectAdjacentPrefetchPositions(dx, dy, state, layoutPrefetchRegistry)
+    }
+
+    override fun collectInitialPrefetchPositions(
+        adapterItemCount: Int,
+        layoutPrefetchRegistry: LayoutPrefetchRegistry?
+    ) {
+        super.collectInitialPrefetchPositions(adapterItemCount, layoutPrefetchRegistry)
     }
 
 

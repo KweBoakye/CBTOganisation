@@ -7,8 +7,11 @@ import org.koin.dsl.module
 
 val DomainModule = module{
 
-    factory<CreateNewTaskInteractorInterface> {CreateNewTaskInteractor(get()) }
-factory<GetTasksInteractorInterface> { GetTasksInteractor(get(),get()) }
-    single<TaskOutput> {  TaskViewModel()  }
+    single<CreateNewTaskInteractorInterface> {CreateNewTaskInteractor(get()) }
+
+single<GetTasksInteractorInterface> { GetTasksInteractor(get(),get()) }
+
+    single<GetTasksByLocationInteractorInterface> { GetTasksByLocationInteractor(get(), get()) }
+
 
 }

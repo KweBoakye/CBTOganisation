@@ -1,6 +1,7 @@
 package com.fyp.kweku.cbtoganisation.tasks.domain.interactors
 
 import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
+import com.fyp.kweku.cbtoganisation.tasks.domain.TaskOutput
 import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
 import com.fyp.kweku.cbtoganisation.tasks.domain.repository.TaskRepositoryInterface
 import kotlinx.coroutines.*
@@ -16,6 +17,20 @@ class GetTasksInteractor(
     override fun getTasksByLiveDataAsAny(): Any {
         return taskOutput.getTasksByDay()
     }
+
+    override fun getMonthCalendarTasksByDayAsAny(): Any {
+        return  taskOutput.getMonthCalendarTasksByDay()
+    }
+
+    override fun getMonthCalendarTaskNamesByDayAsAny(): Any {
+        return  taskOutput.getMonthCalendarTaskNamesByDay()
+    }
+
+    override fun getDatesAndTasksByMonthAsAny(): Any{
+        return taskOutput.getDatesAndTasksByMonth()
+    }
+
+
 
 
     override suspend fun allTasks(): List<Task> = taskRepositoryInterface.getAlltasks()//safe call
@@ -42,6 +57,10 @@ val presentTask = publish<Task>{send(task)}
 
     override suspend fun filterListOfTasksByDay(listOfDates: MutableList<LocalDate>) {
         taskOutput.postMonthCalendarTasksByDay(listOfDates)
+    }
+
+    override suspend fun filterTasksByMonth(listOfDates: MutableList<LocalDate>){
+        taskOutput.setDatesAndTasksByMonth(listOfDates)
     }
 
 }

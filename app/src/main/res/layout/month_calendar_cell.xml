@@ -13,38 +13,32 @@
         <TextView
             android:id="@+id/monthDayTextView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/TaskTextView1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/TaskTextView2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/TaskTextView3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/TaskTextView4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/TaskTextView5"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </layout>

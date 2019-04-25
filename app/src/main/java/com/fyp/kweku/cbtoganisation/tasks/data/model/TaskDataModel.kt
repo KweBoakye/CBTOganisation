@@ -14,6 +14,6 @@ data class TaskDataModel (@PrimaryKey
     val taskStartDate: String, /* Date task will take place*/
     val taskEndDate: String,
     val taskStartTime: String, /* Time task will start*/
-    val taskEndTime: String, /* Length/duration of task*/
-                          val taskCompleted: Boolean = false
+    val taskEndTime: String /* Length/duration of task*/
+
 )

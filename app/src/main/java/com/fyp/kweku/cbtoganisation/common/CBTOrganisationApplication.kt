@@ -27,16 +27,17 @@ class CBTOrganisationApplication : Application(){
         //Initialize time zone information
         AndroidThreeTen.init(this)
         Timber.plant(Timber.DebugTree())
-
         readJSONFromAsset()
+
 
     }
 
     fun readJSONFromAsset(){
-        var json: String? = null
+        val json: String?
         try {
             val inputStream: InputStream = assets.open("testdata.json")
             json = inputStream.bufferedReader().use{ it.readText() }
+            Timber.i("$json")
             prepoulator.testData = json
         }
         catch (e:IOException){}

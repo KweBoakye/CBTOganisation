@@ -5,12 +5,15 @@ package com.fyp.kweku.cbtoganisation.tasks.presentation.home
 
 import com.fyp.kweku.cbtoganisation.R
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskActivity
+
 class HomeController:HomeViewClassInterface.HomeListener {
+
+    // function that uses the host Activitys Navcrontroller to provide navigation from the homeFragment(this one) to  the Month Calemdar Fragment
     override fun onGoToMonthCalendarFragmentButtonClicked(taskActivity: TaskActivity) {
         taskActivity.navController.navigate(R.id.action_homeFragment_to_monthCalendarFragment)
     }
 
-
+   // Interface for related View Class, interface can be used to create instance as it due to Interface Depenency Injection
     private lateinit var homeViewClassInterface: HomeViewClassInterface
     override fun onGoToCreateNewTaskFragmentButtonClicked(taskActivity: TaskActivity) {
         taskActivity.navController.navigate(R.id.action_homeFragment_to_createNewTaskFragment)
@@ -24,6 +27,7 @@ class HomeController:HomeViewClassInterface.HomeListener {
     fun onCreateView(taskActivity: TaskActivity) {
         homeViewClassInterface.setTaskActivity(taskActivity)
     }
+
 
     fun onviewCreated() {
         homeViewClassInterface.setListener(this)

@@ -13,16 +13,17 @@ import java.io.InputStream
 
 class prepoulator {
     companion object {
-        val moshi = Moshi.Builder()
+        private val moshi: Moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
 
 lateinit var testData: String
-fun getResult():List<TaskDataModel>?{
-        //val jsonAdapter: JsonAdapter<TaskDataModel> = moshi.adapter(TaskDataModel::class.java)
-        val listType = Types.newParameterizedType(List::class.java, TaskDataModel::class.java)
-        val adapter: JsonAdapter<List<TaskDataModel>> = moshi.adapter(listType)
+fun getResult():MutableList<TaskDataModel>?{
+        val jsonAdapter: JsonAdapter<TaskDataModel> = moshi.adapter(TaskDataModel::class.java)
+        val listType = Types.newParameterizedType(MutableList::class.java, TaskDataModel::class.java)
+        val adapter: JsonAdapter<MutableList<TaskDataModel>> = moshi.adapter(listType)
     Timber.i("prepopulator.result called")
+    //Timber.i("$testData")
         return adapter.fromJson(testData)
 
 }

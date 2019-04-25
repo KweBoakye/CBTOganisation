@@ -51,7 +51,7 @@ class TaskActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
         toolbar.setupWithNavController( navController, appBarConfiguration)
-
+        //setSupportActionBar(toolbar)
         navigationView = binding.navigationView
         navigationView.setupWithNavController(navController)
 

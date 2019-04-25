@@ -17,7 +17,27 @@
     <string name="no_tasks_layout_text">No Tasks On This Day</string>
     <string name="checkboxTaskCompletedText">Completed</string>
 
+
+    <string name="MonthCalendarDayMon">Mon</string>
+    <string name="MonthCalendarDayTue">Tue</string>
+    <string name="MonthCalendarDayWed">Wed</string>
+    <string name="MonthCalendarDayThurs">Thu</string>
+    <string name="MonthCalendarDayFri">Fri</string>
+    <string name="MonthCalendarDaySat">Sat</string>
+    <string name="MonthCalendarDaysun">Sun</string>
+
+    <!-- The class name to the ScrollingChildBehavior required for AppBarLayout -->
+    <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
+
+    <string name="home_string_for_nav_drawer">Home</string>
+    <string name="month_calendar_page">Month</string>
+    <string name="NavDrawerTextLocations">Locations</string>
+    <string name="monthviewpager">Month View Pager</string>
+
+    <string name="TasksByLocationTitle">Tasks By Location</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="home_string_for_nav_drawer">Home</string>
+
+
 </resources>

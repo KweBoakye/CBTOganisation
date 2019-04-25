@@ -32,10 +32,12 @@ class HorizontalCalendarController(val getTasksInteractorInterface: GetTasksInte
         Timber.i("update")
     }
 
+
+    //calcula
     override fun onEndReached() {
         val monthAtEnd: Int = calendarProperties.monthAtEnd
-        if (monthAtEnd == 0) {
-            calendarProperties.monthAtEnd = 11
+        if (monthAtEnd == 1) {
+            calendarProperties.monthAtEnd = 12
             calendarProperties.yearAtEnd -= 1
         } else {
             calendarProperties.monthAtEnd = monthAtEnd - 1
@@ -52,8 +54,8 @@ class HorizontalCalendarController(val getTasksInteractorInterface: GetTasksInte
 
     override fun onStartReached(){
         val monthAtStart: Int = calendarProperties.monthAtStart
-        if (monthAtStart == 11) {
-            calendarProperties.monthAtStart = 0
+        if (monthAtStart == 12) {
+            calendarProperties.monthAtStart = 1
             calendarProperties.yearAtStart +=1
         } else {
             calendarProperties.monthAtStart = monthAtStart + 1
@@ -65,7 +67,7 @@ class HorizontalCalendarController(val getTasksInteractorInterface: GetTasksInte
     }
 
     override fun SmoothScrollToPositionParameters(): Int{
-        return calendar.dayOfMonth // day of month as Integer
+        return calendar.dayOfMonth // day of months as Integer
     }
 
     fun bindView(horizontalCalendarViewClassInterface: HorizontalCalendarViewClassInterface){
@@ -78,7 +80,7 @@ class HorizontalCalendarController(val getTasksInteractorInterface: GetTasksInte
 
     fun initHorizontalCalendar() {
          //set current date to the set time of callendar in millseconds
-        setCalenderProperties(calendar.monthValue, calendar.year) // get month and year
+        setCalenderProperties(calendar.monthValue, calendar.year) // get months and year
 
        horizontalCalendarViewClassInterface.initHorizontalCalendar()
     }

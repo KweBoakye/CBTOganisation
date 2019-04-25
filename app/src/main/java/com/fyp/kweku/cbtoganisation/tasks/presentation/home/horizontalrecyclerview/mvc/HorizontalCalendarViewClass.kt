@@ -22,6 +22,7 @@ class HorizontalCalendarViewClass(context: Context, val parent: ViewGroup?,view:
         if (calendarRecycler.scrollState == RecyclerView.SCROLL_STATE_IDLE ) {
             calendarAdapter.onScrollStopped(position)
 
+
         }
     }
 

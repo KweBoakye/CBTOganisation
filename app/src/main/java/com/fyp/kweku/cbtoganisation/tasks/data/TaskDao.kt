@@ -17,4 +17,12 @@ interface TaskDao {
     @Query("SELECT * FROM  tasks WHERE taskID=:taskID")
     fun findTaskById(taskID: String): TaskDataModel
 
+    @Query("SELECT taskLocation From tasks")
+    fun loadAllLocations():List<String>
+
+    @Query("SELECT * FROM tasks WHERE taskLocation=:taskLocation")
+    fun getTasksByLocation(taskLocation: String):List<TaskDataModel>
+
+
+
 }

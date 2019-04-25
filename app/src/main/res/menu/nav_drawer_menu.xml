@@ -4,10 +4,28 @@
 <group
     android:id="@+id/primary">
     <item
-        android:id="@+id/homeFragment"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/home_string_for_nav_drawer">
+    android:id="@+id/homeFragment"
+    android:icon="@drawable/ic_home_black_24dp"
+    android:title="@string/home_string_for_nav_drawer">
 
+</item>
+    <item
+        android:id="@+id/monthCalendarFragment"
+
+        android:title="@string/month_calendar_page">
+
+    </item>
+
+    <item
+        android:id="@+id/locationsFragment"
+        android:icon="@drawable/ic_location_on_black_24dp"
+        android:title="@string/NavDrawerTextLocations">
+
+    </item>
+
+    <item
+        android:id="@+id/monthViewPagerFragment"
+        android:title="@string/monthviewpager">
     </item>
 
 </group>

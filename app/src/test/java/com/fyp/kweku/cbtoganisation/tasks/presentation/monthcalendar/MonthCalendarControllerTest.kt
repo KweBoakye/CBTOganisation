@@ -5,6 +5,8 @@ package com.fyp.kweku.cbtoganisation.tasks.presentation.monthcalendar
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.fyp.kweku.cbtoganisation.common.CBTOrganisationApplication
 import com.fyp.kweku.cbtoganisation.tasks.domain.interactors.GetTasksInteractorInterface
+import com.fyp.kweku.cbtoganisation.tasks.presentation.monthcalendar.outerrecyclerview.MonthCalendarOuterController
+import com.fyp.kweku.cbtoganisation.tasks.presentation.monthcalendar.outerrecyclerview.MonthCalendarOuterViewClassInterface
 import com.jakewharton.threetenabp.AndroidThreeTen
 import io.mockk.mockk
 import org.junit.Before
@@ -23,8 +25,8 @@ import org.robolectric.annotation.Config
 @Config(application = CBTOrganisationApplication::class)
  class MonthCalendarControllerTest{
 
-    private lateinit var monthCalendarController: MonthCalendarController
-    private lateinit var monthCalendarViewClassInterface: MonthCalendarViewClassInterface
+    private lateinit var monthCalendarController: MonthCalendarOuterController
+    private lateinit var monthCalendarOuterViewClassInterface: MonthCalendarOuterViewClassInterface
     private lateinit var dateTestList:MutableList<LocalDate>
     private lateinit var getTasksInteractorInterface: GetTasksInteractorInterface
 
@@ -34,9 +36,12 @@ import org.robolectric.annotation.Config
 val app = getApplicationContext<CBTOrganisationApplication>()
         AndroidThreeTen.init(app)
        getTasksInteractorInterface = mockk(relaxed = true)
-        monthCalendarViewClassInterface = mockk(relaxed = true)
-        monthCalendarController = MonthCalendarController(getTasksInteractorInterface)
-        monthCalendarController.bindView(monthCalendarViewClassInterface)
+        monthCalendarOuterViewClassInterface = mockk(relaxed = true)
+        monthCalendarController =
+            MonthCalendarOuterController(
+                getTasksInteractorInterface
+            )
+        monthCalendarController.bindView(monthCalendarOuterViewClassInterface)
         val testList = mutableListOf<String>(
             "2018-02-26", "2018-02-27", "2018-02-28", "2018-03-01", "2018-03-02", "2018-03-03", "2018-03-04",
             "2018-03-05", "2018-03-06", "2018-03-07", "2018-03-08", "2018-03-09", "2018-03-10", "2018-03-11",

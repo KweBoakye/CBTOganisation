@@ -1,6 +1,8 @@
 package com.fyp.kweku.cbtoganisation.tasks.domain.interactors
 
+
 import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
+import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
 import org.threeten.bp.LocalDate
 
 interface GetTasksInteractorInterface {
@@ -11,4 +13,8 @@ interface GetTasksInteractorInterface {
     suspend fun filterTasksByDay(date: LocalDate)
     fun getTasksByLiveDataAsAny():Any
     suspend fun filterListOfTasksByDay(listOfDates:MutableList<LocalDate>)
+    fun getMonthCalendarTasksByDayAsAny(): Any
+    fun getMonthCalendarTaskNamesByDayAsAny(): Any
+    suspend fun filterTasksByMonth(listOfDates: MutableList<LocalDate>)
+    fun getDatesAndTasksByMonthAsAny(): Any
 }

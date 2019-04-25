@@ -2,6 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
+
             app:startDestination="@id/homeFragment">
 
     <fragment
@@ -18,11 +19,14 @@
         <action
             android:id="@+id/action_homeFragment_to_monthCalendarFragment"
             app:destination="@id/monthCalendarFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_locationsFragment"
+            app:destination="@id/locationsFragment" />
     </fragment>
     <fragment
         android:id="@+id/createNewTaskFragment"
         android:name="com.fyp.kweku.cbtoganisation.tasks.presentation.createnewtask.CreateNewTaskFragment"
-        android:label="fragment_create_new_task"
+        android:label="Create New Task"
         tools:layout="@layout/fragment_create_new_task" />
     <fragment
         android:id="@+id/viewTasksFragment"
@@ -32,6 +36,20 @@
     <fragment
         android:id="@+id/monthCalendarFragment"
         android:name="com.fyp.kweku.cbtoganisation.tasks.presentation.monthcalendar.MonthCalendarFragment"
-        android:label="fragment_month_calendar"
+        android:label="Month Calendar"
         tools:layout="@layout/fragment_month_calendar" />
+    <fragment
+        android:id="@+id/locationsFragment"
+        android:name="com.fyp.kweku.cbtoganisation.tasks.presentation.locations.LocationsFragment"
+        android:label="Locations" />
+    <fragment
+        android:id="@+id/monthViewPagerFragment"
+        android:name="com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.MonthViewPagerFragment"
+        android:label="fragment_month_view_pager"
+        tools:layout="@layout/fragment_month_view_pager" >
+        <action
+            android:id="@+id/action_monthViewPagerFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
 </navigation>

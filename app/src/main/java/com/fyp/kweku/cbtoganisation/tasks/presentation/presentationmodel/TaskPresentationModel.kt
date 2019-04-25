@@ -11,8 +11,8 @@ data class TaskPresentationModel(
     val taskStartDate: LocalDate,
     val taskEndDate: LocalDate,/* Date task will take place*/
     val taskStartTime: LocalTime, /* Time task will start*/
-    val taskEndTime: LocalTime,/* Length/duration of task*/
-val taskCompleted: Boolean = false
+    val taskEndTime: LocalTime/* Length/duration of task*/
+//val taskCompleted: Boolean = false
 ){
    /* override fun equals(other: Any?): Boolean {
         return if(other == this) true

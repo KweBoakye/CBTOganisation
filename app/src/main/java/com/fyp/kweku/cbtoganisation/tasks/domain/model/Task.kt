@@ -11,8 +11,8 @@ data class Task(
     val taskStartDate: LocalDate, /* Date task will take place*/
     val taskEndDate: LocalDate,
     val taskStartTime: LocalTime, /* Time task will start*/
-    val taskEndTime: LocalTime, /* Length/duration of task*/
-    val taskCompleted: Boolean = false
+    val taskEndTime: LocalTime /* Length/duration of task*/
+    //val taskCompleted: Boolean = false
 )
 
 

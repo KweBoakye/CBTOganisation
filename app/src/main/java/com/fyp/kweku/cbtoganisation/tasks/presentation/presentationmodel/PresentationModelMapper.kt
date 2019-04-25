@@ -16,8 +16,7 @@ class PresentationModelMapper:  ModelMapper<TaskPresentationModel, Task> {
         LocalDate.parse( from.taskStartDate.format(ProjectDateTimeUtils.getCustomDateFormatter()),ProjectDateTimeUtils.getCustomDateFormatter()),
         LocalDate.parse( from.taskEndDate.format(ProjectDateTimeUtils.getCustomDateFormatter()),ProjectDateTimeUtils.getCustomDateFormatter()),
         from.taskStartTime,
-        from.taskEndTime,
-        from.taskCompleted
+        from.taskEndTime
     )
 
     override fun toEntity(from: Task): TaskPresentationModel =
@@ -29,7 +28,6 @@ class PresentationModelMapper:  ModelMapper<TaskPresentationModel, Task> {
             LocalDate.parse( from.taskStartDate.format(ProjectDateTimeUtils.getCustomDateFormatter()),ProjectDateTimeUtils.getCustomDateFormatter()),
             LocalDate.parse( from.taskEndDate.format(ProjectDateTimeUtils.getCustomDateFormatter()),ProjectDateTimeUtils.getCustomDateFormatter()),
             from.taskStartTime,
-            from.taskEndTime,
-            from.taskCompleted
+            from.taskEndTime
         )
 }

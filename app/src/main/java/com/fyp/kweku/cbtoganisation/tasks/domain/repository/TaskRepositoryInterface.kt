@@ -7,6 +7,8 @@ interface TaskRepositoryInterface {
     suspend fun getTaskById(taskId: String): Task
     suspend fun saveTask(vararg tasks: Task)
     suspend fun newTask(task:Task)
+    suspend fun getAllLocations():List<String>
+    suspend fun getTasksByLocation(taskLocation:String):List<Task>
 
 
 

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".tasks.presentation.createnewtask.CreateNewTaskFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TaskNameInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/TaskNameInputHint"
+                android:textAlignment="viewStart" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TaskLocationInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/TaskLocationInputHint"
+                android:textAlignment="viewStart" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TaskStatDateInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:hint="@string/TaskStartDateInputHint"
+                android:inputType="date"
+                android:textAlignment="viewStart" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TaskEndDateInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:hint="@string/TaskEndDateInputHint"
+                android:inputType="date"
+                android:textAlignment="viewStart" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TaskStartTimeInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/TaskStartTimeInputHint"
+                android:inputType="time"
+                android:textAlignment="viewStart" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TaskEndTimeInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/TaskEndTimeInputHint"
+                android:inputType="time"
+                android:textAlignment="viewStart" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TaskDescriptionInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/TaskDescriptionInputHint"
+                android:inputType="textLongMessage"
+                android:textAlignment="viewStart" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/SaveNewTaskButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:iconGravity="textStart" />
+
+    </LinearLayout>
+

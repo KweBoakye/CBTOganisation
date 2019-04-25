@@ -98,6 +98,10 @@ tasksByDayController = get()
         super.onViewCreated(view, savedInstanceState)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+    }
+
 
     override fun onDetach() {
         super.onDetach()

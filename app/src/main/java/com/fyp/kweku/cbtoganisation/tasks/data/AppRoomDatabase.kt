@@ -5,13 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.fyp.kweku.cbtoganisation.common.CBTOrganisationApplication
-import com.fyp.kweku.cbtoganisation.common.migrations.MIGRATION_1_2
 import com.fyp.kweku.cbtoganisation.common.prepopulation.prepoulator
 import com.fyp.kweku.cbtoganisation.tasks.data.model.TaskDataModel
-import org.json.JSONObject
+import timber.log.Timber
 
-@Database(entities = [TaskDataModel::class], version = 2)
+@Database(entities = [TaskDataModel::class], version = 5)
 abstract class AppRoomDatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDao
 
@@ -43,7 +41,8 @@ abstract class AppRoomDatabase : RoomDatabase() {
 
         private fun prepopulateDb(db: AppRoomDatabase) {
 
-            db.taskDao().insertTasks(*prepoulator.getResult()!!.toTypedArray())
+           val a:List<Long> = db.taskDao().insertTasks(*prepoulator.getResult()!!.toTypedArray())
+            Timber.i("$a")
         }
 
     }

@@ -2,7 +2,9 @@ package com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerv
 
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import org.threeten.bp.Year
 
@@ -107,14 +109,23 @@ class HorizontalCalendarUtils {
             return monthName
         }
 
+
         fun configCallLayout(context: Context, layout: View, color: Int) {
             val shape: GradientDrawable = GradientDrawable()
             // instead of context.getResources().getColor(color))as this depreciated and the
             // version
             shape.setColor(ContextCompat.getColor(context, color))
             shape.setShape(GradientDrawable.OVAL)
-            layout.setBackground(shape)
+
+            with(layout){
+                background = shape
+                elevation = 6f
+                translationZ = 6f
+            }
+
         }
+
+
 
 
 

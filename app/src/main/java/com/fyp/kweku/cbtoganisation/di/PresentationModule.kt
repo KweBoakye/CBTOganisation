@@ -1,6 +1,7 @@
 package com.fyp.kweku.cbtoganisation.di
 
-import com.fyp.kweku.cbtoganisation.tasks.domain.interactors.TaskOutput
+import com.fyp.kweku.cbtoganisation.tasks.domain.TaskPresenter
+import com.fyp.kweku.cbtoganisation.tasks.domain.TaskOutput
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskViewModel
 import com.fyp.kweku.cbtoganisation.tasks.presentation.createnewtask.CreateNewTaskController
 import com.fyp.kweku.cbtoganisation.tasks.presentation.createnewtask.CreateNewTaskViewClass
@@ -14,9 +15,23 @@ import com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclervi
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.tasksbybydayrecyclerview.TasksByDayController
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.tasksbybydayrecyclerview.TasksByDayRecyclerViewClass
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.tasksbybydayrecyclerview.TasksByDayRecyclerViewClassInterface
-import com.fyp.kweku.cbtoganisation.tasks.presentation.monthcalendar.MonthCalendarController
+import com.fyp.kweku.cbtoganisation.tasks.presentation.locations.LocationsController
+import com.fyp.kweku.cbtoganisation.tasks.presentation.locations.LocationsViewClass
+import com.fyp.kweku.cbtoganisation.tasks.presentation.locations.LocationsViewClassInterface
+import com.fyp.kweku.cbtoganisation.tasks.presentation.locations.tasksbylocation.TasksByLocationController
+import com.fyp.kweku.cbtoganisation.tasks.presentation.locations.tasksbylocation.TasksByLocationViewClass
+import com.fyp.kweku.cbtoganisation.tasks.presentation.locations.tasksbylocation.TasksByLocationViewClassInterface
 import com.fyp.kweku.cbtoganisation.tasks.presentation.monthcalendar.MonthCalendarViewClass
 import com.fyp.kweku.cbtoganisation.tasks.presentation.monthcalendar.MonthCalendarViewClassInterface
+import com.fyp.kweku.cbtoganisation.tasks.presentation.monthcalendar.outerrecyclerview.MonthCalendarOuterController
+import com.fyp.kweku.cbtoganisation.tasks.presentation.monthcalendar.outerrecyclerview.MonthCalendarOuterViewClass
+import com.fyp.kweku.cbtoganisation.tasks.presentation.monthcalendar.outerrecyclerview.MonthCalendarOuterViewClassInterface
+import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.MonthViewPagerController
+import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.MonthViewPagerViewClass
+import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.MonthViewPagerViewClassInterface
+import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.calendar.MonthCalendarControllerForViewPager
+import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.calendar.MonthCalendarViewClassForViewPager
+import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.calendar.MonthCalendarViewClassForViewPagerInterface
 import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtasks.ViewTasksController
 import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtasks.ViewTasksViewClass
 import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtasks.ViewTasksViewClassInterface
@@ -25,6 +40,9 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val PresentationModule = module {
+    single<TaskOutput> {  TaskViewModel(get())  }
+
+
     factory<CreateNewTaskViewClassInterface> { CreateNewTaskViewClass(get(),get()) }
 
     factory{ CreateNewTaskController(get())}
@@ -41,7 +59,9 @@ val PresentationModule = module {
 
     factory { HorizontalCalendarController(get()) }
 
-     viewModel { TaskViewModel() }
+     viewModel { TaskViewModel(get() ) }
+
+    factory { TaskPresenter() }
 
 
     factory<TasksByDayRecyclerViewClassInterface> { TasksByDayRecyclerViewClass(get(),get(), get()) }
@@ -50,7 +70,26 @@ val PresentationModule = module {
 
     factory<MonthCalendarViewClassInterface> { MonthCalendarViewClass(get(), get()) }
 
-    factory { MonthCalendarController(get()) }
+    factory<MonthCalendarOuterViewClassInterface> { MonthCalendarOuterViewClass( get(), get() )    }
+
+    factory { MonthCalendarOuterController(get() ) }
+
+    //locations
+    factory<LocationsViewClassInterface> { LocationsViewClass(get(), get()) }
+    factory { LocationsController(get()) }
+
+    //tasksByLocation
+    factory<TasksByLocationViewClassInterface> { TasksByLocationViewClass(get(), get()) }
+    factory { TasksByLocationController(get()) }
+
+    factory<MonthViewPagerViewClassInterface> { MonthViewPagerViewClass(get(),get(),get())}
+    factory { MonthViewPagerController(get()) }
+
+    factory <MonthCalendarViewClassForViewPagerInterface>{ MonthCalendarViewClassForViewPager(get(),get())  }
+    factory { MonthCalendarControllerForViewPager(get()) }
+
+
+
 
 
 }

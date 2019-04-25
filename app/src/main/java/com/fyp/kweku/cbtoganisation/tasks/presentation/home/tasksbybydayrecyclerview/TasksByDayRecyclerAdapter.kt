@@ -35,7 +35,6 @@ class TasksByDayRecyclerAdapter(private val context:  Context): ListAdapter<Task
       lateinit   var taskEndDate : TextView
       lateinit   var taskStartTime: TextView
       lateinit   var taskEndTime : TextView
-        lateinit var taskCompleted: MaterialCheckBox
       lateinit  var card: MaterialCardView
         lateinit var taskID: String
 
@@ -46,7 +45,6 @@ class TasksByDayRecyclerAdapter(private val context:  Context): ListAdapter<Task
             this.taskEndDate .text= taskPresentationModel.taskEndDate.format(ProjectDateTimeUtils.getCustomDateFormatter())
             this.taskStartTime.text= taskPresentationModel.taskStartTime.toString()
             this.taskEndTime .text= taskPresentationModel.taskEndTime.toString()
-            this.taskCompleted.isChecked= taskPresentationModel.taskCompleted
             this.taskID = taskPresentationModel.taskID
         }
 
@@ -66,8 +64,7 @@ class TasksByDayRecyclerAdapter(private val context:  Context): ListAdapter<Task
         tasksByDayViewHolder.taskStartDate = viewTasksByDayBinding.textViewTaskStarDate
         tasksByDayViewHolder.taskEndDate = viewTasksByDayBinding.textViewTaskEndDate
         tasksByDayViewHolder.taskStartTime = viewTasksByDayBinding.textviewTaskStartTime
-        tasksByDayViewHolder.taskEndTime = viewTasksByDayBinding.textViewTaskEndDate
-        tasksByDayViewHolder.taskCompleted = viewTasksByDayBinding.checkboxTaskCompleted
+        tasksByDayViewHolder.taskEndTime = viewTasksByDayBinding.textviewTaskEndTime
         tasksByDayViewHolder.card = viewTasksByDayBinding.cardViewTaskItem
         return tasksByDayViewHolder
     }
@@ -85,7 +82,7 @@ class TasksByDayRecyclerAdapter(private val context:  Context): ListAdapter<Task
          holder.taskEndTime.text = this.data[position].taskEndTime.toString()
          holder.taskCompleted.isChecked = this.data[position].taskCompleted*/
         holder.bind(getItem(position))
-        holder.taskCompleted.setOnClickListener {  }
+
 
         }
 
@@ -98,6 +95,7 @@ class TasksByDayRecyclerAdapter(private val context:  Context): ListAdapter<Task
 
     fun setData(data: MutableList<TaskPresentationModel>) {
         this.data = data
+        notifyDataSetChanged()
     }
 
 
