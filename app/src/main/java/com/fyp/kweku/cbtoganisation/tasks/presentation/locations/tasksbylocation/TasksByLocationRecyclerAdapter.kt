@@ -17,7 +17,7 @@ class TasksByLocationRecyclerAdapter(): ListAdapter<TaskPresentationModel, Tasks
     TaskPresentationModelDiffCallback()
 ) {
 
-    private  var data: MutableList<TaskPresentationModel> = mutableListOf<TaskPresentationModel>()
+
 
     inner class TasksByLocationViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         lateinit var taskName: TextView

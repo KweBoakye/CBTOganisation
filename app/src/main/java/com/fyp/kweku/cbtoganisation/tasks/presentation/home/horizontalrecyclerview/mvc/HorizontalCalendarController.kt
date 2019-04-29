@@ -88,7 +88,7 @@ class HorizontalCalendarController(val getTasksInteractorInterface: GetTasksInte
     fun getCalendarItems(month: Int, year: Int): MutableList<HorizontalCalendarItem> {
         val items = ArrayList<HorizontalCalendarItem>()
         for (day in 0 until HorizontalCalendarUtils.calculateMonthLength(month,year)) {
-            items.add(HorizontalCalendarItem(day + 1, month, R.color.colorPrimary, year))
+            items.add(HorizontalCalendarItem(day + 1, month, R.color.colorAccent, year))
         }
         return items
     }

@@ -8,13 +8,14 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.fyp.kweku.cbtoganisation.common.prepopulation.prepoulator
 import com.fyp.kweku.cbtoganisation.tasks.data.model.TaskDataModel
 import timber.log.Timber
-
+//define the entities and related classes and the version number
 @Database(entities = [TaskDataModel::class], version = 5)
 abstract class AppRoomDatabase : RoomDatabase() {
-    abstract fun taskDao(): TaskDao
+    abstract fun taskDao(): TaskDao    // Data Access Objects
 
     companion object {
         @Volatile
+
         private var INSTANCE: AppRoomDatabase? = null
 
         fun getDatabase(context: Context): AppRoomDatabase {

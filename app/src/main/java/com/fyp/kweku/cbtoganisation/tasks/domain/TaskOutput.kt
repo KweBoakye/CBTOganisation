@@ -20,7 +20,7 @@ interface TaskOutput {
 
     fun getTasksByLocation(): MutableLiveData<List<TaskPresentationModel>>
 
- fun getDatesAndTasksByMonth(): LiveData<List<Pair<LocalDate, MutableList<TaskPresentationModel>>>>
+ fun getDatesAndTasksByMonth(): LiveData<List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>>>
 
     suspend fun showAllTasks(tasks: List<Task>)
 
@@ -35,6 +35,6 @@ interface TaskOutput {
 
     suspend fun  showTasksByLocation(tasksByLocation: List<Task>)
 
-    suspend fun setDatesAndTasksByMonth(listOfDates: MutableList<LocalDate>)
+    suspend fun setDatesAndTasksByMonth(listOfDates: MutableList<Pair<LocalDate, Boolean>>)
 
 }

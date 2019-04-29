@@ -32,6 +32,7 @@ class CBTOrganisationApplication : Application(){
 
     }
 
+    //Needs to be here due to assets.open
     fun readJSONFromAsset(){
         val json: String?
         try {

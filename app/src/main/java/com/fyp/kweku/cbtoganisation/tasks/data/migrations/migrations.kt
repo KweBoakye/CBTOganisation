@@ -3,6 +3,10 @@ package com.fyp.kweku.cbtoganisation.tasks.data.migrations
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
+/* These Nigrations are used to Allow Room to Migrate to a new Database Version.
+*
+* They Describe how  the Databse has changed and the version change*/
+
 object MIGRATION_1_2 : Migration(1, 2) {
     override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL(

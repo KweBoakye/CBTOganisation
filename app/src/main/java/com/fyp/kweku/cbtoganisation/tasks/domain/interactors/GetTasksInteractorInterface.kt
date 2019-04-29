@@ -15,6 +15,6 @@ interface GetTasksInteractorInterface {
     suspend fun filterListOfTasksByDay(listOfDates:MutableList<LocalDate>)
     fun getMonthCalendarTasksByDayAsAny(): Any
     fun getMonthCalendarTaskNamesByDayAsAny(): Any
-    suspend fun filterTasksByMonth(listOfDates: MutableList<LocalDate>)
+    suspend fun filterTasksByMonth(listOfDates: MutableList<Pair<LocalDate, Boolean>>)
     fun getDatesAndTasksByMonthAsAny(): Any
 }

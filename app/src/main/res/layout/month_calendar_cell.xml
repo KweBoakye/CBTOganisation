@@ -7,7 +7,8 @@
         android:id="@+id/dayCell"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
+
+        android:background="#00000000"
         android:orientation="vertical">
 
         <TextView
@@ -18,27 +19,37 @@
         <TextView
             android:id="@+id/TaskTextView1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/TaskTextView2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/TaskTextView3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/TaskTextView4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/TaskTextView5"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textStyle="bold" />
 
     </LinearLayout>
 </layout>

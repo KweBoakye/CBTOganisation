@@ -2,6 +2,7 @@ package com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.calendar
 
 import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
 import com.fyp.kweku.cbtoganisation.tasks.domain.interactors.GetTasksInteractorInterface
+import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -20,26 +21,36 @@ class MonthCalendarControllerForViewPager(val getTasksInteractorInterface: GetTa
     private val scope = CoroutineScope(coroutineContext)
 
 
-    private fun calculateDates(month: YearMonth):MutableList<LocalDate>{
+    private fun calculateDates(month: YearMonth):MutableList<Pair<LocalDate, Boolean>>{
         val dayOfWeekMonthStartsOn = getDayOfWeekMonthStartsOn(month)
         val numberOfOverflowDaysBeforeMonthStarts = getNumberOfOverflowDaysBeforeMonthStarts(dayOfWeekMonthStartsOn)
         val overflowAsDate = getOverflowAsDate(numberOfOverflowDaysBeforeMonthStarts, month)
         Timber.i("$overflowAsDate")
-        val listOfDates = (getListOfDates(overflowAsDate)).map {
-                date ->  LocalDate.parse(date.format(ProjectDateTimeUtils.getCustomDateFormatter()),
-            ProjectDateTimeUtils.getCustomDateFormatter() ) }.toMutableList()
+        val listOfDates = (calculatesDatesAndBoolean(overflowAsDate,month)).map {
+                date -> Pair(LocalDate.parse(date.first.format(ProjectDateTimeUtils.getCustomDateFormatter()),
+            ProjectDateTimeUtils.getCustomDateFormatter() ), date.second) }.toMutableList()
         return listOfDates
     }
 
+
+
     fun loadAllTasksForRecycler() = scope.launch(Dispatchers.IO){ getTasksInteractorInterface.sendTasksToPresentationLayer()}
     fun filterTasksByMonth(month: YearMonth) = scope.launch(Dispatchers.IO){ getTasksInteractorInterface.filterTasksByMonth(calculateDates(month))}
-
+    fun getDatesAndTasksByMonthAsAny() = getTasksInteractorInterface.getDatesAndTasksByMonthAsAny()
     private fun getNumberOfOverflowDaysBeforeMonthStarts(dayOfWeek:Int):Int{
         return dayOfWeek-1
     }
 
+   fun  checkisPartOfCurrentMonth(date: LocalDate, month: YearMonth):Boolean{
+       return YearMonth.from(date) == month
+   }
+
     private fun getDayOfWeekMonthStartsOn(yearMonth: YearMonth):Int{
         return (yearMonth.atDay(1)).dayOfWeek.value
+    }
+
+    fun calculatesDatesAndBoolean(date: LocalDate, month: YearMonth): MutableList<Pair<LocalDate, Boolean>>{
+        return MutableList(42){ Pair(date.plusDays(it.toLong()), checkisPartOfCurrentMonth(date.plusDays(it.toLong()), month))}
     }
 
     private fun getListOfDates(date: LocalDate):MutableList<LocalDate>{

@@ -63,20 +63,12 @@ class MonthCalendarRecyclerAdapter(val taskFetcher: TaskFetcher): RecyclerView.A
     }
 
     fun checkTaskNames(position: Int, index :Int,  taskLists: MutableList<MutableList<TaskPresentationModel>>):String{
-        return when (taskLists.isEmpty()){
-            true -> {""}
-            false ->
-                when (taskLists[position].isEmpty()){
-                    true -> {""}
-                    false ->
-                        when(taskLists[position][index].taskName.isNullOrBlank()){
-                            true-> {""}
-                            false-> {
-                                taskLists[position][index].taskName
-                            }
-                        }
-                }
-        }
+
+        return if(taskLists.isEmpty() || taskLists[position].isEmpty() || taskLists[position][index].taskName.isBlank())(
+                ""
+                )
+        else taskLists[position][index].taskName
+
     }
 
 

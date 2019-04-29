@@ -1,11 +1,16 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
+    
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/primaryLightColor</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
+        <item name="android:background">@color/background</item>
+        <item name="colorOnPrimary">@color/primaryTextColor</item>
+        <item name="colorOnSecondary">@color/primaryText</item>
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -18,18 +23,24 @@
 
     <style name="FullScreenDialogStyle" parent="Theme.AppCompat.Dialog">
         <item name="android:windowNoTitle">true</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorPrimary">@color/primaryColor</item>
 
-        <!-- Set this to true if you want Full Screen without status bar -->
+        <!-- Sets FullScreen Without Status Bar -->
         <item name="android:windowFullscreen">false</item>
 
         <item name="android:windowIsFloating">false</item>
 
-        <!-- This is important! Don't forget to set window background -->
+
         <item name="android:windowBackground">@color/design_default_color_background</item>
 
     </style>
-
+    
+<style name="DarkToolBarStyle" parent="Widget.MaterialComponents.Toolbar">
+    <item name="android:background">?android:attr/colorPrimaryDark</item>
+    <item name="popupTheme">@style/ThemeOverlay.MaterialComponents.Light</item>
+    <item name="theme">@style/ThemeOverlay.MaterialComponents.Dark</item>
+    <item name="android:textAlignment">center</item>
+</style>
 
 </resources>

@@ -10,17 +10,22 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/design_default_color_background">
+        android:background="@color/design_default_color_background"
+        android:elevation="@dimen/dialog_elevation">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/appBarLayout">
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/tasksByLocationToolbar"
+                style="@style/DarkToolBarStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:elevation="@dimen/app_bar__elevation"
+                android:textAlignment="center">
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -45,9 +50,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

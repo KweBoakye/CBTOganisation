@@ -6,11 +6,17 @@ import org.threeten.bp.LocalDate
 
 interface MonthCalendarViewClassForViewPagerInterface {
 
-    interface MonthCalendarViewClass{
+    interface MonthCalendarViewClassListener{
 
     }
 
+    interface MonthCalendarViewClassFragmentListener{
+        fun launchDialog(date: LocalDate)
+    }
+
+
     fun getRoot(): View
-    fun setAdapterDatesAndTasks(datesAndTasks: List<Pair<LocalDate, MutableList<TaskPresentationModel>>>)
-    fun initRecyclerview()
+    fun initRecyclerview(datesAndTasks: List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>>)
+    //fun setListener()
+    fun setFragmentListener(monthCalendarViewClassFragmentListener: MonthCalendarViewClassFragmentListener)
 }

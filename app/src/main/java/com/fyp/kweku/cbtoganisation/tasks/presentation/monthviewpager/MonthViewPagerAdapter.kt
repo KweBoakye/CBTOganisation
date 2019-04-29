@@ -16,7 +16,7 @@ import org.koin.core.get
 import org.threeten.bp.YearMonth
 
 
-class MonthViewPagerAdapter(monthViewPagerFragment: MonthViewPagerFragment): FragmentStateAdapter(monthViewPagerFragment),KoinComponent {
+class MonthViewPagerAdapter(monthViewPagerFragment: MonthViewPagerFragment): FragmentStateAdapter(monthViewPagerFragment) {
 
     override fun getItem(position: Int): MonthCalendarFragment {
         val monthString = months[position].toString()

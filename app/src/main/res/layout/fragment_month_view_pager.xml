@@ -4,9 +4,9 @@
     tools:context=".tasks.presentation.monthviewpager.MonthViewPagerFragment">
 
     <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/monthViewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/monthViewpager">
+        android:layout_height="match_parent">
 
     </androidx.viewpager2.widget.ViewPager2>
 

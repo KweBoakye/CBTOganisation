@@ -59,7 +59,7 @@ val presentTask = publish<Task>{send(task)}
         taskOutput.postMonthCalendarTasksByDay(listOfDates)
     }
 
-    override suspend fun filterTasksByMonth(listOfDates: MutableList<LocalDate>){
+    override suspend fun filterTasksByMonth(listOfDates: MutableList<Pair<LocalDate, Boolean>>){
         taskOutput.setDatesAndTasksByMonth(listOfDates)
     }
 

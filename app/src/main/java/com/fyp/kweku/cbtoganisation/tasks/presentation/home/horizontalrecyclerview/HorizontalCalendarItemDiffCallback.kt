@@ -8,7 +8,12 @@ class HorizontalCalendarItemDiffCallback : DiffUtil.ItemCallback<HorizontalCalen
     }
 
     override fun areContentsTheSame(oldItem: HorizontalCalendarItem, newItem: HorizontalCalendarItem): Boolean {
-        return oldItem == newItem
+        return with(oldItem) {
+            day == newItem.day
+                    && month == oldItem.month
+                    && year == newItem.year
+                    && backgroundColor == oldItem.backgroundColor
+        }
     }
 
 }

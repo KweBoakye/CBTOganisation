@@ -6,6 +6,7 @@ import android.os.Build
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import org.threeten.bp.Month
 import org.threeten.bp.Year
 
 class HorizontalCalendarUtils {
@@ -13,41 +14,15 @@ class HorizontalCalendarUtils {
         fun calculateMonthLength(month: Int,year: Int): Int {
             var monthLength: Int = 0
             when (month) {
-                1 -> {
+                1,3,5,8,10,12 -> {
                     monthLength = 31
                 }
                 2 -> {monthLength =if (Year.of(year).isLeap)return 29
                     else 28
                 }
-                3 -> {
-                    monthLength = 31
-                }
-                4 -> {
+
+                4,6,7,9,11 -> {
                     monthLength = 30
-                }
-                5 -> {
-                    monthLength = 31
-                }
-                6 -> {
-                    monthLength = 30
-                }
-                7 -> {
-                    monthLength = 31
-                }
-                8 -> {
-                    monthLength = 31
-                }
-                9 -> {
-                    monthLength = 30
-                }
-                10 -> {
-                    monthLength = 31
-                }
-                11 -> {
-                    monthLength = 30
-                }
-                12 -> {
-                    monthLength = 31
                 }
 
             }
@@ -55,58 +30,8 @@ class HorizontalCalendarUtils {
         }
 
         fun returnMonthName(month: Int): String {
-            var monthName: String = ""
-            when (month) {
-                1 -> {
-                    monthName = "Jan"
+            return Month.of(month).name.subSequence(0,3).toString()
 
-                }
-                2 -> {
-                    monthName = "Feb"
-
-                }
-                3 -> {
-                    monthName = "Mar"
-
-                }
-                4 -> {
-                    monthName = "Apr"
-
-                }
-                5 -> {
-                    monthName = "May"
-
-                }
-                6 -> {
-                    monthName = "Jun"
-
-                }
-                7 -> {
-                    monthName = "Jul"
-
-                }
-                8-> {
-                    monthName = "Aug"
-
-                }
-                9 -> {
-                    monthName = "Sep"
-
-                }
-                10 -> {
-                    monthName = "Oct"
-
-                }
-                11 -> {
-                    monthName = "Nov"
-
-                }
-                12 -> {
-                    monthName = "Dec"
-
-                }
-            }
-            return monthName
         }
 
 
@@ -116,11 +41,11 @@ class HorizontalCalendarUtils {
             // version
             shape.setColor(ContextCompat.getColor(context, color))
             shape.setShape(GradientDrawable.OVAL)
-
             with(layout){
                 background = shape
                 elevation = 6f
                 translationZ = 6f
+                alpha = 1f
             }
 
         }

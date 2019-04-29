@@ -6,6 +6,8 @@ import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskViewModel
 import com.fyp.kweku.cbtoganisation.tasks.presentation.createnewtask.CreateNewTaskController
 import com.fyp.kweku.cbtoganisation.tasks.presentation.createnewtask.CreateNewTaskViewClass
 import com.fyp.kweku.cbtoganisation.tasks.presentation.createnewtask.CreateNewTaskViewClassInterface
+import com.fyp.kweku.cbtoganisation.tasks.presentation.deletetask.DeleteTasksViewClass
+import com.fyp.kweku.cbtoganisation.tasks.presentation.deletetask.DeleteTasksViewClassInterface
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.HomeController
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.HomeViewClass
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.HomeViewClassInterface
@@ -32,6 +34,9 @@ import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.MonthViewP
 import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.calendar.MonthCalendarControllerForViewPager
 import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.calendar.MonthCalendarViewClassForViewPager
 import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.calendar.MonthCalendarViewClassForViewPagerInterface
+import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.taskbydaydialog.TasksBySpecificDayController
+import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.taskbydaydialog.TasksBySpecificDayViewClass
+import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.taskbydaydialog.TasksBySpecificDayViewClassInterface
 import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtasks.ViewTasksController
 import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtasks.ViewTasksViewClass
 import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtasks.ViewTasksViewClassInterface
@@ -88,7 +93,10 @@ val PresentationModule = module {
     factory <MonthCalendarViewClassForViewPagerInterface>{ MonthCalendarViewClassForViewPager(get(),get())  }
     factory { MonthCalendarControllerForViewPager(get()) }
 
+    factory<TasksBySpecificDayViewClassInterface> { TasksBySpecificDayViewClass(get(),get()) }
+    factory { TasksBySpecificDayController(get()) }
 
+    factory<DeleteTasksViewClassInterface>{ DeleteTasksViewClass() }
 
 
 

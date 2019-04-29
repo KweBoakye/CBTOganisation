@@ -19,7 +19,7 @@ class HomeViewClass(val inflater: LayoutInflater, val parent: ViewGroup?):HomeVi
     private lateinit var taskActivity: TaskActivity
     private lateinit var taskViewModel: TaskViewModel
     private val goToCreateNewTaskFragmentButton = binding.goToCreateNewTaskFragmentButton
-    private val goToMonthCalendarFragmentButton = binding.goToMonthCalendarFragmentButton
+
 
     init{}
 
@@ -31,9 +31,7 @@ class HomeViewClass(val inflater: LayoutInflater, val parent: ViewGroup?):HomeVi
         goToCreateNewTaskFragmentButton.setOnClickListener {listener?.onGoToCreateNewTaskFragmentButtonClicked(getTaskActivity()) }
     }
 
-    override fun setGoToMonthCalendarFragmentButtonOnClickListener() {
-        goToMonthCalendarFragmentButton.setOnClickListener{listener?.onGoToMonthCalendarFragmentButtonClicked(getTaskActivity())}
-    }
+
 
     override fun setListener(listener: HomeViewClassInterface.HomeListener) {
         this.listener = listener

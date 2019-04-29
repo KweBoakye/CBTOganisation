@@ -1,14 +1,11 @@
 package com.fyp.kweku.cbtoganisation.tasks.data
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.fyp.kweku.cbtoganisation.tasks.data.model.TaskDataModel
 
 @Dao
 interface TaskDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insertTasks(vararg Tasks: TaskDataModel):List<Long>
 
     @Query("SELECT * FROM tasks")
@@ -22,6 +19,12 @@ interface TaskDao {
 
     @Query("SELECT * FROM tasks WHERE taskLocation=:taskLocation")
     fun getTasksByLocation(taskLocation: String):List<TaskDataModel>
+
+    @Delete
+    fun deleteTask(task: TaskDataModel)
+
+    @Update
+    fun updateTask(task: TaskDataModel)
 
 
 

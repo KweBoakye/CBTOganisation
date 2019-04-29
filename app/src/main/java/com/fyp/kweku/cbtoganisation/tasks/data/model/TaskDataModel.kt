@@ -5,6 +5,8 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 
+/* DatabaseModel class, with defenitions to allow room to define an Interface for it*/
+
 @Entity(tableName = "tasks")
 data class TaskDataModel (@PrimaryKey
     val taskID: String,

@@ -42,9 +42,9 @@ class TasksByDayRecyclerAdapter(private val context:  Context): ListAdapter<Task
             this.taskName.text=  taskPresentationModel.taskName
             this.taskLocation.text= taskPresentationModel.taskLocation
             this.taskStartDate.text= taskPresentationModel.taskStartDate.format(ProjectDateTimeUtils.getCustomDateFormatter())
-            this.taskEndDate .text= taskPresentationModel.taskEndDate.format(ProjectDateTimeUtils.getCustomDateFormatter())
+            this.taskEndDate.text= taskPresentationModel.taskEndDate.format(ProjectDateTimeUtils.getCustomDateFormatter())
             this.taskStartTime.text= taskPresentationModel.taskStartTime.toString()
-            this.taskEndTime .text= taskPresentationModel.taskEndTime.toString()
+            this.taskEndTime.text= taskPresentationModel.taskEndTime.toString()
             this.taskID = taskPresentationModel.taskID
         }
 
@@ -56,16 +56,25 @@ class TasksByDayRecyclerAdapter(private val context:  Context): ListAdapter<Task
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): TasksByDayRecyclerAdapter.TasksByDayViewHolder {
+    ): TasksByDayViewHolder {
         viewTasksByDayBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.itemcard_viewtasksbyday,parent, false)
-        val tasksByDayViewHolder = TasksByDayRecyclerAdapter.TasksByDayViewHolder(viewTasksByDayBinding.root)
-        tasksByDayViewHolder.taskName          = viewTasksByDayBinding.textViewTaskName
+        val tasksByDayViewHolder =TasksByDayViewHolder(viewTasksByDayBinding.root)
+        with(tasksByDayViewHolder){
+            taskName          = viewTasksByDayBinding.textViewTaskName
+            taskLocation = viewTasksByDayBinding.textViewTaskLocation
+            taskStartDate = viewTasksByDayBinding.textViewTaskStarDate
+            taskEndDate = viewTasksByDayBinding.textViewTaskEndDate
+            taskStartTime = viewTasksByDayBinding.textviewTaskStartTime
+            taskEndTime = viewTasksByDayBinding.textviewTaskEndTime
+            card = viewTasksByDayBinding.cardViewTaskItem
+        }
+        /*tasksByDayViewHolder.taskName          = viewTasksByDayBinding.textViewTaskName
         tasksByDayViewHolder.taskLocation = viewTasksByDayBinding.textViewTaskLocation
         tasksByDayViewHolder.taskStartDate = viewTasksByDayBinding.textViewTaskStarDate
         tasksByDayViewHolder.taskEndDate = viewTasksByDayBinding.textViewTaskEndDate
         tasksByDayViewHolder.taskStartTime = viewTasksByDayBinding.textviewTaskStartTime
         tasksByDayViewHolder.taskEndTime = viewTasksByDayBinding.textviewTaskEndTime
-        tasksByDayViewHolder.card = viewTasksByDayBinding.cardViewTaskItem
+        tasksByDayViewHolder.card = viewTasksByDayBinding.cardViewTaskItem*/
         return tasksByDayViewHolder
     }
 

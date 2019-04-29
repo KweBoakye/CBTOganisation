@@ -27,7 +27,7 @@ class TaskViewModel(private val taskPresenter: TaskPresenter) : ViewModel(),
     private val monthCalendarTaskNamesByDay: MutableLiveData<MutableList<MutableList<String>>> = MutableLiveData()
     private val allLocations: MutableLiveData<List<String>> = MutableLiveData()
     private val tasksByLocationLiveData: MutableLiveData<List<TaskPresentationModel>> = MutableLiveData()
-    private val datesAndTasksByMonth: MutableLiveData<List<Pair<LocalDate, MutableList<TaskPresentationModel>>>> = MutableLiveData()
+    private val datesAndTasksByMonth: MutableLiveData<List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>>> = MutableLiveData()
     val modelMapper = PresentationModelMapper()
 
     override fun getAllLocations(): LiveData<List<String>> {
@@ -67,14 +67,13 @@ class TaskViewModel(private val taskPresenter: TaskPresenter) : ViewModel(),
 
     override fun getTasksByDay(): LiveData<MutableList<TaskPresentationModel>> = tasksByDay
 
-    override fun getMonthCalendarTasksByDay(): LiveData<MutableList<MutableList<TaskPresentationModel>>> =
-        monthCalendarTasksByDay
+    override fun getMonthCalendarTasksByDay(): LiveData<MutableList<MutableList<TaskPresentationModel>>> = monthCalendarTasksByDay
 
     override fun getMonthCalendarTaskNamesByDay(): MutableLiveData<MutableList<MutableList<String>>> =
         this.monthCalendarTaskNamesByDay
 
 
-    override fun getDatesAndTasksByMonth(): LiveData<List<Pair<LocalDate, MutableList<TaskPresentationModel>>>> = this.datesAndTasksByMonth
+    override fun getDatesAndTasksByMonth(): LiveData<List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>>> = this.datesAndTasksByMonth
 
     override suspend fun postTasksByDay(date: LocalDate) = withContext(Dispatchers.Main) {
         val tasksForThisDay: List<TaskPresentationModel> = allTasksLiveData.value!!.filter { taskPresentationModel ->
@@ -124,15 +123,15 @@ class TaskViewModel(private val taskPresenter: TaskPresenter) : ViewModel(),
             Timber.i("$a")
         }
 
-    override suspend fun setDatesAndTasksByMonth(listOfDates: MutableList<LocalDate>) = withContext(Dispatchers.Main) {
-        val taskList: MutableList<MutableList<TaskPresentationModel>> = mutableListOf()
+    override suspend fun setDatesAndTasksByMonth(listOfDates:MutableList<Pair<LocalDate, Boolean>>) = withContext(Dispatchers.Main) {
+        val taskList: MutableList<MutableList<TaskPresentationModel?>> = mutableListOf()
 
         listOfDates.forEachIndexed { index, date ->
             taskList.add(
                 index,
                 allTasksLiveData.value!!.filter { taskPresentationModel ->
                     ProjectDateTimeUtils.checkIfDateIsInRange(
-                        date,
+                        date.first,
                         taskPresentationModel.taskStartDate,
                         taskPresentationModel.taskEndDate
                     )
@@ -141,8 +140,10 @@ class TaskViewModel(private val taskPresenter: TaskPresenter) : ViewModel(),
         }
 
 
-        val datesAndTaskZippedList: List<Pair<LocalDate, MutableList<TaskPresentationModel>>> = listOfDates.zip(taskList)
+        val datesAndTaskZippedList: List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>> = MutableList(42){ Triple(listOfDates[it].first, listOfDates[it].second, taskList[it])   }    //zip(taskList)
         datesAndTasksByMonth.value = datesAndTaskZippedList
+        Timber.i("${datesAndTasksByMonth.value}")
+        Timber.i("${datesAndTasksByMonth.hasActiveObservers()}")
         //val tasksAndDatesMap: Map<List<LocalDate>, MutableList<MutableList<TaskPresentationModel>>> = mapOf(listOf, taskList)
     }
 

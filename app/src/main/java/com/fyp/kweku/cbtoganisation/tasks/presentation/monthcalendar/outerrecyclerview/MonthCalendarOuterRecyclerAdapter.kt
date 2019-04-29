@@ -120,7 +120,18 @@ fun loader(position: Int){
             MonthCalendarOuterViewHolder(
                 monthCalendarFrameBinding.root,this
             )
-        monthCalendarOuterViewHolder.monthTitleTextView = monthCalendarFrameBinding.monthTitle
+        with(monthCalendarOuterViewHolder){
+            monthTitleTextView = monthCalendarFrameBinding.monthTitle
+            mondayTextView   = monthCalendarFrameBinding.textViewMonday
+            tuesdayTextView = monthCalendarFrameBinding.textViewTuesday
+            wednesdayTextView = monthCalendarFrameBinding.textViewWednesday
+            thursday = monthCalendarFrameBinding.textViewThursday
+            friday = monthCalendarFrameBinding.textViewFriday
+            saturday = monthCalendarFrameBinding.textViewSaturday
+            sunday = monthCalendarFrameBinding.textViewSunday
+            monthCalendarRecyclerView = monthCalendarFrameBinding.MonthCalendarRecyclerView
+        }
+        /*monthCalendarOuterViewHolder.monthTitleTextView = monthCalendarFrameBinding.monthTitle
         monthCalendarOuterViewHolder.mondayTextView   = monthCalendarFrameBinding.textViewMonday
         monthCalendarOuterViewHolder.tuesdayTextView = monthCalendarFrameBinding.textViewTuesday
         monthCalendarOuterViewHolder.wednesdayTextView = monthCalendarFrameBinding.textViewWednesday
@@ -128,7 +139,7 @@ fun loader(position: Int){
         monthCalendarOuterViewHolder.friday = monthCalendarFrameBinding.textViewFriday
         monthCalendarOuterViewHolder.saturday = monthCalendarFrameBinding.textViewSaturday
         monthCalendarOuterViewHolder.sunday = monthCalendarFrameBinding.textViewSunday
-        monthCalendarOuterViewHolder.monthCalendarRecyclerView = monthCalendarFrameBinding.MonthCalendarRecyclerView
+        monthCalendarOuterViewHolder.monthCalendarRecyclerView = monthCalendarFrameBinding.MonthCalendarRecyclerView*/
 
        // val childLayoutManager = CustomGridLayoutManager(parent.context, 7, GridLayoutManager.VERTICAL, false)
 

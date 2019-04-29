@@ -14,7 +14,7 @@ interface MonthViewPagerViewClassInterface {
 
     fun getRoot(): View
     fun setListener(monthViewPagerViewClassListener: MonthViewPagerViewClassListener)
-    fun initViewPager(months: List<YearMonth>,currentMonthIndex: Int)
+    fun initViewPager(months: List<YearMonth>,monthIndex: Int)
     fun setToolbar(taskActivity: TaskActivity)
 
 }

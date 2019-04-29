@@ -21,7 +21,7 @@ class MonthViewPagerFragment : Fragment() {
         super.onCreate(savedInstanceState)
         taskActivity = context as TaskActivity
         monthViewPagerController = get()
-        monthViewPagerController.loadAllTasksForRecycler()
+       // monthViewPagerController.loadAllTasksForRecycler()
 
     }
 

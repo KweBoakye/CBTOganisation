@@ -1,4 +1,15 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="app_bar_height">56dp</dimen>
+    <dimen name="app_bar_height">48dp</dimen>
+    <dimen name="nav_drawer_elevation">16dp</dimen>
+    <dimen name="app_bar__elevation">4dp</dimen>
+    <dimen name="card_low_elevation">2dp</dimen>
+    <dimen name="card_mid_elevation">4dp</dimen>
+    <dimen name="card_high_elevation">8dp</dimen>
+    <dimen name="fab_elevation">6dp</dimen>
+    <dimen name="button_low_elevation">2dp</dimen>
+    <dimen name="button_mid_elevation">4dp</dimen>
+    <dimen name="button_high_elevation">8dp</dimen>
+    <dimen name="dialog_elevation">24dp</dimen>
+
 </resources>

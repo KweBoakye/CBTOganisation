@@ -13,5 +13,6 @@ single<GetTasksInteractorInterface> { GetTasksInteractor(get(),get()) }
 
     single<GetTasksByLocationInteractorInterface> { GetTasksByLocationInteractor(get(), get()) }
 
+    single<EditAndDeleteTasksInteractorInterface> {EditAndDeleteTasksInteractor(get())}
 
 }

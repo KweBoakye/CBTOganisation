@@ -10,7 +10,7 @@ interface HomeViewClassInterface {
 
     interface HomeListener{
         fun onGoToCreateNewTaskFragmentButtonClicked(taskActivity: TaskActivity)
-        fun onGoToMonthCalendarFragmentButtonClicked(taskActivity: TaskActivity)
+
     }
 
     fun getRootView(): View
@@ -24,7 +24,7 @@ interface HomeViewClassInterface {
 
     fun setGoToCreateNewTaskFragmentButtonOnClickListener()
 
-    fun setGoToMonthCalendarFragmentButtonOnClickListener()
+
 
     fun bindTaskViewModel(taskViewModel: TaskViewModel)
 

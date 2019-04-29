@@ -14,7 +14,7 @@
     <string name="TaskDescriptionInputHint">Task Description</string>
     <string name="SaveTaskButtonText">Save Task</string>
     <string name="CreateNewTaskButtonText">Create New Task</string>
-    <string name="no_tasks_layout_text">No Tasks On This Day</string>
+    <string name="no_tasks_layout_text">No Tasks Today</string>
     <string name="checkboxTaskCompletedText">Completed</string>
 
 
