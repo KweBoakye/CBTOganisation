@@ -19,6 +19,7 @@ class MonthCalendarControllerForViewPager(val getTasksInteractorInterface: GetTa
     private val coroutineContext: CoroutineContext
         get() = parentJob + Dispatchers.Main
     private val scope = CoroutineScope(coroutineContext)
+    private lateinit var monthCalendarViewClassForViewPagerInterface: MonthCalendarViewClassForViewPagerInterface
 
 
     private fun calculateDates(month: YearMonth):MutableList<Pair<LocalDate, Boolean>>{
@@ -32,7 +33,13 @@ class MonthCalendarControllerForViewPager(val getTasksInteractorInterface: GetTa
         return listOfDates
     }
 
+    fun bindView(monthCalendarViewClassForViewPagerInterface: MonthCalendarViewClassForViewPagerInterface){
+        this.monthCalendarViewClassForViewPagerInterface = monthCalendarViewClassForViewPagerInterface
+    }
 
+  fun initRecyclerview(datesAndTasks: List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>>){
+
+  }
 
     fun loadAllTasksForRecycler() = scope.launch(Dispatchers.IO){ getTasksInteractorInterface.sendTasksToPresentationLayer()}
     fun filterTasksByMonth(month: YearMonth) = scope.launch(Dispatchers.IO){ getTasksInteractorInterface.filterTasksByMonth(calculateDates(month))}

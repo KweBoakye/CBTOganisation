@@ -20,14 +20,10 @@ class TaskRepository(private val taskDao: TaskDao) : TaskRepositoryInterface {
         return this.taskDao.loadAllTasks().map { taskMapper.fromEntity(it) }
     }
 
-
-
     override suspend fun getTaskById(taskId: String): Task {
         return taskMapper.fromEntity(this.taskDao.findTaskById(taskId))
     }
 
-
-    //
     @WorkerThread
     override suspend fun saveTask(vararg tasks: Task) {
         val taskMapper = TaskMapper()
@@ -52,9 +48,5 @@ class TaskRepository(private val taskDao: TaskDao) : TaskRepositoryInterface {
   override  suspend fun updateTask(task: Task){
        taskDao.updateTask(taskMapper.toEntity(task))
    }
-
-
-
-
 
 }

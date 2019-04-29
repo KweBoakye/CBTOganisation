@@ -7,9 +7,6 @@ import com.fyp.kweku.cbtoganisation.R
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskActivity
 
 class HomeController:HomeViewClassInterface.HomeListener {
-
-
-
    // Interface for related View Class, interface can be used to create instance as it due to Interface Depenency Injection
     private lateinit var homeViewClassInterface: HomeViewClassInterface
     override fun onGoToCreateNewTaskFragmentButtonClicked(taskActivity: TaskActivity) {

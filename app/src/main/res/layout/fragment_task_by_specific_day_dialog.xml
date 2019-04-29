@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/design_default_color_background"
-        style="@style/DarkToolBarStyle"
         android:elevation="@dimen/dialog_elevation">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -25,6 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/colorPrimaryDark"
+                android:theme="@style/DarkToolBarStyle"
                 android:elevation="@dimen/app_bar__elevation">
 
             </androidx.appcompat.widget.Toolbar>

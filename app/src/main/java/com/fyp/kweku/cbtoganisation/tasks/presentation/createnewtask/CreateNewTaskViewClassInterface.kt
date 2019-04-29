@@ -6,9 +6,13 @@ import android.view.View
 
 interface CreateNewTaskViewClassInterface {
 
+
+
     interface CreateNewTaskListener {
         fun onSaveNewTaskButtonClick(input: Array<String>)
     }
+
+
 
     fun getRootView(): View
 

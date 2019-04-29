@@ -16,13 +16,19 @@ import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPre
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModelDiffCallback
 import org.threeten.bp.LocalDate
 
-class MonthCalendarRecyclerAdapterForViewPager(val datesAndTasks: List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>>, val dayListener: DayListener,val dayTextboxBackgroundColor: Int): RecyclerView.Adapter< MonthCalendarRecyclerAdapterForViewPager.MonthCalendarViewHolder>() {
+class MonthCalendarRecyclerAdapterForViewPager( val dayListener: DayListener,val dayTextboxBackgroundColor: Int): RecyclerView.Adapter< MonthCalendarRecyclerAdapterForViewPager.MonthCalendarViewHolder>() {
 
   // private var datesAndTasks: List<Pair<LocalDate, MutableList<TaskPresentationModel>>> = listOf()
 
-   /* fun setDatesAndTasks(datesAndTasks: List<Pair<LocalDate, MutableList<TaskPresentationModel>>>){
+   /* fun setAdapterData(datesAndTasks: List<Pair<LocalDate, MutableList<TaskPresentationModel>>>){
         this.datesAndTasks = datesAndTasks
     }*/
+   private var datesAndTasks: List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>> = listOf()
+
+    fun setDatesAndTasks(datesAndTasks: List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>>){
+        this.datesAndTasks = datesAndTasks
+        notifyDataSetChanged()
+    }
 
     override fun getItemCount(): Int= datesAndTasks.size
    lateinit var c: Color

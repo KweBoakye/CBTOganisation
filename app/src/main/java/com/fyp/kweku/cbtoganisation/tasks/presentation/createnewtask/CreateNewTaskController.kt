@@ -32,6 +32,8 @@ class CreateNewTaskController(val createNewTaskInteractorInterface: CreateNewTas
     }
 
     fun persistTask(input: Array<String>) = scope.launch(Dispatchers.IO){
+        if (input.isEmpty()){}
+        else{
         val taskID = createNewTaskInteractorInterface.generateTaskID()
         val task = Task(taskID,input[0],input[1],input[2],
             LocalDate.parse(input[3],ProjectDateTimeUtils.getCustomDateFormatter()),
@@ -39,7 +41,7 @@ class CreateNewTaskController(val createNewTaskInteractorInterface: CreateNewTas
             LocalTime.parse(input[5]),
             LocalTime.parse(input[6]))
         createNewTaskInteractorInterface.SendTaskToDataLayer(task)
-        Timber.i("persisttask called")
+        Timber.i("persisttask called")}
     }
 
 

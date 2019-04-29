@@ -41,11 +41,11 @@ class HorizontalCalendarUtils {
             // version
             shape.setColor(ContextCompat.getColor(context, color))
             shape.setShape(GradientDrawable.OVAL)
+            shape.alpha = 0
             with(layout){
                 background = shape
                 elevation = 6f
                 translationZ = 6f
-                alpha = 1f
             }
 
         }

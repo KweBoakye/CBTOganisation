@@ -21,6 +21,7 @@ class MonthViewPagerViewClass(val inflater: LayoutInflater, val parent: ViewGrou
     private lateinit var taskActivity: TaskActivity
     private lateinit var toolbar: Toolbar
     private var currentMonthIndex: Int = 0
+    private var firstLoad : Boolean = true
 
 
     override fun setToolbar(taskActivity: TaskActivity){
@@ -58,6 +59,7 @@ class MonthViewPagerViewClass(val inflater: LayoutInflater, val parent: ViewGrou
         val position = monthViewPager.currentItem
         val positionChanged: Boolean = currentMonthIndex != position
         if (positionChanged) {
+            monthViewPagerViewClassListener.setCalendar(viewPagerAdapter.getMonth(position))
             setTitle(position)
             currentMonthIndex = position
         }
@@ -80,7 +82,12 @@ class MonthViewPagerViewClass(val inflater: LayoutInflater, val parent: ViewGrou
     }
 
 
+    override fun onPageSelected(position: Int) {
+        super.onPageSelected(position)
+        if (firstLoad){ monthViewPagerViewClassListener.setCalendar(viewPagerAdapter.getMonth(position))
+        firstLoad = false}
 
+    }
 
 
     override fun setListener(monthViewPagerViewClassListener: MonthViewPagerViewClassInterface.MonthViewPagerViewClassListener) {

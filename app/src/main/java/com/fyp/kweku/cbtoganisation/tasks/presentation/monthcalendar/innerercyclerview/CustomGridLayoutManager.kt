@@ -20,6 +20,10 @@ class CustomGridLayoutManager:GridLayoutManager {
     override fun canScrollVertically(): Boolean {
         return false
     }
+
+    override fun canScrollHorizontally(): Boolean {
+        return false
+    }
    override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State) {
        super.onLayoutChildren(recycler, state)
        scrollVerticallyBy(0, recycler, state)

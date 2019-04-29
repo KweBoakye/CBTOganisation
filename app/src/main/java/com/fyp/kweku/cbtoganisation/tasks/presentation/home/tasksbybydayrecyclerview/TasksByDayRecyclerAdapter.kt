@@ -21,7 +21,8 @@ import timber.log.Timber
 
 
 
-class TasksByDayRecyclerAdapter(private val context:  Context): ListAdapter<TaskPresentationModel, TasksByDayRecyclerAdapter.TasksByDayViewHolder>(TaskPresentationModelDiffCallback()){
+class TasksByDayRecyclerAdapter(private val context:  Context): ListAdapter<TaskPresentationModel,
+        TasksByDayRecyclerAdapter.TasksByDayViewHolder>(TaskPresentationModelDiffCallback()){
 
     private  var data: MutableList<TaskPresentationModel> = mutableListOf<TaskPresentationModel>()
 

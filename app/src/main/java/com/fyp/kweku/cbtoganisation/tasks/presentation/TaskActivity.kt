@@ -30,8 +30,8 @@ class TaskActivity : AppCompatActivity() {
     lateinit var navHostFragment: NavHostFragment
      lateinit var binding: ActivityTaskBinding
     lateinit var drawerLayout: DrawerLayout
-     val taskViewModel by viewModel<TaskViewModel>()
-    //lateinit var collapsingToolbarLayout : CollapsingToolbarLayout
+     //val taskViewModel by viewModel<TaskViewModel>()
+
     lateinit var toolbar: Toolbar
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navigationView: NavigationView

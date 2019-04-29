@@ -25,6 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="@dimen/app_bar__elevation"
+                android:theme="@style/DarkToolBarStyle"
                 android:textAlignment="center">
 
             </androidx.appcompat.widget.Toolbar>

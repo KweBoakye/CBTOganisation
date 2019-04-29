@@ -20,16 +20,16 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                style="@style/DarkToolBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:elevation="@dimen/app_bar__elevation"
                 android:textAlignment="center"
+                android:theme="@style/DarkToolBarStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:subtitleTextColor="?attr/colorOnPrimary"
-                app:titleTextColor="?attr/colorPrimary" />
+                app:titleTextColor="?attr/colorOnPrimary" />
 
 
             <fragment

@@ -139,7 +139,6 @@ class TaskViewModel(private val taskPresenter: TaskPresenter) : ViewModel(),
             )
         }
 
-
         val datesAndTaskZippedList: List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>> = MutableList(42){ Triple(listOfDates[it].first, listOfDates[it].second, taskList[it])   }    //zip(taskList)
         datesAndTasksByMonth.value = datesAndTaskZippedList
         Timber.i("${datesAndTasksByMonth.value}")

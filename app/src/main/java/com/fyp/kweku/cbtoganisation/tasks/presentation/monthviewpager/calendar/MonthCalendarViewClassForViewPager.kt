@@ -14,6 +14,8 @@ import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPre
 import org.threeten.bp.LocalDate
 
 class MonthCalendarViewClassForViewPager(val inflater: LayoutInflater, val context: Context?):  MonthCalendarViewClassForViewPagerInterface, MonthCalendarRecyclerAdapterForViewPager.DayListener {
+
+
     override fun daySelected(date: LocalDate) {
         fragmentListener.launchDialog(date)
     }
@@ -22,11 +24,17 @@ class MonthCalendarViewClassForViewPager(val inflater: LayoutInflater, val conte
     private val root = binding.root
     private val monthCalendarRecyclerViewForViewPager: RecyclerView = binding.MonCalendarRecyclerViewForViewPager
    private lateinit var fragmentListener: MonthCalendarViewClassForViewPagerInterface.MonthCalendarViewClassFragmentListener
+
     private val customGridLayoutManager = CustomGridLayoutManager(context!!,7, VERTICAL, false)
     private val dayTextboxBackgroundColor: Int = ContextCompat.getColor(context!!, R.color.secondaryColor)
+    private val monthCalendarRecyclerAdapterForViewPager = MonthCalendarRecyclerAdapterForViewPager(this, dayTextboxBackgroundColor)
 
-    override fun initRecyclerview(datesAndTasks: List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>>){
-        val monthCalendarRecyclerAdapterForViewPager = MonthCalendarRecyclerAdapterForViewPager(datesAndTasks,this, dayTextboxBackgroundColor)
+    override fun setAdapterData(datesAndTasks: List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>>){
+        monthCalendarRecyclerAdapterForViewPager.setDatesAndTasks(datesAndTasks)
+    }
+
+    override fun initRecyclerview(){
+
         with(monthCalendarRecyclerViewForViewPager){
             layoutManager = customGridLayoutManager
             adapter = monthCalendarRecyclerAdapterForViewPager

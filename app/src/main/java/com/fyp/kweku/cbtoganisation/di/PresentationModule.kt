@@ -48,7 +48,7 @@ val PresentationModule = module {
     single<TaskOutput> {  TaskViewModel(get())  }
 
 
-    factory<CreateNewTaskViewClassInterface> { CreateNewTaskViewClass(get(),get()) }
+    factory<CreateNewTaskViewClassInterface> { CreateNewTaskViewClass(get(),get(),get()) }
 
     factory{ CreateNewTaskController(get())}
 

@@ -175,6 +175,7 @@ dependencies {
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha5'
     implementation 'androidx.viewpager2:viewpager2:1.0.0-alpha03'
+    implementation 'com.wdullaer:materialdatetimepicker:4.1.2'
 
     //Airbnb Epoxy
     implementation 'com.airbnb.android:epoxy:3.4.0'

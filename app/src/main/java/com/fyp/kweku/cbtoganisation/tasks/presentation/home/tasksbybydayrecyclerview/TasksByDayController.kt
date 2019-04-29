@@ -10,7 +10,8 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 
-class TasksByDayController(val getTasksInteractorInterface: GetTasksInteractorInterface, val taskOutput : TaskOutput):TasksByDayRecyclerViewClassInterface.TasksByDayRecyclerViewClassListener {
+class TasksByDayController(val getTasksInteractorInterface: GetTasksInteractorInterface, val taskOutput : TaskOutput):
+  TasksByDayRecyclerViewClassInterface.TasksByDayRecyclerViewClassListener {
 
   private var parentJob = Job()
   private val coroutineContext: CoroutineContext

@@ -51,11 +51,6 @@ tasksByDayController = get()
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
-
-
-
         val homeViewClassInterface: HomeViewClassInterface = HomeViewClass(layoutInflater, container)
         homeViewClassInterface.bindTaskViewModel(taskViewModel)
         homeController = get()
@@ -70,8 +65,6 @@ tasksByDayController = get()
             horizontalCalendarController.setControllerAsHorizontalCalendarViewClassListener()
             horizontalCalendarController.initHorizontalCalendar()
         }
-
-
 
 
         val tasksByDayObserver = Observer<MutableList<TaskPresentationModel>> {tasks -> tasksByDayRecyclerViewClassInterface.setTasks(tasks)}

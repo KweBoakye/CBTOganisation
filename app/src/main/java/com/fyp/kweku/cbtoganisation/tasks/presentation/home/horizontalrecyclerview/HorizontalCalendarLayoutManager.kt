@@ -37,8 +37,6 @@ class HorizontalCalendarLayoutManager: LinearLayoutManager, ScrollVectorProvider
         startSmoothScroll(centerSmoothScroller)
     }
 
-
-
     class CenterSmoothScroller(context: Context) : LinearSmoothScroller(context) {
 
         override fun calculateDtToFit(

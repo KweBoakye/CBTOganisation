@@ -40,9 +40,9 @@ class MonthViewPagerAdapter(monthViewPagerFragment: MonthViewPagerFragment): Fra
 
 
 
-    override fun getItemId(position: Int): Long {
+   /* override fun getItemId(position: Int): Long {
         return months[position].hashCode().toLong()
-    }
+    }*/
 
 
    /* inner class MonthCalendarViewPagerViewHolder( parent: ViewGroup,monthCalendarViewClassForViewPagerInterface: MonthCalendarViewClassForViewPagerInterface):
