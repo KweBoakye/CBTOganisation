@@ -3,64 +3,184 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
+        tools:context=".tasks.presentation.viewtaskbyid.ViewTaskByIDFragment">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".tasks.presentation.viewtaskbyid.ViewTaskByID">
+        android:background="@color/design_default_color_background"
+        android:elevation="@dimen/dialog_elevation">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/viewTasksByIDToolbar"
+            style="@style/DarkToolBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/app_bar__elevation"
+            android:theme="@style/DarkToolBarStyle"
+            app:menu="@menu/viewtaskmenu"
+            android:textAlignment="center">
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="257dp"
-            android:layout_height="71dp"
+            android:id="@+id/TitleTextView"
+            android:layout_width="280dp"
+            android:layout_height="80dp"
 
-            android:layout_marginStart="76dp"
+
+            android:layout_marginStart="77dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="77dp"
+            android:elevation="26dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Task Title" />
+
+        <TextView
+            android:id="@+id/locationTextView"
+            android:layout_width="280dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="24dp"
+            android:elevation="26dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/TitleTextView"
+            tools:text="Location" />
+
+        <TextView
+            android:id="@+id/startDateTextView"
+            android:layout_width="120dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
+            android:elevation="26dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:theme="@style/ViewSingleTaskAttributeTextView"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/locationTextView"
+            tools:text="Start Date" />
+
+        <TextView
+            android:id="@+id/startTimeTextView"
+            android:layout_width="120dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:elevation="26dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:theme="@style/ViewSingleTaskAttributeTextView"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/locationTextView"
+            tools:text="Start Time" />
+
+        <TextView
+            android:id="@+id/endDateTextView"
+            android:layout_width="120dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:elevation="26dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:theme="@style/ViewSingleTaskAttributeTextView"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/startDateTextView"
+            tools:text="End Date" />
+
+        <TextView
+            android:id="@+id/endTimeTextView"
+            android:layout_width="120dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:elevation="26dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:theme="@style/ViewSingleTaskAttributeTextView"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/startTimeTextView"
+            tools:text="End Time" />
+
+        <TextView
+            android:id="@+id/descriptionTextView"
+            android:layout_width="280dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="77dp"
+            android:layout_marginTop="248dp"
+            android:layout_marginEnd="77dp"
 
             android:elevation="26dp"
-            app:layout_constraintBottom_toBottomOf="@+id/titleCardView"
-            app:layout_constraintEnd_toEndOf="@+id/titleCardView"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/titleCardView"
-            app:layout_constraintVertical_bias="0.401" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/titleCardView"
-            android:layout_width="342dp"
-            android:layout_height="188dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="8dp"
-            app:cardElevation="@dimen/card_high_elevation"
-            app:cardMaxElevation="@dimen/card_high_elevation"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.149">
+            app:layout_constraintTop_toBottomOf="@+id/TitleTextView"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
 
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView"
-            android:layout_width="360dp"
-            android:layout_height="560dp"
-            android:layout_marginTop="8dp"
-            app:cardBackgroundColor="?attr/colorPrimaryDark"
-            app:cardElevation="@dimen/card_low_elevation"
-            app:layout_constraintBottom_toBottomOf="parent"
-
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.49"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.087" />
+            app:layout_constraintGuide_begin="205dp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="64dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            app:layout_constraintGuide_end="64dp"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

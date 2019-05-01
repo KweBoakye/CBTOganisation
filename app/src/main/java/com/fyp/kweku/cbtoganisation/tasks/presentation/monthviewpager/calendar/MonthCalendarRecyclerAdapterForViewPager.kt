@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.fyp.kweku.cbtoganisation.R
@@ -23,6 +24,9 @@ class MonthCalendarRecyclerAdapterForViewPager( val dayListener: DayListener,val
    /* fun setAdapterData(datesAndTasks: List<Pair<LocalDate, MutableList<TaskPresentationModel>>>){
         this.datesAndTasks = datesAndTasks
     }*/
+
+
+
    private var datesAndTasks: List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>> = listOf()
 
     fun setDatesAndTasks(datesAndTasks: List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>>){
@@ -109,7 +113,7 @@ class MonthCalendarRecyclerAdapterForViewPager( val dayListener: DayListener,val
         }
 
 
-        fun bind(position: Int,dayTextboxBackgroundColor: Int ) {
+        fun bind(position: Int,dayTextboxBackgroundColor: Int) {
 
             monthDayTextView.text = datesAndTasks[position].first.dayOfMonth.toString() //days[position].dayOfMonth.toString()
             indicateDayIsPartOfMonth(datesAndTasks[position].second,dayTextboxBackgroundColor )

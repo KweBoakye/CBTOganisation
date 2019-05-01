@@ -1,8 +1,10 @@
 package com.fyp.kweku.cbtoganisation.tasks.presentation.createnewtask
 
+import android.app.DatePickerDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import com.fyp.kweku.cbtoganisation.R
@@ -11,9 +13,9 @@ import com.fyp.kweku.cbtoganisation.databinding.FragmentCreateNewTaskBinding
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import org.threeten.bp.LocalDate
 import timber.log.Timber
+import java.util.*
 
 
 class CreateNewTaskViewClass( val inflater: LayoutInflater,  val parent: ViewGroup?, fragmentManager: FragmentManager?) :
@@ -36,14 +38,31 @@ class CreateNewTaskViewClass( val inflater: LayoutInflater,  val parent: ViewGro
     private var taskEndDateInputLayout: TextInputLayout = binding.TaskEndDateInputLayout
     private var taskStartTimeInputLayout: TextInputLayout = binding.TaskStartTimeInputLayout
     private var taskEndTimeInputLayout: TextInputLayout = binding.TaskEndTimeInputLayout
-
-
-   // private var taskDescriptionInput TextInputLayout = binding.
     private var rootView: View = binding.root
     private var saveNewTaskButton: MaterialButton = binding.SaveNewTaskButton
     private val dateFormatter = ProjectDateTimeUtils.getCustomDateFormatter()
-
     private var listener : CreateNewTaskViewClassInterface.CreateNewTaskListener? = null
+
+    private val startDatePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+        val date = LocalDate.of(year, month, dayOfMonth)
+        updateStartDate(date)
+    }
+  /*  private val calendar: Calendar = Calendar.getInstance()
+    private val startDatePicker = object :DatePickerDialog.OnDateSetListener{
+        override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+            calendar.set(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH)
+            updateStartDate()
+        }
+
+    }*/
+
+    fun updateStartDate(date: LocalDate){
+        taskStartDateInput.setText(date.format(dateFormatter))
+    }
+
+
+   // private var taskDescriptionInput TextInputLayout = binding.
+
 
 
     init {

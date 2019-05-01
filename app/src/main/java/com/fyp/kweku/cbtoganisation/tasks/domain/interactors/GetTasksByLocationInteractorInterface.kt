@@ -11,4 +11,5 @@ interface GetTasksByLocationInteractorInterface {
     fun getAllLocationsAsAny(): Any
     fun getTasksByLocationLiveDataAsAny():Any
 
+
 }

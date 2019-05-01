@@ -10,7 +10,12 @@ interface TasksByDayRecyclerViewClassInterface {
 
     interface TasksByDayRecyclerViewClassListener{}
 
+    interface TasksByDayRecyclerViewClassFragmentListener{
+       fun launchDialog(taskID: String)
+    }
+
     fun setTasks(tasks: MutableList<TaskPresentationModel>)
+    //fun setFragmentListener(fragmentListener: TasksByDayRecyclerViewClassFragmentListener)
 
     //fun tasksByDayObserver(taskViewModel: TaskViewModel, viewLifecycleOwner: LifecycleOwner)
 

@@ -43,4 +43,10 @@
     <item name="android:textAlignment">center</item>
 </style>
 
+    <style name="ViewSingleTaskAttributeTextView" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">240dp</item>
+        <item name="android:layout_height">72dp</item>
+
+    </style>
+
 </resources>

@@ -30,15 +30,20 @@ class GetTasksInteractor(
         return taskOutput.getDatesAndTasksByMonth()
     }
 
+    override fun getSingleTaskLiveDataAsAny():Any{
+        return taskOutput.getSingleTaskLiveData()
+    }
 
 
 
     override suspend fun allTasks(): List<Task> = taskRepositoryInterface.getAlltasks()//safe call
 
-    override suspend fun getTaskByID(taskID: String): Task = taskRepositoryInterface.getTaskById(taskID)
+    override suspend fun getTaskByID(taskID: String){
+        sendSingleTaskToPresentationLayer(taskRepositoryInterface.getTaskById(taskID))}
 
     @ExperimentalCoroutinesApi
     override fun sendSingleTaskToPresentationLayer(task: Task)= runBlocking<Unit>{
+
 val presentTask = publish<Task>{send(task)}
         presentTask.consumeEach { taskOutput.showTask(it) }
 

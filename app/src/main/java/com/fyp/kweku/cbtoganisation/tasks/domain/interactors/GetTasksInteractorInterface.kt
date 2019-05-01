@@ -7,7 +7,7 @@ import org.threeten.bp.LocalDate
 
 interface GetTasksInteractorInterface {
     suspend fun allTasks(): List<Task>
-    suspend fun getTaskByID(taskID: String): Task
+    suspend fun getTaskByID(taskID: String)
     fun sendSingleTaskToPresentationLayer(task: Task)
     suspend fun sendTasksToPresentationLayer()
     suspend fun filterTasksByDay(date: LocalDate)
@@ -17,4 +17,5 @@ interface GetTasksInteractorInterface {
     fun getMonthCalendarTaskNamesByDayAsAny(): Any
     suspend fun filterTasksByMonth(listOfDates: MutableList<Pair<LocalDate, Boolean>>)
     fun getDatesAndTasksByMonthAsAny(): Any
+    fun getSingleTaskLiveDataAsAny():Any
 }

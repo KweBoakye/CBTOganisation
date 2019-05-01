@@ -15,13 +15,9 @@ import com.fyp.kweku.cbtoganisation.databinding.ItemcardViewtasksbydayBinding
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModelDiffCallback
 import com.google.android.material.card.MaterialCardView
-import com.google.android.material.checkbox.MaterialCheckBox
-import timber.log.Timber
 
 
-
-
-class TasksByDayRecyclerAdapter(private val context:  Context): ListAdapter<TaskPresentationModel,
+class TasksByDayRecyclerAdapter(private val context:  Context, val tasksByDayAdapterListener: TasksByDayAdpterListener): ListAdapter<TaskPresentationModel,
         TasksByDayRecyclerAdapter.TasksByDayViewHolder>(TaskPresentationModelDiffCallback()){
 
     private  var data: MutableList<TaskPresentationModel> = mutableListOf<TaskPresentationModel>()
@@ -29,7 +25,7 @@ class TasksByDayRecyclerAdapter(private val context:  Context): ListAdapter<Task
     private lateinit var  viewTasksByDayBinding: ItemcardViewtasksbydayBinding
 
 
-    class TasksByDayViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
+    inner class TasksByDayViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
       lateinit   var taskName  : TextView
       lateinit   var taskLocation: TextView
       lateinit   var taskStartDate: TextView
@@ -47,6 +43,7 @@ class TasksByDayRecyclerAdapter(private val context:  Context): ListAdapter<Task
             this.taskStartTime.text= taskPresentationModel.taskStartTime.toString()
             this.taskEndTime.text= taskPresentationModel.taskEndTime.toString()
             this.taskID = taskPresentationModel.taskID
+            this.card.setOnClickListener { tasksByDayAdapterListener.taskSelected(taskID) }
         }
 
 
@@ -108,6 +105,9 @@ class TasksByDayRecyclerAdapter(private val context:  Context): ListAdapter<Task
         notifyDataSetChanged()
     }
 
+    interface TasksByDayAdpterListener{
+        fun taskSelected(taskID: String)
+    }
 
 }
 

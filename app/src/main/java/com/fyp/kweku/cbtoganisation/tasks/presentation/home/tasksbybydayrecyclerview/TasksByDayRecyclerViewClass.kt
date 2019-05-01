@@ -19,7 +19,7 @@ import org.threeten.bp.LocalDate
 import timber.log.Timber
 
 
-class TasksByDayRecyclerViewClass(val context: Context, val view: View,val homeFragment: HomeFragment):TasksByDayRecyclerViewClassInterface
+class TasksByDayRecyclerViewClass(val context: Context, val view: View,val homeFragment: HomeFragment):TasksByDayRecyclerViewClassInterface, TasksByDayRecyclerAdapter.TasksByDayAdpterListener
      {
          override fun setTasks(tasks: MutableList<TaskPresentationModel>) {
              noTasksLayout.visibility = View.GONE
@@ -27,10 +27,15 @@ class TasksByDayRecyclerViewClass(val context: Context, val view: View,val homeF
              tasksByDayRecyclerAdapter.submitList(tasks.toMutableList())
          }
 
+         override fun taskSelected(taskID: String){
+             fragmentListener.launchDialog(taskID)
+         }
+
 
          private val tasksByDayRecycler : RecyclerView
     private var layoutManager :LinearLayoutManager
          private var tasksByDayRecyclerAdapter: TasksByDayRecyclerAdapter
+         private val fragmentListener: TasksByDayRecyclerViewClassInterface.TasksByDayRecyclerViewClassFragmentListener = homeFragment
     val noTasksLayout= view.empty_text
 
     /*val tasksByDayObserver = Observer<MutableList<TaskPresentationModel>> {tasks ->
@@ -44,12 +49,16 @@ class TasksByDayRecyclerViewClass(val context: Context, val view: View,val homeF
         layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL, false)
         tasksByDayRecycler.layoutManager = layoutManager
 
-        tasksByDayRecyclerAdapter = TasksByDayRecyclerAdapter(context)
+        tasksByDayRecyclerAdapter = TasksByDayRecyclerAdapter(context, this)
 
         tasksByDayRecycler.adapter = tasksByDayRecyclerAdapter
 
 
     }
+
+         /*override fun setFragmentListener(fragmentListener: TasksByDayRecyclerViewClassInterface.TasksByDayRecyclerViewClassFragmentListener){
+             this.fragmentListener = fragmentListener
+         }*/
 
 
 

@@ -4,11 +4,15 @@ package com.fyp.kweku.cbtoganisation.tasks.presentation.home
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.fyp.kweku.cbtoganisation.R
+import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskActivity
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskViewModel
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerview.mvc.HorizontalCalendarController
@@ -18,11 +22,13 @@ import com.fyp.kweku.cbtoganisation.tasks.presentation.home.tasksbybydayrecycler
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.tasksbybydayrecyclerview.TasksByDayRecyclerViewClass
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.tasksbybydayrecyclerview.TasksByDayRecyclerViewClassInterface
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
+import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtaskbyid.ViewTaskByIDFragment
 import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.threeten.bp.LocalDate
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), TasksByDayRecyclerViewClassInterface.TasksByDayRecyclerViewClassFragmentListener {
 
     private lateinit var taskActivity: TaskActivity
     private lateinit var homeController: HomeController
@@ -91,14 +97,25 @@ tasksByDayController = get()
         super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
+    override fun launchDialog(taskID: String){
+        launchDialogFragmentWithArguments(taskID)
+    }
+
+    fun launchDialogFragmentWithArguments(taskID: String){
+
+        val taskIDBundle: Bundle = Bundle()
+        taskIDBundle.putString("taskID", taskID)
+        launchDialog(taskIDBundle)
+    }
+
+    fun launchDialog(taskIDBundle: Bundle){
+        val dialog = ViewTaskByIDFragment()
+        dialog.arguments = taskIDBundle
+        val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
+        dialog.show(fragmentTransaction, ViewTaskByIDFragment.TAG)
     }
 
 
-    override fun onDetach() {
-        super.onDetach()
-    }
 
 
 

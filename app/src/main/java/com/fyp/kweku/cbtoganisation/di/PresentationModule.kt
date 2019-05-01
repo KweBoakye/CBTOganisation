@@ -8,6 +8,8 @@ import com.fyp.kweku.cbtoganisation.tasks.presentation.createnewtask.CreateNewTa
 import com.fyp.kweku.cbtoganisation.tasks.presentation.createnewtask.CreateNewTaskViewClassInterface
 import com.fyp.kweku.cbtoganisation.tasks.presentation.deletetask.DeleteTasksViewClass
 import com.fyp.kweku.cbtoganisation.tasks.presentation.deletetask.DeleteTasksViewClassInterface
+import com.fyp.kweku.cbtoganisation.tasks.presentation.edittasks.EditTaskViewClass
+import com.fyp.kweku.cbtoganisation.tasks.presentation.edittasks.EditTaskViewClassInterface
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.HomeController
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.HomeViewClass
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.HomeViewClassInterface
@@ -37,6 +39,9 @@ import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.calendar.M
 import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.taskbydaydialog.TasksBySpecificDayController
 import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.taskbydaydialog.TasksBySpecificDayViewClass
 import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.taskbydaydialog.TasksBySpecificDayViewClassInterface
+import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtaskbyid.ViewTaskByIDController
+import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtaskbyid.ViewTaskByIDViewClass
+import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtaskbyid.ViewTaskByIDViewClassInterface
 import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtasks.ViewTasksController
 import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtasks.ViewTasksViewClass
 import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtasks.ViewTasksViewClassInterface
@@ -97,6 +102,11 @@ val PresentationModule = module {
     factory { TasksBySpecificDayController(get()) }
 
     factory<DeleteTasksViewClassInterface>{ DeleteTasksViewClass() }
+
+    factory<ViewTaskByIDViewClassInterface> { ViewTaskByIDViewClass(get(), get()) }
+    factory { ViewTaskByIDController(get()) }
+
+    factory<EditTaskViewClassInterface> { EditTaskViewClass(get(), get()) }
 
 
 

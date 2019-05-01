@@ -31,8 +31,7 @@ lateinit var datePickerDialogEnd: DatePickerDialog
 
         createNewTaskController = get()
         createNewTaskController.bindView(createNewTaskViewClass)
-         datePickerDialogStart = DatePickerDialog.newInstance(createNewTaskViewClass as DatePickerDialog.OnDateSetListener, today.year, today.monthValue, today.dayOfMonth)
-         datePickerDialogEnd= DatePickerDialog.newInstance(createNewTaskViewClass as DatePickerDialog.OnDateSetListener, today.year, today.monthValue, today.dayOfMonth)
+
 
         return createNewTaskViewClass.getRootView()
     }
