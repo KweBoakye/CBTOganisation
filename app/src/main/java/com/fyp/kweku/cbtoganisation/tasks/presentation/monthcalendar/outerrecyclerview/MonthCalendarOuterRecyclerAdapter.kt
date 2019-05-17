@@ -53,8 +53,7 @@ fun setChildTaskNamesLists(childTaskNamesLists: MutableList<MutableList<String>>
 fun getCurrentMonth(): YearMonth{ return this.months[0]}
 
     class MonthCalendarOuterViewHolder(layoutToInflate: View, val monthCalendarOuterRecyclerAdapter: MonthCalendarOuterRecyclerAdapter) : RecyclerView.ViewHolder(layoutToInflate) {
-        lateinit var monthTitleTextView: TextView
-        lateinit var mondayTextView : TextView
+               lateinit var mondayTextView : TextView
         lateinit var tuesdayTextView: TextView
         lateinit var wednesdayTextView: TextView
         lateinit var thursday: TextView
@@ -78,8 +77,7 @@ fun getCurrentMonth(): YearMonth{ return this.months[0]}
 
 fun bind(position: Int,months: MutableList<YearMonth> , viewPool : RecyclerView.RecycledViewPool,result: MutableList<MutableList<TaskPresentationModel>> ,listofMonthDays:MutableList<MutableList<LocalDate>>){
 
-    monthYearText ="${months[position].month} ${months[position].year}"
-    monthTitleTextView.text = monthYearText
+
     monthCalendarOuterRecyclerAdapter.monthCalendarListener.onMonthScrolled(listofMonthDays[layoutPosition])
 
     val days = listofMonthDays[position]
@@ -121,7 +119,6 @@ fun loader(position: Int){
                 monthCalendarFrameBinding.root,this
             )
         with(monthCalendarOuterViewHolder){
-            monthTitleTextView = monthCalendarFrameBinding.monthTitle
             mondayTextView   = monthCalendarFrameBinding.textViewMonday
             tuesdayTextView = monthCalendarFrameBinding.textViewTuesday
             wednesdayTextView = monthCalendarFrameBinding.textViewWednesday

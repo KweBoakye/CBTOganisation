@@ -9,13 +9,16 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 
 import com.fyp.kweku.cbtoganisation.R
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskViewModel
+import com.fyp.kweku.cbtoganisation.tasks.presentation.edittasks.EditTaskFragment
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
 import org.koin.android.ext.android.get
+import timber.log.Timber
 
 class ViewTaskByIDFragment : DialogFragment(), ViewTaskByIDViewClassInterface.ViewTaskByIDViewClassFragmentListener {
 
@@ -51,7 +54,7 @@ class ViewTaskByIDFragment : DialogFragment(), ViewTaskByIDViewClassInterface.Vi
     }
 
 
-    fun getSingleTaskLiveDataAsLiveData(): LiveData<TaskPresentationModel>{
+    private fun getSingleTaskLiveDataAsLiveData(): LiveData<TaskPresentationModel>{
         @Suppress("UNCHECKED_CAST")
        return viewTaskByIDController.observeTask() as LiveData<TaskPresentationModel>
     }
@@ -71,15 +74,39 @@ class ViewTaskByIDFragment : DialogFragment(), ViewTaskByIDViewClassInterface.Vi
         this.dismiss()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem):Boolean= when(item.itemId) {
+    /*override fun onOptionsItemSelected(item: MenuItem):Boolean= when(item.itemId) {
         R.id.edit_task ->{
-
+            Timber.i("${taskID==null}")
+            taskID?.let { launchDialog(it) }
             true
         }
         else ->{
             super.onOptionsItemSelected(item)
         }
 
+    }*/
+
+    override fun launchEditTaskFragment(){
+        taskID?.let { launchEditTaskDialog(it) }
+    }
+
+    private fun launchEditTaskDialog(taskID: String){
+        launchDialogFragmentWithArguments(taskID)
+    }
+
+    private fun launchDialogFragmentWithArguments(taskID: String){
+
+        val taskIDBundle = Bundle()
+        taskIDBundle.putString("taskID", taskID)
+        launchDialog(taskIDBundle)
+    }
+
+
+    private fun launchDialog(taskIDBundle: Bundle){
+        val dialog = EditTaskFragment()
+        dialog.arguments = taskIDBundle
+        val fragmentTransaction: FragmentTransaction = parentFragment!!.fragmentManager!!.beginTransaction()
+        dialog.show(fragmentTransaction, "EditTaskFragment")
     }
 
 }

@@ -4,9 +4,10 @@ package com.fyp.kweku.cbtoganisation.tasks.presentation.home
 
 
 import com.fyp.kweku.cbtoganisation.R
+import com.fyp.kweku.cbtoganisation.tasks.domain.interactors.GetTasksInteractorInterface
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskActivity
 
-class HomeController:HomeViewClassInterface.HomeListener {
+class HomeController(private val getTasksInteractorInterface: GetTasksInteractorInterface):HomeViewClassInterface.HomeListener {
    // Interface for related View Class, interface can be used to create instance as it due to Interface Depenency Injection
     private lateinit var homeViewClassInterface: HomeViewClassInterface
     override fun onGoToCreateNewTaskFragmentButtonClicked(taskActivity: TaskActivity) {
@@ -28,6 +29,9 @@ class HomeController:HomeViewClassInterface.HomeListener {
         homeViewClassInterface.setGoToCreateNewTaskFragmentButtonOnClickListener()
 
     }
+
+
+    fun getSelectedDate():Any = getTasksInteractorInterface.getSelectedDateForHomeTitleAsAny()
 
 
 }

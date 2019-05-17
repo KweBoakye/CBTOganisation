@@ -4,7 +4,8 @@ import com.fyp.kweku.cbtoganisation.tasks.domain.TaskOutput
 import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
 import com.fyp.kweku.cbtoganisation.tasks.domain.repository.TaskRepositoryInterface
 
-class GetTasksByLocationInteractor(val taskRepositoryInterface: TaskRepositoryInterface, val taskOutput: TaskOutput): GetTasksByLocationInteractorInterface {
+class GetTasksByLocationInteractor(private val taskRepositoryInterface: TaskRepositoryInterface,
+                                   private val taskOutput: TaskOutput): GetTasksByLocationInteractorInterface {
 
 
 
@@ -30,6 +31,14 @@ class GetTasksByLocationInteractor(val taskRepositoryInterface: TaskRepositoryIn
 
     override fun getTasksByLocationLiveDataAsAny():Any{
         return taskOutput.getTasksByLocation()
+    }
+
+   override suspend fun passLocationsSearchString(searchString: String){
+        taskOutput.setLocationsSearchString(searchString)
+    }
+
+    override fun getFilteredLocationsAsAny():Any{
+        return taskOutput.getFilteredLocations()
     }
 
 

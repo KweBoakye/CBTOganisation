@@ -34,9 +34,16 @@ class ViewTaskByIDViewClass(val  inflater: LayoutInflater, val parent: ViewGroup
            setNavigationIcon(R.drawable.ic_close_white_24dp)
            title = ""
            setNavigationOnClickListener { fragmentListener.dismissDialogFragment() }
-
+           setOnMenuItemClickListener {
+               when(it.itemId){
+                   R.id.edit_task -> {
+                       fragmentListener.launchEditTaskFragment()
+                       true
+                   }
+                   else ->{false}
+               }
+           }
        }
-
    }
 
     override fun populateTextViews(task: TaskPresentationModel){

@@ -2,6 +2,7 @@ package com.fyp.kweku.cbtoganisation.tasks.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
 import com.fyp.kweku.cbtoganisation.tasks.domain.TaskOutput
@@ -22,12 +23,16 @@ class TaskViewModel(private val taskPresenter: TaskPresenter) : ViewModel(),
     val allTasksLiveData: MutableLiveData<List<TaskPresentationModel>> = MutableLiveData()
     private val dateInput = MutableLiveData<LocalDate>()
     val tasksByDay: MutableLiveData<MutableList<TaskPresentationModel>> = MutableLiveData()
+    private val selectedDateForHomeTitle: MutableLiveData<LocalDate> = MutableLiveData()
     //override val tasksByDayOutput: MutableLiveData<List<TaskPresentationModel>> =
     val monthCalendarTasksByDay: MutableLiveData<MutableList<MutableList<TaskPresentationModel>>> = MutableLiveData()
     private val monthCalendarTaskNamesByDay: MutableLiveData<MutableList<MutableList<String>>> = MutableLiveData()
     private val allLocations: MutableLiveData<List<String>> = MutableLiveData()
+
     private val tasksByLocationLiveData: MutableLiveData<List<TaskPresentationModel>> = MutableLiveData()
     private val datesAndTasksByMonth: MutableLiveData<List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>>> = MutableLiveData()
+    private val locationsSeatchString: MutableLiveData<String> = MutableLiveData()
+    private var filteredLocations: LiveData<List<String>> = Transformations.switchMap(locationsSeatchString) {string->  filterLocations(string)}
     val modelMapper = PresentationModelMapper()
 
     override fun getAllLocations(): LiveData<List<String>> {
@@ -37,9 +42,15 @@ class TaskViewModel(private val taskPresenter: TaskPresenter) : ViewModel(),
     }
 
 
+
+
+
     override suspend fun showAllTasks(tasks: List<Task>) = withContext(Dispatchers.Main) {
         allTasksLiveData.value = tasks.map { modelMapper.toEntity(it) }
     }
+
+
+
 
 
     override suspend fun showTask(task: Task) = withContext(Dispatchers.Main){
@@ -56,6 +67,21 @@ class TaskViewModel(private val taskPresenter: TaskPresenter) : ViewModel(),
         allLocations.value = locations
     }
 
+    override suspend fun setLocationsSearchString(searchString: String) = withContext(Dispatchers.Main){
+        locationsSeatchString.value = searchString
+    }
+
+    override fun getFilteredLocations():LiveData<List<String>> = filteredLocations
+
+    fun filterLocations(searchString:String):LiveData<List<String>>{
+        val results: MutableLiveData<List<String>> = MutableLiveData()
+        allLocations.value?.let {
+            val locations: List<String> = it
+            results.value = locations.filter { location -> location.contains(searchString, true) }
+        }
+        return results
+    }
+
     override suspend fun showTasksByLocation(tasksByLocation: List<Task>) = withContext(Dispatchers.Main) {
         tasksByLocationLiveData.value = tasksByLocation.map {
             modelMapper.toEntity(it)
@@ -65,6 +91,8 @@ class TaskViewModel(private val taskPresenter: TaskPresenter) : ViewModel(),
 
 
     override fun getTasksByDay(): LiveData<MutableList<TaskPresentationModel>> = tasksByDay
+
+    override fun getSelectedDateForHomeTitle(): LiveData<LocalDate>  = this.selectedDateForHomeTitle
 
     override fun getMonthCalendarTasksByDay(): LiveData<MutableList<MutableList<TaskPresentationModel>>> = monthCalendarTasksByDay
 
@@ -83,6 +111,7 @@ class TaskViewModel(private val taskPresenter: TaskPresenter) : ViewModel(),
             )
         }
         tasksByDay.setValue(tasksForThisDay.toMutableList())
+        selectedDateForHomeTitle.value = date
         Timber.i("${tasksByDay.value}")
         val a: Boolean = tasksByDay.hasActiveObservers()
 

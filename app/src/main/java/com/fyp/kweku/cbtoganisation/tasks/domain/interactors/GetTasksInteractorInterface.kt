@@ -12,10 +12,12 @@ interface GetTasksInteractorInterface {
     suspend fun sendTasksToPresentationLayer()
     suspend fun filterTasksByDay(date: LocalDate)
     fun getTasksByLiveDataAsAny():Any
+    fun getSelectedDateForHomeTitleAsAny():Any
     suspend fun filterListOfTasksByDay(listOfDates:MutableList<LocalDate>)
     fun getMonthCalendarTasksByDayAsAny(): Any
     fun getMonthCalendarTaskNamesByDayAsAny(): Any
     suspend fun filterTasksByMonth(listOfDates: MutableList<Pair<LocalDate, Boolean>>)
     fun getDatesAndTasksByMonthAsAny(): Any
     fun getSingleTaskLiveDataAsAny():Any
+    suspend fun getTaskByIDDirectFromPersistence(taskID: String):Task
 }

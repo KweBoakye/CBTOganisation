@@ -1,21 +1,27 @@
 package com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerview.mvc
 
 import android.content.Context
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.*
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerview.HorizontalCalendarAdapter
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerview.HorizontalCalendarLayoutManager
 import timber.log.Timber
 import com.fyp.kweku.cbtoganisation.databinding.CalendarRecyclerBinding
+import com.fyp.kweku.cbtoganisation.tasks.presentation.home.CoordinatorLayoutWithCollapsingToolBarLayoutDisabled
 import com.fyp.kweku.cbtoganisation.tasks.presentation.utils.snaponscrolllistener.SnapOnScrollListener
 import com.fyp.kweku.cbtoganisation.tasks.presentation.utils.snaponscrolllistener.attachSnapHelperWithListener
+import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
 class HorizontalCalendarViewClass(context: Context, val parent: ViewGroup?,view: View):HorizontalCalendarViewClassInterface,
     HorizontalCalendarAdapter.OnEndReachedListener, HorizontalCalendarAdapter.OnDaySelectedListener , SnapOnScrollListener.OnSnapPositionChangeListener {
+
+
 
 
     override fun onSnapPositionChange(position: Int) {
@@ -25,6 +31,7 @@ class HorizontalCalendarViewClass(context: Context, val parent: ViewGroup?,view:
 
         }
     }
+
 
 
     private var binding: CalendarRecyclerBinding = CalendarRecyclerBinding.inflate(LayoutInflater.from(context), parent,false)
@@ -38,6 +45,8 @@ class HorizontalCalendarViewClass(context: Context, val parent: ViewGroup?,view:
 
 
     init {
+       // collapsingCalendarLayout.setPassScrolling(false)
+
         calendarRecycler = view.calender_recycler
         layoutManager = HorizontalCalendarLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         calendarAdapter= HorizontalCalendarAdapter(context, this, this)
@@ -51,8 +60,6 @@ class HorizontalCalendarViewClass(context: Context, val parent: ViewGroup?,view:
 
         calendarRecycler.adapter = calendarAdapter
 
-
-
     }
 
 
@@ -64,7 +71,7 @@ class HorizontalCalendarViewClass(context: Context, val parent: ViewGroup?,view:
     }
 
 
-     fun scrollToCenter(view: View, layoutManager: LinearLayoutManager) {
+     private fun scrollToCenter(view: View, layoutManager: LinearLayoutManager) {
         val itemToScroll: Int = calendarRecycler.getChildLayoutPosition(view)
         val centerOfScreen: Int = (calendarRecycler.width / 2) - (view.width / 2)
         layoutManager.scrollToPositionWithOffset(itemToScroll, centerOfScreen)
@@ -94,13 +101,14 @@ calendarRecycler.attachSnapHelperWithListener(snapHelper,SnapOnScrollListener.Be
     //Adapter Listener Methods
 
 
-    fun sendDateToListener(date: String){
+    private fun sendDateToListener(date: String){
         horizontalCalendarViewClassListener.onDaySelected(date)
     }
 
     override fun onDaySelected(view: View, date: String, position: Int) {
         scrollToCenter(view, layoutManager)
         sendDateToListener(date)
+
 
     }
 

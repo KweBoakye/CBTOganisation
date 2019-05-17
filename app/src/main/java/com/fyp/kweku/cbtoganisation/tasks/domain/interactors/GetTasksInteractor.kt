@@ -18,6 +18,8 @@ class GetTasksInteractor(
         return taskOutput.getTasksByDay()
     }
 
+    override fun getSelectedDateForHomeTitleAsAny():Any = taskOutput.getSelectedDateForHomeTitle()
+
     override fun getMonthCalendarTasksByDayAsAny(): Any {
         return  taskOutput.getMonthCalendarTasksByDay()
     }
@@ -35,6 +37,8 @@ class GetTasksInteractor(
     }
 
 
+
+   override suspend fun getTaskByIDDirectFromPersistence(taskID: String):Task = taskRepositoryInterface.getTaskById(taskID)
 
     override suspend fun allTasks(): List<Task> = taskRepositoryInterface.getAlltasks()//safe call
 

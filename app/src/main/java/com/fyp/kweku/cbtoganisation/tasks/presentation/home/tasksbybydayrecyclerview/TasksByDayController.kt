@@ -21,9 +21,5 @@ class TasksByDayController(val getTasksInteractorInterface: GetTasksInteractorIn
 
   fun loadAllTasksForRecycler() = scope.launch(Dispatchers.IO){ getTasksInteractorInterface.sendTasksToPresentationLayer()}
 
-
-
-
-
     fun onCreate(){}
 }

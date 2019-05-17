@@ -45,6 +45,12 @@ class CreateNewTaskController(val createNewTaskInteractorInterface: CreateNewTas
     }
 
 
+        fun updateStartDate(date: LocalDate) = createNewTaskViewClassInterface.updateStartDate(date)
+        fun updateEndDate(date: LocalDate) = createNewTaskViewClassInterface.updateEndDate(date)
+        fun updateStartTime(time:LocalTime) = createNewTaskViewClassInterface.updateStartTime(time)
+        fun updateEndTime(time:LocalTime) = createNewTaskViewClassInterface.updateEndTime(time)
+
+
 
     fun onStart(){createNewTaskViewClassInterface.setListener(this) }
 

@@ -27,7 +27,11 @@
         android:id="@+id/createNewTaskFragment"
         android:name="com.fyp.kweku.cbtoganisation.tasks.presentation.createnewtask.CreateNewTaskFragment"
         android:label="Create New Task"
-        tools:layout="@layout/fragment_create_new_task" />
+        tools:layout="@layout/fragment_create_new_task" >
+        <action
+            android:id="@+id/action_createNewTaskFragment_to_viewTaskByIDFragment"
+            app:destination="@id/viewTaskByIDFragment" />
+    </fragment>
     <fragment
         android:id="@+id/viewTasksFragment"
         android:name="com.fyp.kweku.cbtoganisation.tasks.presentation.viewtasks.ViewTasksFragment"
@@ -51,5 +55,10 @@
             android:id="@+id/action_monthViewPagerFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/viewTaskByIDFragment"
+        android:name="com.fyp.kweku.cbtoganisation.tasks.presentation.viewtaskbyid.ViewTaskByIDFragment"
+        android:label="view_task_by_id_fragment"
+        tools:layout="@layout/view_task_by_id_fragment" />
 
 </navigation>

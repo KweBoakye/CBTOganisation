@@ -4,8 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.fyp.kweku.cbtoganisation.R
 import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
 import com.fyp.kweku.cbtoganisation.databinding.ItemcardViewtasksbydayBinding
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
@@ -45,7 +47,7 @@ class TasksByLocationRecyclerAdapter(): ListAdapter<TaskPresentationModel, Tasks
     private lateinit var itemcardViewtasksbydayBinding: ItemcardViewtasksbydayBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksByLocationViewHolder {
-        itemcardViewtasksbydayBinding = ItemcardViewtasksbydayBinding.inflate(LayoutInflater.from(parent.context))
+        itemcardViewtasksbydayBinding =  DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.itemcard_viewtasksbyday,parent, false)
         val viewHolder = TasksByLocationViewHolder(itemcardViewtasksbydayBinding.root)
         viewHolder.taskName  =  itemcardViewtasksbydayBinding.textViewTaskName
         viewHolder.taskLocation = itemcardViewtasksbydayBinding.textViewTaskLocation

@@ -13,7 +13,18 @@ class LocationsController(val getTasksByLocationInteractorInterface: GetTasksByL
     private val coroutineContext: CoroutineContext
         get() = parentJob + Dispatchers.Main
     private val scope = CoroutineScope(coroutineContext)
+    lateinit var locationsViewClassInterface: LocationsViewClassInterface
+
+    fun bindView(locationsViewClassInterface: LocationsViewClassInterface){
+        this.locationsViewClassInterface = locationsViewClassInterface
+        locationsViewClassInterface.setListener(this)
+    }
 
 
     fun loadLocations() = scope.launch(Dispatchers.IO){getTasksByLocationInteractorInterface.loadAllLocations()}
+    fun locationsquery(searchString: String) = scope.launch(Dispatchers.IO)
+    {getTasksByLocationInteractorInterface.passLocationsSearchString(searchString)}
+
+    fun getFilteredLocations() = getTasksByLocationInteractorInterface.getFilteredLocationsAsAny()
+    fun setAdapterLocations(locations: List<String>) = locationsViewClassInterface.setAdapterLocations(locations)
 }

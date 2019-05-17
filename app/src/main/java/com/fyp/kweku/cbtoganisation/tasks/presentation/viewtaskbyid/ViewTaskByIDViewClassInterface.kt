@@ -11,6 +11,7 @@ interface ViewTaskByIDViewClassInterface {
 
     interface ViewTaskByIDViewClassFragmentListener{
         fun dismissDialogFragment()
+        fun launchEditTaskFragment()
     }
 
     fun getRoot(): View

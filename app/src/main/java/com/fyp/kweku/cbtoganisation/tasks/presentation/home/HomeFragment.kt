@@ -3,16 +3,14 @@ package com.fyp.kweku.cbtoganisation.tasks.presentation.home
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import com.fyp.kweku.cbtoganisation.R
-import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskActivity
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskViewModel
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerview.mvc.HorizontalCalendarController
@@ -35,7 +33,8 @@ class HomeFragment : Fragment(), TasksByDayRecyclerViewClassInterface.TasksByDay
     private lateinit var horizontalCalendarController: HorizontalCalendarController
     private lateinit var tasksByDayController: TasksByDayController
     val taskViewModel by sharedViewModel<TaskViewModel>()
-
+    var dayPosition: Parcelable? = null
+    private var dayPositionState: String = "Day Position"
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -62,6 +61,7 @@ tasksByDayController = get()
         homeController = get()
         homeController.bindView(homeViewClassInterface)
         homeController.onCreateView(taskActivity)
+        homeViewClassInterface.setToolbar()
         val horizontalCalendarViewClassInterface: HorizontalCalendarViewClassInterface =
             HorizontalCalendarViewClass(this.context!!, container,homeViewClassInterface.getRootView())
         val tasksByDayRecyclerViewClassInterface: TasksByDayRecyclerViewClassInterface = TasksByDayRecyclerViewClass(this.context!!, homeViewClassInterface.getRootView(),this)
@@ -70,8 +70,11 @@ tasksByDayController = get()
             horizontalCalendarController.bindView(horizontalCalendarViewClassInterface)
             horizontalCalendarController.setControllerAsHorizontalCalendarViewClassListener()
             horizontalCalendarController.initHorizontalCalendar()
-        }
 
+           val selectedDateObserver = Observer<LocalDate> { date -> homeViewClassInterface.setToolbarDate(date) }
+
+            getSelectedDateForHomeTitleAsLiveData().observe(this, selectedDateObserver)
+        }
 
         val tasksByDayObserver = Observer<MutableList<TaskPresentationModel>> {tasks -> tasksByDayRecyclerViewClassInterface.setTasks(tasks)}
 
@@ -88,6 +91,12 @@ tasksByDayController = get()
         return   ( tasksByDayController.getTasksInteractorInterface.getTasksByLiveDataAsAny() as LiveData<MutableList<TaskPresentationModel>>)
     }
 
+    private fun getSelectedDateForHomeTitleAsLiveData():LiveData<LocalDate>{
+        @Suppress("UNCHECKED_CAST")
+        return homeController.getSelectedDate() as LiveData<LocalDate>
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         /*binding.goToCreateNewTaskFragmentButton.setOnClickListener {
              //Navigate to details fragment with the given
@@ -97,13 +106,23 @@ tasksByDayController = get()
         super.onViewCreated(view, savedInstanceState)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(dayPositionState, dayPosition)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        tasksByDayController.loadAllTasksForRecycler()
+    }
+
     override fun launchDialog(taskID: String){
         launchDialogFragmentWithArguments(taskID)
     }
 
-    fun launchDialogFragmentWithArguments(taskID: String){
+    private fun launchDialogFragmentWithArguments(taskID: String){
 
-        val taskIDBundle: Bundle = Bundle()
+        val taskIDBundle = Bundle()
         taskIDBundle.putString("taskID", taskID)
         launchDialog(taskIDBundle)
     }

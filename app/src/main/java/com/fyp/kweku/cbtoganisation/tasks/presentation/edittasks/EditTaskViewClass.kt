@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
 import com.fyp.kweku.cbtoganisation.databinding.FragmentEditTaskBinding
+import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import org.threeten.bp.LocalDate
@@ -13,7 +14,9 @@ import timber.log.Timber
 class EditTaskViewClass(val inflater: LayoutInflater, val parent: ViewGroup?): EditTaskViewClassInterface {
 
     private val editTaskViewClassBinding: FragmentEditTaskBinding = FragmentEditTaskBinding.inflate(inflater, parent, false )
+    private lateinit var editTaskViewClassListener: EditTaskViewClassInterface.EditTaskViewClassListener
     private val root: View = editTaskViewClassBinding.root
+    private lateinit var taskID: String
     private var taskNameInput: TextInputEditText = editTaskViewClassBinding.TitleTextView
     private var taskLocationInput: TextInputEditText = editTaskViewClassBinding.locationTextView
     private var taskStartDateInput: TextInputEditText = editTaskViewClassBinding.startDateTextView
@@ -31,7 +34,29 @@ class EditTaskViewClass(val inflater: LayoutInflater, val parent: ViewGroup?): E
 
     override fun getRoot(): View = this.root
 
-    fun taskNameValid():Boolean{
+    override fun setListener(editTaskViewClassListener: EditTaskViewClassInterface.EditTaskViewClassListener) {
+        this.editTaskViewClassListener = editTaskViewClassListener
+    }
+
+   override fun setInitialData(task: TaskPresentationModel){
+        with(task){
+            this@EditTaskViewClass.taskID = taskID
+            taskNameInput.setText(taskName)
+            taskLocationInput.setText(taskLocation)
+            val startDate = taskStartDate.format(dateFormatter)
+            taskStartDateInput.setText(startDate)
+            taskEndDateInput.setText(taskEndDate.format(dateFormatter))
+            taskStartTimeInput.setText(taskStartTime.toString())
+            taskEndTimeInput.setText(taskEndTime.toString())
+            taskDescriptionInput.setText(taskDescription)
+        }
+    }
+
+
+
+
+
+    private fun taskNameValid():Boolean{
         val nameInput : String = taskNameInputLayout.editText?.text.toString().trim()
 
         return if (nameInput.isEmpty()) {taskNameInputLayout.error = "Name Can't Be Empty"
@@ -41,7 +66,7 @@ class EditTaskViewClass(val inflater: LayoutInflater, val parent: ViewGroup?): E
         }
     }
 
-    fun startDateValid():Boolean{
+    private fun startDateValid():Boolean{
         val startDateInput : String = taskStartDateInputLayout.editText?.text.toString().trim()
 
         return if (startDateInput.isEmpty()) {taskStartDateInputLayout.error = "Date Can't Be Empty"
@@ -51,7 +76,7 @@ class EditTaskViewClass(val inflater: LayoutInflater, val parent: ViewGroup?): E
         }
     }
 
-    fun endDateValid():Boolean{
+    private fun endDateValid():Boolean{
         val endDateInput : String = taskEndDateInputLayout.editText?.text.toString().trim()
 
         return when {
@@ -68,9 +93,10 @@ class EditTaskViewClass(val inflater: LayoutInflater, val parent: ViewGroup?): E
         }
     }
 
-    fun getTaskInput(): Array<String>{
+    override fun getTaskUpdateInput(): Array<String>{
         return if (taskNameValid() and startDateValid() and endDateValid()){
             val input = arrayOf(
+                taskID,
                 (taskNameInput.text.toString().trim()),
                 (taskLocationInput.text.toString().trim()),
                 (taskDescriptionInput.text.toString().trim()),
@@ -79,7 +105,7 @@ class EditTaskViewClass(val inflater: LayoutInflater, val parent: ViewGroup?): E
                 (taskStartTimeInput.text.toString().trim()),
                 (taskEndTimeInput.text.toString().trim())
             )
-            Timber.i("get task input called")
+            Timber.i("get task Update input called")
             input
         } else emptyArray()
 

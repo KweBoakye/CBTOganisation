@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
 import com.fyp.kweku.cbtoganisation.databinding.FragmentHomeBinding
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskViewModel
+import com.fyp.kweku.cbtoganisation.tasks.presentation.home.CoordinatorLayoutWithCollapsingToolBarLayoutDisabled
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.HomeFragment
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
+import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.threeten.bp.LocalDate
 import timber.log.Timber
@@ -23,8 +26,10 @@ class TasksByDayRecyclerViewClass(val context: Context, val view: View,val homeF
      {
          override fun setTasks(tasks: MutableList<TaskPresentationModel>) {
              noTasksLayout.visibility = View.GONE
-             if (tasks.isEmpty()) noTasksLayout.visibility = View.VISIBLE
              tasksByDayRecyclerAdapter.submitList(tasks.toMutableList())
+             if (tasks.isEmpty()) noTasksLayout.visibility = View.VISIBLE
+
+
          }
 
          override fun taskSelected(taskID: String){
@@ -34,8 +39,10 @@ class TasksByDayRecyclerViewClass(val context: Context, val view: View,val homeF
 
          private val tasksByDayRecycler : RecyclerView
     private var layoutManager :LinearLayoutManager
+
          private var tasksByDayRecyclerAdapter: TasksByDayRecyclerAdapter
          private val fragmentListener: TasksByDayRecyclerViewClassInterface.TasksByDayRecyclerViewClassFragmentListener = homeFragment
+
     val noTasksLayout= view.empty_text
 
     /*val tasksByDayObserver = Observer<MutableList<TaskPresentationModel>> {tasks ->
@@ -45,6 +52,7 @@ class TasksByDayRecyclerViewClass(val context: Context, val view: View,val homeF
 
 
     init {
+
         tasksByDayRecycler = view.tasks_by_day_recycler
         layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL, false)
         tasksByDayRecycler.layoutManager = layoutManager
@@ -55,6 +63,8 @@ class TasksByDayRecyclerViewClass(val context: Context, val view: View,val homeF
 
 
     }
+
+
 
          /*override fun setFragmentListener(fragmentListener: TasksByDayRecyclerViewClassInterface.TasksByDayRecyclerViewClassFragmentListener){
              this.fragmentListener = fragmentListener

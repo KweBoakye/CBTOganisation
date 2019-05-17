@@ -8,6 +8,7 @@ import com.fyp.kweku.cbtoganisation.tasks.presentation.createnewtask.CreateNewTa
 import com.fyp.kweku.cbtoganisation.tasks.presentation.createnewtask.CreateNewTaskViewClassInterface
 import com.fyp.kweku.cbtoganisation.tasks.presentation.deletetask.DeleteTasksViewClass
 import com.fyp.kweku.cbtoganisation.tasks.presentation.deletetask.DeleteTasksViewClassInterface
+import com.fyp.kweku.cbtoganisation.tasks.presentation.edittasks.EditTaskController
 import com.fyp.kweku.cbtoganisation.tasks.presentation.edittasks.EditTaskViewClass
 import com.fyp.kweku.cbtoganisation.tasks.presentation.edittasks.EditTaskViewClassInterface
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.HomeController
@@ -63,7 +64,7 @@ val PresentationModule = module {
 
     factory<HomeViewClassInterface> { HomeViewClass(get(),get())  }
 
-    factory { HomeController() }
+    factory { HomeController(get()) }
 
     factory<HorizontalCalendarViewClassInterface> { HorizontalCalendarViewClass(get(),get(),get())}
 
@@ -85,7 +86,7 @@ val PresentationModule = module {
     factory { MonthCalendarOuterController(get() ) }
 
     //locations
-    factory<LocationsViewClassInterface> { LocationsViewClass(get(), get()) }
+    factory<LocationsViewClassInterface> { LocationsViewClass(get(), get(), get()) }
     factory { LocationsController(get()) }
 
     //tasksByLocation
@@ -107,6 +108,7 @@ val PresentationModule = module {
     factory { ViewTaskByIDController(get()) }
 
     factory<EditTaskViewClassInterface> { EditTaskViewClass(get(), get()) }
+    factory {  EditTaskController(get(), get()) }
 
 
 
