@@ -8,12 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
+import com.fyp.kweku.cbtoganisation.common.CBTOrganisationApplication
 
 import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskActivity
 import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.taskbydaydialog.TasksBySpecificDayDialogFragment
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
-import org.koin.android.ext.android.get
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Deferred
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 
@@ -30,6 +32,8 @@ class MonthCalendarFragment : Fragment(), MonthCalendarViewClassForViewPagerInte
     private lateinit var monthCalendarViewClassForViewPagerInterface: MonthCalendarViewClassForViewPagerInterface
      var parentListener: ParentListener? = null
     lateinit var taskActivity: TaskActivity
+    private var calendarData: Deferred<List<Triple<LocalDate, Boolean, MutableList<String>>>> =
+        CompletableDeferred()
 
 
     /*override fun onAttach(context: Context) {
@@ -42,14 +46,15 @@ class MonthCalendarFragment : Fragment(), MonthCalendarViewClassForViewPagerInte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        monthCalendarControllerForViewPager = get()
+        CBTOrganisationApplication.getComponent().inject(this)
+       // monthCalendarControllerForViewPager = get()
         //monthCalendarControllerForViewPager.loadAllTasksForRecycler()
         val monthString = arguments?.getString(MONTH) ?: throw IllegalStateException()//monthBundle!!["month"] as YearMonth
         currentMonth = YearMonth.parse(monthString)
         monthCalendarControllerForViewPager.setMonth(currentMonth)
         //monthCalendarControllerForViewPager.setDates()
        // monthCalendarControllerForViewPager.filterTasks(parentListener.getAllTasks())
-        monthCalendarControllerForViewPager.generateCalendar()
+        calendarData = monthCalendarControllerForViewPager.generateCalendarAsync()
 
         taskActivity = context as TaskActivity
 
@@ -67,8 +72,7 @@ class MonthCalendarFragment : Fragment(), MonthCalendarViewClassForViewPagerInte
         monthCalendarControllerForViewPager.bindView(monthCalendarViewClassForViewPagerInterface)
         //monthCalendarViewClassForViewPagerInterface.setFragmentListener(this)
         //getAllTasksLiveData().observe(this, allTasksObserver())
-        monthCalendarViewClassForViewPagerInterface.initRecyclerview()
-        monthCalendarControllerForViewPager.setAdapterData()
+        monthCalendarControllerForViewPager.setAdapterData(calendarData)
 
         /*val datesAndTasksByMonthLiveDataObserver = Observer<List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>>>{datesAndTasks -> monthCalendarViewClassForViewPagerInterface.setAdapterData(datesAndTasks)}
         getDatesAndTasksByMonthAsLiveData().observe(viewLifecycleOwner, datesAndTasksByMonthLiveDataObserver)*/

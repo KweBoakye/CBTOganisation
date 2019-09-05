@@ -40,6 +40,7 @@ class MonthCalendarViewClassForViewPager(val inflater: LayoutInflater, val conte
 
     override fun setAdapterData(datesAndTasks: List<Triple<LocalDate, Boolean, MutableList<String>>>){
         monthCalendarRecyclerAdapterForViewPager.submitList(datesAndTasks)
+        initRecyclerview()
     }
 
     private fun intitFlexbox() {

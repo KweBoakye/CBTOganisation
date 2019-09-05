@@ -10,6 +10,7 @@ import com.fyp.kweku.cbtoganisation.tasks.presentation.locations.LocationsFragme
 import com.fyp.kweku.cbtoganisation.tasks.presentation.locations.tasksbylocation.TasksByLocationDialogFragment
 import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.viewpager.MonthViewPagerFragment
 import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.calendar.MonthCalendarControllerForViewPager
+import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.calendar.MonthCalendarFragment
 import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.recyclerview.MonthViewAsRecyclerViewFragment
 import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.taskbydaydialog.TasksBySpecificDayDialogFragment
 import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtaskbyid.ViewTaskByIDFragment
@@ -39,6 +40,7 @@ interface AppComponent {
     fun inject(tasksByLocationDialogFragment: TasksByLocationDialogFragment)
     fun inject(homeFragment: HomeFragment)
     fun inject(monthViewPagerFragment: MonthViewPagerFragment)
+    fun inject(monthCalendarFragment: MonthCalendarFragment)
     fun inject(viewTaskByIDFragment: ViewTaskByIDFragment)
     fun inject(taskbySpecificDayDialogFragment: TasksBySpecificDayDialogFragment)
     fun inject(monthViewAsRecyclerViewFragment: MonthViewAsRecyclerViewFragment)

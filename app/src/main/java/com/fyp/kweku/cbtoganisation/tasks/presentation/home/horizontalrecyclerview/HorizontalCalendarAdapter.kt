@@ -57,6 +57,7 @@ class HorizontalCalendarAdapter(private val context: Context,
     override fun onBindViewHolder(holder: HorizontalCalendarViewHolder, position: Int) {
 
         if (position == 0 && !isFirstBind) {notifyEndReached()}
+        else if (isFirstBind) {notifyEndReached()}
         else if ((position ) >= (itemCount-1)){notifyStartReached()}
         isFirstBind = false
         holder.day.text = data[position].day.toString()

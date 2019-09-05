@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fyp.kweku.cbtoganisation.common.CBTOrganisationApplication
 import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
 import com.fyp.kweku.cbtoganisation.tasks.domain.outputinterfaces.TaskOutput
+import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskActivity
 import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.calendar.MonthCalendarViewClassForViewPagerInterface
 import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.taskbydaydialog.TasksBySpecificDayDialogFragment
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
@@ -42,10 +44,13 @@ class MonthViewAsRecyclerViewFragment : Fragment() , MonthCalendarViewClassForVi
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val toolbar: Toolbar = (context as TaskActivity).toolbar
         monthViewAsRecyclerViewClassInterface =
             MonthViewAsRecyclerViewClass(
                 inflater,
-                container
+                container,
+                toolbar
             )
         getAllTasksLiveData().observe(viewLifecycleOwner, allTasksObserver())
         monthViewAsRecyclerViewClassInterface.initAdapter(this)
@@ -53,9 +58,10 @@ class MonthViewAsRecyclerViewFragment : Fragment() , MonthCalendarViewClassForVi
         return monthViewAsRecyclerViewClassInterface.getRoot()
     }
 
+
+
     private fun getAllTasksLiveData(): LiveData<List<TaskPresentationModel>> {
-        // @Suppress("UNCHECKED_CAST")
-        // return monthViewPagerController.getAllTasks() as LiveData<List<TaskPresentationModel>>
+
         return taskOutput.getAllTasks()
     }
 

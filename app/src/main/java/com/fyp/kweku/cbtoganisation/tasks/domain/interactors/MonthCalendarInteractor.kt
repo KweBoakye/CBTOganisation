@@ -7,6 +7,7 @@ import com.fyp.kweku.cbtoganisation.tasks.domain.repository.TaskRepositoryInterf
 import kotlinx.coroutines.*
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
+import timber.log.Timber
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
@@ -63,10 +64,12 @@ class MonthCalendarInteractor @Inject constructor(private val taskRepositoryInte
         val overflowAsDate = getOverflowAsDate(numberOfOverflowDaysBeforeMonthStarts, month)
         val dates = List<LocalDate>(42){overflowAsDate.plusDays(it.toLong()) }
 
-       return@withContext List(42){Triple(dates[it],
+       val list = List(42){Triple(dates[it],
            checkisPartOfCurrentMonth(dates[it],month),
            processTasksv2(taskRepositoryInterface
                .getTaskBy42CalendarMonth(dates.first(),dates.last()), it, dates) )}
+       Timber.i("$list")
+       return@withContext list
     }
 
     fun  checkisPartOfCurrentMonth(date: LocalDate, month: YearMonth):Boolean{

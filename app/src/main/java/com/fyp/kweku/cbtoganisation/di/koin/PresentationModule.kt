@@ -114,8 +114,8 @@ val PresentationModule = module {
     factory<MonthViewAsRecyclerViewClassInterface> {
         MonthViewAsRecyclerViewClass(
             get(),
-            get()
-        )
+            get(),
+        get())
     }
 
     //factory<DeleteTasksViewClassInterface>{ DeleteTasksViewClass(get())}

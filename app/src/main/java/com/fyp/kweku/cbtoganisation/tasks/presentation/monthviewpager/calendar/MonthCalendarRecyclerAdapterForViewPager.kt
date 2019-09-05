@@ -83,40 +83,12 @@ class MonthCalendarRecyclerAdapterForViewPager( val dayListener: DayListener,val
         lateinit var monthDayTextView: TextView
         lateinit var dayCell: LinearLayout
 
-        /*fun checkTaskNames(position: Int, index :Int,  taskLists: MutableList<MutableList<TaskPresentationModel>>):String{
-            return when (taskLists.isEmpty()){
-                true -> {""}
-                false ->
-                    when (taskLists[position].isEmpty()){
-                        true -> {""}
-                        false ->
-                            when(taskLists[position][index].taskName.isNullOrBlank()){
-                                true-> {""}
-                                false-> {
-                                    taskLists[position][index].taskName
-                                }
-                            }
-                    }
-            }
-        }*/
 
         private  fun nullAndOrOutOfBoundsCheckAndReplaceAsync(item: Triple<LocalDate, Boolean, MutableList<String>>, index: Int)= scope.async(Dispatchers.Default){
           runCatching { item.third[index] }.getOrDefault("")
         }
 
-       /* fun nullChecker(position: Int, index: Int):String{
-           return when (datesAndTasks[position].second.isEmpty()) {
-                true -> { "" }
-               false ->
-                   if (index > (datesAndTasks[position].second.size - 1) ) ""
-               else
-                   when (datesAndTasks[position].second[index]?.taskName == null){
-                       true -> ""
-                       false -> datesAndTasks[position].second[index]?.taskName!!
-                   }
 
-            }
-        }*/
 
         private suspend fun indicateDayIsPartOfMonth(isPartOfMonthBoolean: Boolean, dayTextboxBackgroundColor: Int)= withContext(Dispatchers.Default){
 
@@ -124,44 +96,76 @@ class MonthCalendarRecyclerAdapterForViewPager( val dayListener: DayListener,val
 
         }
 
+        fun setFlexboxLayoutParams(position: Int){
+            val layoutParams: ViewGroup.LayoutParams = dayCell.layoutParams
+            //val flexboxLayoutParams: FlexboxLayoutManager.LayoutParams = layoutParams as FlexboxLayoutManager.LayoutParams
+            val flexboxLayoutParams: FlexboxLayoutManager.LayoutParams =
+                layoutParams as FlexboxLayoutManager.LayoutParams
+            flexboxLayoutParams.maxHeight = height
+            flexboxLayoutParams.flexBasisPercent = (1f / 7f)
+            flexboxLayoutParams.flexGrow = 1f
+            flexboxLayoutParams.flexShrink = 1f
+            when (position) {
+                0, 7, 14, 21, 28, 35 -> {
+                    flexboxLayoutParams.isWrapBefore = true
+                }
+                else -> {
+                    flexboxLayoutParams.isWrapBefore = false
+                }
+            }
+        }
 
-           suspend fun bind( item: Triple<LocalDate, Boolean, MutableList<String>>,dayTextboxBackgroundColor: Int, position: Int) {
-               val layoutParams: ViewGroup.LayoutParams = dayCell.layoutParams
-               //val flexboxLayoutParams: FlexboxLayoutManager.LayoutParams = layoutParams as FlexboxLayoutManager.LayoutParams
-               val flexboxLayoutParams:FlexboxLayoutManager.LayoutParams = layoutParams as FlexboxLayoutManager.LayoutParams
-               flexboxLayoutParams.maxHeight= height
-               flexboxLayoutParams.flexBasisPercent = (1f/7f)
-               flexboxLayoutParams.flexGrow = 1f
-               flexboxLayoutParams.flexShrink = 1f
-               when(position) {
-                   0,7,14,21,28,35-> {
-                       flexboxLayoutParams.isWrapBefore = true}
-                   else->{}}
-
-
-
-
-
-            monthDayTextView.text = item.first.dayOfMonth.toString() //days[position].dayOfMonth.toString()
-            indicateDayIsPartOfMonth(item.second,dayTextboxBackgroundColor )
-            taskTextView1.text = nullAndOrOutOfBoundsCheckAndReplaceAsync(item, 0).await()//getItem(position)[0].taskName
+        suspend fun setText( item: Triple<LocalDate, Boolean, MutableList<String>>){
+            monthDayTextView.text =
+                item.first.dayOfMonth.toString() //days[position].dayOfMonth.toString()
+            indicateDayIsPartOfMonth(item.second, dayTextboxBackgroundColor)
+            taskTextView1.text = nullAndOrOutOfBoundsCheckAndReplaceAsync(
+                item,
+                0
+            ).await()//getItem(position)[0].taskName
             taskTextView2.text = nullAndOrOutOfBoundsCheckAndReplaceAsync(item, 1).await()
             taskTextView3.text = nullAndOrOutOfBoundsCheckAndReplaceAsync(item, 2).await()
             taskTextView4.text = nullAndOrOutOfBoundsCheckAndReplaceAsync(item, 3).await()
             taskTextView5.text = nullAndOrOutOfBoundsCheckAndReplaceAsync(item, 4).await()
-            dayCell.setOnClickListener { dayListener.daySelected(item.first)}
-
-
-
-           /* monthDayTextView.text = datesAndTasks[position].first.dayOfMonth.toString() //days[position].dayOfMonth.toString()
-            indicateDayIsPartOfMonth(datesAndTasks[position].second,dayTextboxBackgroundColor )
-            taskTextView1.text = nullAndOrOutOfBoundsCheckAndReplace(position, 0)//getItem(position)[0].taskName
-            taskTextView2.text = nullAndOrOutOfBoundsCheckAndReplace(position, 1)
-            taskTextView3.text = nullAndOrOutOfBoundsCheckAndReplace(position, 2)
-            taskTextView4.text = nullAndOrOutOfBoundsCheckAndReplace(position, 3)
-            taskTextView5.text = nullAndOrOutOfBoundsCheckAndReplace(position, 4)
-            dayCell.setOnClickListener { dayListener.daySelected(datesAndTasks[position].first)}*/
+            dayCell.setOnClickListener { dayListener.daySelected(item.first) }
         }
+
+
+           suspend fun bind( item: Triple<LocalDate, Boolean, MutableList<String>>,dayTextboxBackgroundColor: Int, position: Int) {
+              /* val layoutParams: ViewGroup.LayoutParams = dayCell.layoutParams
+               //val flexboxLayoutParams: FlexboxLayoutManager.LayoutParams = layoutParams as FlexboxLayoutManager.LayoutParams
+               val flexboxLayoutParams: FlexboxLayoutManager.LayoutParams =
+                   layoutParams as FlexboxLayoutManager.LayoutParams
+               flexboxLayoutParams.maxHeight = height
+               flexboxLayoutParams.flexBasisPercent = (1f / 7f)
+               flexboxLayoutParams.flexGrow = 1f
+               flexboxLayoutParams.flexShrink = 1f
+               when (position) {
+                   0, 7, 14, 21, 28, 35 -> {
+                       flexboxLayoutParams.isWrapBefore = true
+                   }
+                   else -> {
+                       flexboxLayoutParams.isWrapBefore = false
+                   }
+               }*/
+
+               setFlexboxLayoutParams(position)
+
+               monthDayTextView.text =
+                   item.first.dayOfMonth.toString() //days[position].dayOfMonth.toString()
+               indicateDayIsPartOfMonth(item.second, dayTextboxBackgroundColor)
+               taskTextView1.text = nullAndOrOutOfBoundsCheckAndReplaceAsync(
+                   item,
+                   0
+               ).await()//getItem(position)[0].taskName
+               taskTextView2.text = nullAndOrOutOfBoundsCheckAndReplaceAsync(item, 1).await()
+               taskTextView3.text = nullAndOrOutOfBoundsCheckAndReplaceAsync(item, 2).await()
+               taskTextView4.text = nullAndOrOutOfBoundsCheckAndReplaceAsync(item, 3).await()
+               taskTextView5.text = nullAndOrOutOfBoundsCheckAndReplaceAsync(item, 4).await()
+               dayCell.setOnClickListener { dayListener.daySelected(item.first) }
+
+
+           }
     }
 
     interface DayListener{

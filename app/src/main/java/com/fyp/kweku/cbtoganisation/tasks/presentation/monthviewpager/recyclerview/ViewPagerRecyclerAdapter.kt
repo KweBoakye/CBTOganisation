@@ -9,7 +9,10 @@ import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.calendar.M
 import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.calendar.MonthCalendarViewClassForViewPager
 import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.calendar.MonthCalendarViewClassForViewPagerInterface
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Deferred
 import org.koin.core.KoinComponent
+import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 
 
@@ -49,6 +52,9 @@ class ViewPagerRecyclerAdapter(private val fragmentListener: MonthCalendarViewCl
     class CalendarViewHolder( val monthCalendarViewClassForViewPagerInterface:MonthCalendarViewClassForViewPagerInterface, val tasks: List<TaskPresentationModel>):
         RecyclerView.ViewHolder(monthCalendarViewClassForViewPagerInterface.getRoot()){
 
+        private var calendarData: Deferred<List<Triple<LocalDate, Boolean, MutableList<String>>>> =
+            CompletableDeferred()
+
         var monthCalendarControllerForViewPager: MonthCalendarControllerForViewPager =
             CBTOrganisationApplication.getComponent().monthCalendarControllerForViewPager
 
@@ -58,13 +64,14 @@ class ViewPagerRecyclerAdapter(private val fragmentListener: MonthCalendarViewCl
         fun bind(month: YearMonth){
            with(monthCalendarControllerForViewPager){
                setMonth(month)
-               generateCalendar()
                bindView(monthCalendarViewClassForViewPagerInterface)
+         setAdapterData(generateCalendarAsync())
+
 
            }
 
             monthCalendarViewClassForViewPagerInterface.initRecyclerview()
-            monthCalendarControllerForViewPager.setAdapterData()
+            //monthCalendarControllerForViewPager.setAdapterData()
 
 
 

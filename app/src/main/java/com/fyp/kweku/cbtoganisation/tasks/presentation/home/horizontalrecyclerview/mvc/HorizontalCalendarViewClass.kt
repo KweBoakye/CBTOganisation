@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.*
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerview.HorizontalCalendarAdapter
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerview.HorizontalCalendarLayoutManager
 import timber.log.Timber
-import com.fyp.kweku.cbtoganisation.databinding.CalendarRecyclerBinding
+
 
 import com.fyp.kweku.cbtoganisation.tasks.presentation.utils.snaponscrolllistener.SnapOnScrollListener
 import com.fyp.kweku.cbtoganisation.tasks.presentation.utils.snaponscrolllistener.attachSnapHelperWithListener
@@ -35,7 +35,7 @@ class HorizontalCalendarViewClass(context: Context, val parent: ViewGroup?,view:
 
 
 
-    private var binding: CalendarRecyclerBinding = CalendarRecyclerBinding.inflate(LayoutInflater.from(context), parent,false)
+    //private var binding: CalendarRecyclerBinding = CalendarRecyclerBinding.inflate(LayoutInflater.from(context), parent,false)
     private var calendarRecycler: RecyclerView = view.calender_recycler
     private var layoutManager : HorizontalCalendarLayoutManager =
         HorizontalCalendarLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -44,25 +44,6 @@ class HorizontalCalendarViewClass(context: Context, val parent: ViewGroup?,view:
 
     private var calendarAdapter: HorizontalCalendarAdapter = HorizontalCalendarAdapter(context, this, this)
     private var snapHelper: SnapHelper = LinearSnapHelper()
-    private val scope = CoroutineScope(Job() + Dispatchers.Main)
-
-
-
-    init {
-       // collapsingCalendarLayout.setPassScrolling(false)
-
-          /*.also { it.onItemSelectedListener = object: HorizontalCalendarLayoutManager.OnItemSelectedListener {
-            override fun onItemSelected(layoutPosition: Int) {
-                calendarAdapter.onScrollStopped(layoutPosition)
-            }
-        } }*/
-
-
-
-
-    }
-
-
 
 
 
@@ -94,8 +75,9 @@ class HorizontalCalendarViewClass(context: Context, val parent: ViewGroup?,view:
 
       //  snapHelper.attachToRecyclerView(calendarRecycler)
         calendarRecycler.layoutManager = layoutManager
-        calendarRecycler.adapter = calendarAdapter
         calendarAdapter.setData(horizontalCalendarViewClassListener.CalenderAdapterSetDataParameters())
+        calendarRecycler.adapter = calendarAdapter
+
         calendarRecycler.attachSnapHelperWithListener(snapHelper,SnapOnScrollListener.Behavior.NOTIFY_ON_SCROLL_STATE_IDLE, this)
         //scrollToStart()
 

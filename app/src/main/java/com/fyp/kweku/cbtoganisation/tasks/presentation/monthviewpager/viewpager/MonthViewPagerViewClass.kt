@@ -54,11 +54,6 @@ class MonthViewPagerViewClass(val inflater: LayoutInflater, val parent: ViewGrou
 
 
    override fun initViewPager(months: List<YearMonth>,monthIndex: Int){
-       /* with(viewPagerAdapter){
-            setMonths(months)
-
-
-        }*/
 
         with(monthViewPager){
             registerOnPageChangeCallback(this@MonthViewPagerViewClass)
@@ -72,7 +67,7 @@ class MonthViewPagerViewClass(val inflater: LayoutInflater, val parent: ViewGrou
         }
     }
 
-    private fun checkIfTitleChangeNeeded()= scope.launch(Dispatchers.IO) {
+    private fun checkIfTitleChangeNeeded() {
         val position = monthViewPager.currentItem
         val positionChanged: Boolean = currentMonthIndex != position
 
@@ -84,15 +79,14 @@ class MonthViewPagerViewClass(val inflater: LayoutInflater, val parent: ViewGrou
         }
     }
 
-    private suspend fun createAndSetTitleString(position: Int){
+    private  fun createAndSetTitleString(position: Int){
         val currentMonth: YearMonth = viewPagerRecyclerAdapter.getMonth(position)
         val titleString = "${currentMonth.month} ${currentMonth.year}"
         setTitle(titleString)
     }
 
-   private suspend fun setTitle( titleString:String)= withContext(Dispatchers.Main){
-        /*val currentMonth: YearMonth = viewPagerAdapter.getMonth(position)
-        val titleString: String = "${currentMonth.month} ${currentMonth.year}"*/
+   private  fun setTitle( titleString:String) {
+
         toolbar.title = titleString
     }
 
