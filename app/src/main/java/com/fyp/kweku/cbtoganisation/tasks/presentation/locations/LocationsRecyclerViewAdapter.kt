@@ -38,8 +38,7 @@ lateinit var locationChipBinding: LocationRecyclerviewChipBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationsViewHolder {
         locationChipBinding  = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.location_recyclerview_chip, parent,false)
-       val  root = locationChipBinding.root
-        val locationsViewHolder: LocationsViewHolder = LocationsViewHolder(locationChipBinding.root)
+        val locationsViewHolder = LocationsViewHolder(locationChipBinding.root)
         locationsViewHolder.locationChip =  locationChipBinding.locationChip
 
 

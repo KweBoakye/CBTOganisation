@@ -77,7 +77,7 @@ class HorizontalCalendarLayoutManager: LinearLayoutManager, ScrollVectorProvider
 
     override fun scrollHorizontallyBy(dx: Int, recycler: RecyclerView.Recycler?, state: RecyclerView.State?): Int {
         val orientation = orientation
-        if (orientation == LinearLayoutManager.HORIZONTAL) {
+        if (orientation == HORIZONTAL) {
             val scrolled = super.scrollHorizontallyBy(dx, recycler, state)
 
             val midpoint = width / 2f
@@ -90,13 +90,19 @@ class HorizontalCalendarLayoutManager: LinearLayoutManager, ScrollVectorProvider
                 val childMidpoint = (getDecoratedRight(child!!) + getDecoratedLeft(child)) / 2f
                 val d = Math.min(d1, Math.abs(midpoint - childMidpoint))
                 val scale = s0 + (s1 - s0) * (d - d0) / (d1 - d0)
-                child.scaleX = scale
+             if (!scale.isNaN()) {
+                 child.scaleX = scale
                 child.scaleY = scale
+             }
             }
             return scrolled
         } else {
             return 0
         }
+    }
+
+    override fun assertNotInLayoutOrScroll(message: String?) {
+        super.assertNotInLayoutOrScroll(message)
     }
 
     override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State) {

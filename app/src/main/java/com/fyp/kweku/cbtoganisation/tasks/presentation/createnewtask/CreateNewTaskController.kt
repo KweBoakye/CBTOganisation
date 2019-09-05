@@ -11,10 +11,16 @@ import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
 import timber.log.Timber
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class CreateNewTaskController(val createNewTaskInteractorInterface: CreateNewTaskInteractorInterface): CreateNewTaskViewClassInterface.CreateNewTaskListener
+class CreateNewTaskController @Inject constructor(val createNewTaskInteractorInterface: CreateNewTaskInteractorInterface): CreateNewTaskViewClassInterface.CreateNewTaskListener
     {
+
+
+        override fun stringValid(string: String): Boolean{
+            return string.isNotEmpty()
+        }
 
         private lateinit var createNewTaskViewClassInterface: CreateNewTaskViewClassInterface
     private var parentJob = Job()
@@ -32,17 +38,22 @@ class CreateNewTaskController(val createNewTaskInteractorInterface: CreateNewTas
     }
 
     fun persistTask(input: Array<String>) = scope.launch(Dispatchers.IO){
-        if (input.isEmpty()){}
-        else{
-        val taskID = createNewTaskInteractorInterface.generateTaskID()
-        val task = Task(taskID,input[0],input[1],input[2],
-            LocalDate.parse(input[3],ProjectDateTimeUtils.getCustomDateFormatter()),
-            LocalDate.parse(input[4],ProjectDateTimeUtils.getCustomDateFormatter()),
-            LocalTime.parse(input[5]),
-            LocalTime.parse(input[6]))
-        createNewTaskInteractorInterface.SendTaskToDataLayer(task)
-        Timber.i("persisttask called")}
+        if (!input.isEmpty()) {
+            val taskID = createNewTaskInteractorInterface.generateTaskID()
+            val task = Task(taskID,input[0],input[1],input[2],
+                LocalDate.parse(input[3],ProjectDateTimeUtils.getCustomDateFormatter()),
+                LocalDate.parse(input[4],ProjectDateTimeUtils.getCustomDateFormatter()),
+                LocalTime.parse(input[5]),
+                LocalTime.parse(input[6]))
+            createNewTaskInteractorInterface.SendTaskToDataLayer(task)
+            Timber.i("persisttask called")}
     }
+
+
+        fun updateStartDate(date: LocalDate) = createNewTaskViewClassInterface.updateStartDate(date)
+        fun updateEndDate(date: LocalDate) = createNewTaskViewClassInterface.updateEndDate(date)
+        fun updateStartTime(time:LocalTime) = createNewTaskViewClassInterface.updateStartTime(time)
+        fun updateEndTime(time:LocalTime) = createNewTaskViewClassInterface.updateEndTime(time)
 
 
 

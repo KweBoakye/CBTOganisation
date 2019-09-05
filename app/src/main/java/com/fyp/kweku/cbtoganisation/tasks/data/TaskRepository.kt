@@ -2,17 +2,20 @@ package com.fyp.kweku.cbtoganisation.tasks.data
 
 import android.app.Application
 import androidx.annotation.WorkerThread
+import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
 import com.fyp.kweku.cbtoganisation.tasks.data.model.TaskDataModel
 import com.fyp.kweku.cbtoganisation.tasks.data.model.TaskMapper
 import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
 import com.fyp.kweku.cbtoganisation.tasks.domain.repository.TaskRepositoryInterface
 import timber.log.Timber
 import com.google.android.material.appbar.AppBarLayout.ScrollingViewBehavior
+import org.threeten.bp.LocalDate
+import org.threeten.bp.format.DateTimeFormatter
 
 class TaskRepository(private val taskDao: TaskDao) : TaskRepositoryInterface {
 
 //all funtions here suspending functions as  database operations will use Coroutines
-    //The Functions in the Dao can notbe marked as suspended
+
     private val taskMapper = TaskMapper()
 
     override suspend fun getAlltasks(): List<Task> {
@@ -33,6 +36,15 @@ class TaskRepository(private val taskDao: TaskDao) : TaskRepositoryInterface {
 
     }
 
+    override suspend fun getTaskBy42CalendarMonth(startDate: LocalDate, endDate: LocalDate): List<Task>{
+        val t = taskDao.filterTasksBy42DayCalendarMonth(startDate.format(
+            DateTimeFormatter.ISO_LOCAL_DATE),
+            endDate.format(DateTimeFormatter.ISO_LOCAL_DATE))
+        Timber.i("$t")
+        return t
+            .map { taskMapper.fromEntity(it) }
+    }
+
     override suspend fun getAllLocations(): List<String> {
       return this.taskDao.loadAllLocations()
     }
@@ -41,8 +53,10 @@ class TaskRepository(private val taskDao: TaskDao) : TaskRepositoryInterface {
         return this.taskDao.getTasksByLocation(taskLocation).map { taskMapper.fromEntity(it) }
     }
 
-    override suspend fun deleteTask(task: Task) {
-        taskDao.deleteTask(taskMapper.toEntity(task))
+    override suspend fun deleteTask(task: Task):Int {
+       val t =taskDao.deleteTask(taskMapper.toEntity(task))
+        Timber.i("$t")
+        return t
     }
 
   override  suspend fun updateTask(task: Task){

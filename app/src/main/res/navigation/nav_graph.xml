@@ -14,42 +14,60 @@
             android:id="@+id/action_homeFragment_to_createNewTaskFragment"
             app:destination="@id/createNewTaskFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_viewTasksFragment"
-            app:destination="@id/viewTasksFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_monthCalendarFragment"
             app:destination="@id/monthCalendarFragment" />
         <action
             android:id="@+id/action_homeFragment_to_locationsFragment"
             app:destination="@id/locationsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_monthViewAsRecyclerViewFragment"
+            app:destination="@id/monthViewAsRecyclerViewFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_viewTaskByIDFragment"
+            app:destination="@id/viewTaskByIDFragment" />
     </fragment>
     <fragment
         android:id="@+id/createNewTaskFragment"
         android:name="com.fyp.kweku.cbtoganisation.tasks.presentation.createnewtask.CreateNewTaskFragment"
         android:label="Create New Task"
-        tools:layout="@layout/fragment_create_new_task" />
-    <fragment
-        android:id="@+id/viewTasksFragment"
-        android:name="com.fyp.kweku.cbtoganisation.tasks.presentation.viewtasks.ViewTasksFragment"
-        android:label="fragment_view_tasks"
-        tools:layout="@layout/fragment_view_tasks" />
-    <fragment
-        android:id="@+id/monthCalendarFragment"
-        android:name="com.fyp.kweku.cbtoganisation.tasks.presentation.monthcalendar.MonthCalendarFragment"
-        android:label="Month Calendar"
-        tools:layout="@layout/fragment_month_calendar" />
+        tools:layout="@layout/fragment_create_new_task" >
+        <action
+            android:id="@+id/action_createNewTaskFragment_to_viewTaskByIDFragment"
+            app:destination="@id/viewTaskByIDFragment" />
+    </fragment>
+
+
     <fragment
         android:id="@+id/locationsFragment"
         android:name="com.fyp.kweku.cbtoganisation.tasks.presentation.locations.LocationsFragment"
         android:label="Locations" />
     <fragment
         android:id="@+id/monthViewPagerFragment"
-        android:name="com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.MonthViewPagerFragment"
+        android:name="com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.viewpager.MonthViewPagerFragment"
         android:label="fragment_month_view_pager"
         tools:layout="@layout/fragment_month_view_pager" >
         <action
             android:id="@+id/action_monthViewPagerFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/viewTaskByIDFragment"
+        android:name="com.fyp.kweku.cbtoganisation.tasks.presentation.viewtaskbyid.ViewTaskByIDFragment"
+        android:label="view_task_by_id_fragment"
+        tools:layout="@layout/view_task_by_id_fragment" >
+        <action
+            android:id="@+id/action_viewTaskByIDFragment_to_editTaskFragment"
+            app:destination="@id/editTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/monthViewAsRecyclerViewFragment"
+        android:name="com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.recyclerview.MonthViewAsRecyclerViewFragment"
+        android:label="fragment_month_view_as_recycler_view"
+        tools:layout="@layout/fragment_month_view_as_recycler_view" />
+    <dialog
+        android:id="@+id/editTaskFragment"
+        android:name="com.fyp.kweku.cbtoganisation.tasks.presentation.edittasks.EditTaskFragment"
+        android:label="fragment_edit_task"
+        tools:layout="@layout/fragment_edit_task" />
 
 </navigation>

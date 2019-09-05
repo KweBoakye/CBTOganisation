@@ -5,18 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.fyp.kweku.cbtoganisation.tasks.presentation.home.HomeViewClassInterface
+import com.fyp.kweku.cbtoganisation.common.CBTOrganisationApplication
+import com.fyp.kweku.cbtoganisation.di.AppComponent
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 import org.koin.android.ext.android.get
 import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalTime
+import javax.inject.Inject
 
 
-class CreateNewTaskFragment : Fragment()  {
+class CreateNewTaskFragment : Fragment(), DatePickerDialog.OnDateSetListener ,
+    CreateNewTaskViewClassInterface.FragmentListener, TimePickerDialog.OnTimeSetListener{
+
 
 
     lateinit var datePickerDialogStart: DatePickerDialog
 lateinit var datePickerDialogEnd: DatePickerDialog
-    private lateinit var createNewTaskController: CreateNewTaskController
+    lateinit var timePickerDialogStart: TimePickerDialog
+    lateinit var timePickerDialogEnd: TimePickerDialog
+    @Inject  lateinit var createNewTaskController: CreateNewTaskController
     private var today = LocalDate.now()
 
     override fun onCreateView(
@@ -25,13 +33,15 @@ lateinit var datePickerDialogEnd: DatePickerDialog
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        CBTOrganisationApplication.getComponent().inject(this)
 
         val createNewTaskViewClass: CreateNewTaskViewClassInterface =
-            CreateNewTaskViewClass(layoutInflater, container, fragmentManager)
+            CreateNewTaskViewClass(layoutInflater, container, this)
 
-        createNewTaskController = get()
+        //createNewTaskController = get()
         createNewTaskController.bindView(createNewTaskViewClass)
-
+        initDatePickers()
+        initTimePickers()
 
         return createNewTaskViewClass.getRootView()
     }
@@ -45,12 +55,96 @@ lateinit var datePickerDialogEnd: DatePickerDialog
         createNewTaskController.onStart()
     }
 
+    private fun initDatePickers(){
+        val today = LocalDate.now()
 
+        datePickerDialogStart = DatePickerDialog.newInstance(this,
+            today.year,
+            today.monthValue-1,
+            today.dayOfMonth)
+        datePickerDialogStart.isThemeDark = true
+
+        datePickerDialogEnd = DatePickerDialog.newInstance(this,
+            today.year,
+            today.monthValue-1,
+            today.dayOfMonth)
+        datePickerDialogEnd.isThemeDark = true
+    }
+
+    private fun showDatePickerStart(){
+        fragmentManager?.let { datePickerDialogStart.show(it, "Datepickerdialog") }
+    }
+
+    private fun showDatePickerEnd(){
+            fragmentManager?.let { datePickerDialogEnd.show(it, "Datepickerdialog") }
+    }
+
+    private fun initTimePickers(){
+        val currentTime = LocalTime.now()
+        timePickerDialogStart = TimePickerDialog.newInstance(this,currentTime.hour, currentTime.minute, true)
+        timePickerDialogStart.isThemeDark = true
+
+        timePickerDialogEnd = TimePickerDialog.newInstance(this,currentTime.hour, currentTime.minute, true)
+        timePickerDialogEnd.isThemeDark = true
+
+    }
+
+    private fun showTimePickerDialogStart(){
+
+        fragmentManager?.let { timePickerDialogStart.show(it,"Timepickerdialog" ) }
+    }
+
+    private fun showTimePickerDialogEnd(){
+
+        fragmentManager?.let { timePickerDialogEnd.show(it,"Timepickerdialog" ) }
+    }
 
 
     override fun onStop() {
         super.onStop()
         createNewTaskController.onStop()
     }
+
+    override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
+        val date: LocalDate = LocalDate.of(year, monthOfYear+1, dayOfMonth)
+        if (view == datePickerDialogStart){
+            createNewTaskController.updateStartDate(date)
+
+        }
+        else if (view == datePickerDialogEnd){
+            createNewTaskController.updateEndDate(date)
+        }
+    }
+
+    override fun onTimeSet(view: TimePickerDialog?, hourOfDay: Int, minute: Int, second: Int) {
+        val time: LocalTime = LocalTime.of(hourOfDay, minute)
+
+        when(view){
+            timePickerDialogStart ->{
+                createNewTaskController.updateStartTime(time)
+            }
+            timePickerDialogEnd->{
+                createNewTaskController.updateEndTime(time)
+            }
+        }
+    }
+
+   override fun startDateClicked(){
+       showDatePickerStart()
+   }
+
+
+    override fun endDateClicked(){
+       showDatePickerEnd()
+    }
+
+    override fun startTimeClicked() {
+        showTimePickerDialogStart()
+    }
+
+    override fun endTimeClicked() {
+        showTimePickerDialogEnd()
+    }
+
 
 }

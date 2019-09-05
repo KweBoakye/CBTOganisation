@@ -19,13 +19,12 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/viewTasksByIDToolbar"
-            style="@style/DarkToolBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="@dimen/app_bar__elevation"
             android:theme="@style/DarkToolBarStyle"
             app:menu="@menu/viewtaskmenu"
-            android:textAlignment="center">
+            >
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -164,6 +163,18 @@
             app:layout_constraintGuide_begin="205dp"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
+
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_centre_to_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_begin="205dp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"

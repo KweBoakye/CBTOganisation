@@ -13,6 +13,10 @@ class ProjectDateTimeUtils {
 
         }
 
+        fun getDataDateFormatter():DateTimeFormatter{
+            return DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        }
+
         //checks if a date is in a certain range provided a parameters
         fun checkIfDateIsInRange(dateToCheck: LocalDate, startDate: LocalDate, endDate: LocalDate):Boolean{
             return dateToCheck.isEqual(startDate) || dateToCheck.isEqual(endDate) || dateToCheck.isAfter(startDate)  && dateToCheck.isBefore(endDate)

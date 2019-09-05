@@ -6,29 +6,32 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-
-import com.fyp.kweku.cbtoganisation.R
+import com.fyp.kweku.cbtoganisation.common.CBTOrganisationApplication
+import com.fyp.kweku.cbtoganisation.tasks.domain.outputinterfaces.LocationsOutput
 import com.fyp.kweku.cbtoganisation.tasks.presentation.locations.tasksbylocation.TasksByLocationDialogFragment
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.channels.ReceiveChannel
-import kotlinx.coroutines.channels.produce
-import org.koin.android.ext.android.get
+import javax.inject.Inject
 
 
 class LocationsFragment : Fragment(), LocationsViewClassInterface.LocationsViewClassFragmentListener {
 
 
-
-    lateinit var locationsController: LocationsController
-
+    @Inject lateinit var locationsController: LocationsController
+    @Inject  lateinit var locationsOutput: LocationsOutput
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        locationsController = get()
+        CBTOrganisationApplication.getComponent().inject(this)
+        //locationsController = component.locationsController
+        //component = DaggerAppComponent.builder().build()
+
+
+
+        //locationsOutput =
+        //locationsController = get()
         locationsController.loadLocations()
     }
     override fun onCreateView(
@@ -36,30 +39,58 @@ class LocationsFragment : Fragment(), LocationsViewClassInterface.LocationsViewC
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val locationsViewClassInterface: LocationsViewClassInterface = LocationsViewClass(inflater, container)
-        locationsViewClassInterface.setFragmentListener(this)
-        locationsViewClassInterface.setListener(locationsController)
+        val locationsViewClassInterface: LocationsViewClassInterface = LocationsViewClass(inflater, container,this)
+
+       locationsController.bindView(locationsViewClassInterface)
 
         val root: View = locationsViewClassInterface.getRoot()
+        setAllLocationsAsLiveDataObserver(locationsObserver())
+        setFilteredLocationsLiveDataObserver(locationsObserver())
 
-        val allLocationsLiveDataObserver = Observer<List<String>>{ allLocations -> locationsViewClassInterface.setAdapterLocations(
-            allLocations
-        )}
-
-
-        getAllLocationsAsLiveData().observe(this,allLocationsLiveDataObserver )
         return root
-
-
     }
 
-    override fun LaunchDialog(location: String) {
+
+    private fun locationsObserver():Observer<List<String>>{
+        return  Observer{ locations -> locationsController.setAdapterLocations(locations) }
+    }
+
+    private fun setFilteredLocationsLiveDataObserver(observer: Observer<List<String>>){
+        getFilteredLocationsAsLiveData().observe(this, observer)
+    }
+
+    private fun removeFilteredLocationsLiveDataObserver(observer: Observer<List<String>>){
+        getFilteredLocationsAsLiveData().removeObserver(observer)
+    }
+
+    private fun setAllLocationsAsLiveDataObserver(observer: Observer<List<String>>){
+        getAllLocationsAsLiveData().observe(this,observer)
+    }
+    private fun removeAllLocationsAsLiveDataObserver(observer: Observer<List<String>>){
+        getAllLocationsAsLiveData().removeObserver(observer)
+    }
+
+
+    override fun getDebouncingQueryTextListener(): SearchView.OnQueryTextListener{
+        return DebouncingQueryTextListener(this.lifecycle){newText -> newText?.let {
+            if (it.isEmpty()){
+             setAllLocationsAsLiveDataObserver(locationsObserver())
+                removeFilteredLocationsLiveDataObserver(locationsObserver())
+            } else{
+                setFilteredLocationsLiveDataObserver(locationsObserver())
+                removeAllLocationsAsLiveDataObserver(locationsObserver())
+                locationsController.locationsQuery(it)
+            }
+        }}
+    }
+
+    override fun launchDialog(location: String) {
         launchDialogFragmentWithArguments(location)
     }
 
 
-    fun launchDialogFragmentWithArguments(location: String){
-        val locationBundle: Bundle = Bundle()
+    private fun launchDialogFragmentWithArguments(location: String){
+        val locationBundle = Bundle()
         locationBundle.putString("location", location)
         launchDialog(locationBundle)
     }
@@ -71,9 +102,12 @@ class LocationsFragment : Fragment(), LocationsViewClassInterface.LocationsViewC
     }
 
 
-    fun getAllLocationsAsLiveData(): LiveData<List<String>>{
-        @Suppress("UNCHECKED_CAST")
-        return locationsController.getTasksByLocationInteractorInterface.getAllLocationsAsAny() as LiveData<List<String>>
+    private fun getAllLocationsAsLiveData(): LiveData<List<String>>{
+        return locationsOutput.getAllLocations()
+    }
+
+    private fun getFilteredLocationsAsLiveData(): LiveData<List<String>>{
+        return locationsOutput.getFilteredLocations()
     }
 
 

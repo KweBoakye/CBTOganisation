@@ -1,19 +1,24 @@
 package com.fyp.kweku.cbtoganisation.tasks.presentation.locations
 
-import com.fyp.kweku.cbtoganisation.tasks.domain.interactors.GetTasksByLocationInteractorInterface
+import com.fyp.kweku.cbtoganisation.tasks.domain.interactors.LocationInteractorInterface
+import dagger.Reusable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class LocationsController(val getTasksByLocationInteractorInterface: GetTasksByLocationInteractorInterface): LocationsViewClassInterface.LocationsViewClassListener {
+@Reusable
+class LocationsController @Inject constructor (private val locationInteractorInterface: LocationInteractorInterface): LocationsViewClassInterface.LocationsViewClassListener {
 
-    private var parentJob = Job()
-    private val coroutineContext: CoroutineContext
-        get() = parentJob + Dispatchers.Main
-    private val scope = CoroutineScope(coroutineContext)
+    lateinit var locationsViewClassInterface: LocationsViewClassInterface
 
+    fun bindView(locationsViewClassInterface: LocationsViewClassInterface){
+        this.locationsViewClassInterface = locationsViewClassInterface
+        locationsViewClassInterface.setListener(this)
+    }
 
-    fun loadLocations() = scope.launch(Dispatchers.IO){getTasksByLocationInteractorInterface.loadAllLocations()}
+    fun loadLocations() = locationInteractorInterface.loadAllLocations()
+    fun locationsQuery(searchString: String) = locationInteractorInterface.filterLocations(searchString)
+    fun setAdapterLocations(locations: List<String>) = locationsViewClassInterface.setAdapterLocations(locations)
 }

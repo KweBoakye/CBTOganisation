@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
         >
 
         <TextView
@@ -17,95 +15,94 @@
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:text="@string/MonthCalendarDayMon"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintWidth_percent="0.1428"
-            app:layout_constraintHorizontal_bias="0.5"
+            android:textAlignment="viewStart"
             app:layout_constraintEnd_toStartOf="@+id/textViewTuesday"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:textAlignment="center" />
+            app:layout_constraintWidth_percent="0.1428" />
 
         <TextView
             android:id="@+id/textViewTuesday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/MonthCalendarDayTue"
-            app:layout_constraintStart_toEndOf="@+id/textViewMonday"
-            app:layout_constraintWidth_percent="0.1428"
-            app:layout_constraintHorizontal_bias="0.5"
+            android:textAlignment="viewStart"
             app:layout_constraintEnd_toStartOf="@+id/textViewWednesday"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textViewMonday"
             app:layout_constraintTop_toTopOf="parent"
-            android:textAlignment="center" />
+            app:layout_constraintWidth_percent="0.1428" />
 
         <TextView
             android:id="@+id/textViewWednesday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/MonthCalendarDayWed"
+            android:textAlignment="viewStart"
             app:layout_constraintEnd_toStartOf="@+id/textViewThursday"
-            app:layout_constraintStart_toEndOf="@+id/textViewTuesday"
-            app:layout_constraintWidth_percent="0.1428"
             app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textViewTuesday"
             app:layout_constraintTop_toTopOf="parent"
-            android:textAlignment="center" />
+            app:layout_constraintWidth_percent="0.1428" />
 
         <TextView
             android:id="@+id/textViewThursday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/MonthCalendarDayThurs"
-            app:layout_constraintWidth_percent="0.1428"
+            android:textAlignment="viewStart"
             app:layout_constraintEnd_toStartOf="@id/textViewFriday"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@id/textViewWednesday"
             app:layout_constraintTop_toTopOf="parent"
-            android:textAlignment="center" />
+            app:layout_constraintWidth_percent="0.1428" />
 
         <TextView
             android:id="@+id/textViewFriday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/MonthCalendarDayFri"
-            app:layout_constraintStart_toEndOf="@id/textViewThursday"
-            app:layout_constraintWidth_percent="0.1428"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            android:textAlignment="viewStart"
             app:layout_constraintEnd_toStartOf="@+id/textViewTuesday"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/textViewThursday"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:textAlignment="center" />
+            app:layout_constraintWidth_percent="0.1428" />
 
         <TextView
             android:id="@+id/textViewSaturday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/MonthCalendarDaySat"
-            app:layout_constraintStart_toEndOf="@+id/textViewFriday"
-            app:layout_constraintWidth_percent="0.1428"
-            app:layout_constraintHorizontal_bias="0.5"
+            android:textAlignment="viewStart"
             app:layout_constraintEnd_toStartOf="@+id/textViewSunday"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textViewFriday"
             app:layout_constraintTop_toTopOf="parent"
-            android:textAlignment="center" />
+            app:layout_constraintWidth_percent="0.1428" />
 
         <TextView
             android:id="@+id/textViewSunday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="0dp"
             android:text="@string/MonthCalendarDaysun"
+            android:textAlignment="viewStart"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textViewSaturday"
-            app:layout_constraintWidth_percent="0.1428"
             app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textViewSaturday"
             app:layout_constraintTop_toTopOf="parent"
-            android:textAlignment="center" />
+            app:layout_constraintWidth_percent="0.1428" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/MonCalendarRecyclerViewForViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewThursday" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline5"

@@ -2,21 +2,25 @@ package com.fyp.kweku.cbtoganisation.tasks.presentation.home
 
 
 import android.view.View
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskActivity
-import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskViewModel
 
 
 interface HomeViewClassInterface {
 
     interface HomeListener{
-        fun onGoToCreateNewTaskFragmentButtonClicked(taskActivity: TaskActivity)
 
     }
 
-
+    interface HomeFragmentListener{
+        fun onGoToCreateNewTaskFragmentButtonClicked(taskActivity: TaskActivity)
+    }
 
     fun getRootView(): View
 
+    fun setToolbar()
+
+    //fun setToolbarDate(date: LocalDate)
 
     fun setListener(listener: HomeListener)
 
@@ -26,9 +30,8 @@ interface HomeViewClassInterface {
 
     fun setGoToCreateNewTaskFragmentButtonOnClickListener()
 
+    fun gethomeCoordinatorLayout():CoordinatorLayout
 
-
-    fun bindTaskViewModel(taskViewModel: TaskViewModel)
 
 
 }

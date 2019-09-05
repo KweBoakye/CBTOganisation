@@ -13,7 +13,7 @@ import com.fyp.kweku.cbtoganisation.databinding.FragmentTaskBySpecificDayDialogB
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
 import org.threeten.bp.LocalDate
 
-class TasksBySpecificDayViewClass(inflater: LayoutInflater, parent: ViewGroup?): TasksBySpecificDayViewClassInterface{
+class TasksBySpecificDayViewClass( val inflater: LayoutInflater, val parent: ViewGroup?): TasksBySpecificDayViewClassInterface{
 
     val tasksBySpecificDayBinding : FragmentTaskBySpecificDayDialogBinding = FragmentTaskBySpecificDayDialogBinding.inflate(inflater, parent, false)
     private  val root: View = tasksBySpecificDayBinding.root
@@ -41,7 +41,7 @@ class TasksBySpecificDayViewClass(inflater: LayoutInflater, parent: ViewGroup?):
         with(toolbar) {
             setNavigationIcon(R.drawable.ic_close_white_24dp)
 
-            title =  with(date){ "$dayOfWeek $month $year" } //date.format(ProjectDateTimeUtils.getCustomDateFormatter())
+            title =  with(date){ "$dayOfWeek $dayOfMonth $month $year" } //date.format(ProjectDateTimeUtils.getCustomDateFormatter())
             setNavigationOnClickListener { tasksBySpecificDayViewClassFragmentListener.dismissDialogFragment() }
         }
     }

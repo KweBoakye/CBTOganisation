@@ -32,6 +32,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="?attr/colorPrimaryDark"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -41,7 +42,11 @@
                 android:layout_marginStart="77dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="77dp"
+                android:alpha="1.0"
                 android:hint="@string/TaskNameInputHint"
+                android:textColorHint="?attr/colorOnPrimary"
+                app:endIconMode="clear_text"
+                app:hintTextColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -50,12 +55,10 @@
                     android:id="@+id/TitleTextView"
                     android:layout_width="280dp"
                     android:layout_height="80dp"
-
-
+                    android:alpha="1.0"
                     android:elevation="26dp"
-                    android:gravity="center"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
+                    android:gravity="start|bottom"
+                    android:textSize="14sp"
                     android:textStyle="bold"
 
                     />
@@ -66,8 +69,9 @@
                 android:id="@+id/locationTextViewLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/TaskLocationInputHint"
+                android:textColorHint="@android:color/darker_gray"
                 app:layout_constraintEnd_toStartOf="@+id/guideline6"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toBottomOf="@+id/TitleTextViewLayout">
@@ -77,8 +81,8 @@
                     android:layout_width="280dp"
                     android:layout_height="80dp"
                     android:elevation="26dp"
-                    android:gravity="center"
-                    android:textSize="18sp"
+                    android:gravity="start|bottom"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     tools:text="Location" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -87,23 +91,24 @@
                 android:id="@+id/startDateTextViewLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
+
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:hint="@string/TaskStartDateInputHint"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toBottomOf="@+id/locationTextViewLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/startDateTextView"
-                    android:layout_width="120dp"
-                    android:layout_height="41dp"
+                    android:layout_width="128dp"
+                    android:layout_height="56dp"
                     android:elevation="26dp"
-                    android:gravity="center"
-                    android:textSize="18sp"
+                    android:gravity="start|bottom"
+                    android:inputType="date"
+                    android:textSize="14sp"
                     android:textStyle="bold"
-                    android:theme="@style/ViewSingleTaskAttributeTextView"
 
                     tools:text="Start Date" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -113,24 +118,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/TaskEndDateInputHint"
                 app:layout_constraintEnd_toStartOf="@+id/guideline6"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@+id/locationTextViewLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/startTimeTextView"
-                    android:layout_width="120dp"
-                    android:layout_height="41dp"
-
+                    android:layout_width="128dp"
+                    android:layout_height="56dp"
                     android:elevation="26dp"
-                    android:gravity="center"
-                    android:textSize="18sp"
+                    android:gravity="start|bottom"
+                    android:inputType="time"
+                    android:textSize="14sp"
                     android:textStyle="bold"
-                    android:theme="@style/ViewSingleTaskAttributeTextView"
-
                     tools:text="Start Time" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -138,25 +141,23 @@
                 android:id="@+id/endDateTextViewLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:hint="@string/TaskEndDateInputHint"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toBottomOf="@+id/startDateTextViewLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/endDateTextView"
-                    android:layout_width="120dp"
-                    android:layout_height="41dp"
-
+                    android:layout_width="128dp"
+                    android:layout_height="56dp"
                     android:elevation="26dp"
-                    android:gravity="center"
+                    android:gravity="start|bottom"
+                    android:inputType="date"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:theme="@style/ViewSingleTaskAttributeTextView"
-
                     tools:text="End Date" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -165,24 +166,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
                 android:hint="@string/TaskEndTimeInputHint"
                 app:layout_constraintEnd_toStartOf="@+id/guideline6"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@+id/startTimeTextViewLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/endTimeTextView"
-                    android:layout_width="120dp"
-                    android:layout_height="41dp"
-
+                    android:layout_width="128dp"
+                    android:layout_height="56dp"
                     android:elevation="26dp"
-                    android:gravity="center"
+                    android:gravity="start|bottom"
+                    android:inputType="time"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:theme="@style/ViewSingleTaskAttributeTextView"
-
                     tools:text="End Time" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -203,9 +202,7 @@
                     android:id="@+id/descriptionTextView"
                     android:layout_width="280dp"
                     android:layout_height="200dp"
-
-
-                    android:gravity="center"
+                    android:gravity="start|top"
                     android:textSize="14sp"
                     android:textStyle="bold"
 
@@ -235,7 +232,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
 
-                app:layout_constraintGuide_end="64dp"/>
+                app:layout_constraintGuide_end="64dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

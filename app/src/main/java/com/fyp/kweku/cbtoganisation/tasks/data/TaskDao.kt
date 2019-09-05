@@ -4,6 +4,7 @@ import androidx.room.*
 import com.fyp.kweku.cbtoganisation.tasks.data.model.TaskDataModel
 
 @Dao
+
 interface TaskDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insertTasks(vararg Tasks: TaskDataModel):List<Long>
@@ -20,8 +21,11 @@ interface TaskDao {
     @Query("SELECT * FROM tasks WHERE taskLocation=:taskLocation")
     fun getTasksByLocation(taskLocation: String):List<TaskDataModel>
 
+    @Query("SELECT * FROM tasks WHERE ( taskStartDate BETWEEN:startDate AND :endDate) OR (taskEndDate BETWEEN :startDate AND :endDate)")
+    fun filterTasksBy42DayCalendarMonth(startDate: String, endDate:String): List<TaskDataModel>
+
     @Delete
-    fun deleteTask(task: TaskDataModel)
+    fun deleteTask(task: TaskDataModel):Int
 
     @Update
     fun updateTask(task: TaskDataModel)

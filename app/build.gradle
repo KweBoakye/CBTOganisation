@@ -7,6 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'// plugin for Kotlin annotation Processor
 apply plugin: "de.mannodermaus.android-junit5"  // plugin for Junit5
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: "org.jlleitschuh.gradle.ktlint"
 
 android {
     compileSdkVersion 28
@@ -26,6 +27,7 @@ android {
         kapt {
             arguments {
                 arg("room.schemaLocation", "$projectDir/schemas".toString())
+                arg("room.incremental", "true")
                 correctErrorTypes = true
             }
         }
@@ -62,28 +64,33 @@ android {
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
 
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
 
 }
 
 dependencies {
 
     //KOTLIN
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.21'
-    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.3.31'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.50'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.3.50'
 
-    implementation 'androidx.core:core-ktx:1.0.1'
+    implementation 'androidx.core:core-ktx:1.0.2'
 
 
     //coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-reactive:1.1.1'
-    implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
-    implementation "io.reactivex.rxjava2:rxjava:2.2.8"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-reactive:1.3.0'
+    //implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
+    //implementation "io.reactivex.rxjava2:rxjava:2.2.8"
 
     //TESTING
 
@@ -100,9 +107,9 @@ dependencies {
     testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.3.2'
 
     // Optional -- Robolectric environment
-    testImplementation 'org.robolectric:robolectric:4.2'
-    testImplementation 'androidx.test:core:1.1.0'
-    debugImplementation 'androidx.fragment:fragment-testing:1.1.0-alpha07'
+    testImplementation 'org.robolectric:robolectric:4.2.1'
+    testImplementation 'androidx.test:core:1.2.0'
+    debugImplementation 'androidx.fragment:fragment-testing:1.2.0-alpha02'
 
     //mockk
     def mockk_version = "1.9.3.kotlin12"
@@ -110,9 +117,9 @@ dependencies {
 
 
     // Optional -- Mockito framework
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
 
     // Testing with Koin
     testImplementation 'org.koin:koin-test:2.0.0-beta-4'
@@ -120,21 +127,21 @@ dependencies {
     //ANDROID ARCHITECTURE OR JETPACK COMPONENTS
 
     // Room components
-    def room_version = "2.1.0-alpha07"
+    def room_version = '2.1.0'
 
     // defines version of room to use
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
     // Coroutines support for Room
-    implementation 'androidx.room:room-coroutines:2.1.0-alpha04'
+    implementation "androidx.room:room-ktx:$room_version"
 
     // Test helpers
     androidTestImplementation "androidx.room:room-testing:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
     // Lifecycle components
-    def lifecycle_version = "2.1.0-alpha04"
+    def lifecycle_version = "2.2.0-alpha03"
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
@@ -142,10 +149,10 @@ dependencies {
 
     // Test helpers for LiveData
     testImplementation 'androidx.arch.core:core-testing:2.0.1'
-    kapt "androidx.lifecycle:lifecycle-compiler:2.0.0"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.0.0"
 
     //Navigation Library
-    def nav_version = "2.1.0-alpha02"
+    def nav_version = '2.2.0-alpha01'
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
@@ -163,31 +170,31 @@ dependencies {
     //Timber logging
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
-    implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
 
     //-----------------------UI
     implementation 'com.android.support:design:28.0.0'
     api 'com.google.android.material:material:1.0.0'
-    implementation 'com.google.android.material:material:1.1.0-alpha05'
+    implementation 'com.google.android.material:material:1.1.0-alpha10'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.google.android:flexbox:1.1.0'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha5'
-    implementation 'androidx.viewpager2:viewpager2:1.0.0-alpha03'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0-beta03'
     implementation 'com.wdullaer:materialdatetimepicker:4.1.2'
 
-    //Airbnb Epoxy
-    implementation 'com.airbnb.android:epoxy:3.4.0'
-    kapt 'com.airbnb.android:epoxy-processor:3.4.0'
+
 
     //Moshi Json parser
     implementation "com.squareup.moshi:moshi:1.8.0"
     implementation "com.squareup.moshi:moshi-kotlin:1.8.0"
 
-    implementation 'com.xwray:groupie:2.3.0'
-    implementation 'com.xwray:groupie-kotlin-android-extensions:2.3.0'
-    implementation 'com.xwray:groupie-databinding:2.3.0'
+    implementation 'androidx.fragment:fragment-ktx:1.2.0-alpha02'
+
+    def dagger_version = '2.24'
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
 
 }

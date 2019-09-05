@@ -13,10 +13,11 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 import timber.log.Timber
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 //swap TaskOutput for getTasks Interactor Interface
-class HorizontalCalendarController(val getTasksInteractorInterface: GetTasksInteractorInterface): HorizontalCalendarViewClassInterface.HorizontalCalendarViewClassListener {
+class HorizontalCalendarController @Inject constructor(val getTasksInteractorInterface: GetTasksInteractorInterface): HorizontalCalendarViewClassInterface.HorizontalCalendarViewClassListener {
 
     private lateinit var horizontalCalendarViewClassInterface: HorizontalCalendarViewClassInterface
     private lateinit var calendarProperties: HorizontalCalendarProperties
@@ -66,8 +67,14 @@ class HorizontalCalendarController(val getTasksInteractorInterface: GetTasksInte
         return getCalendarItems( calendarProperties.monthAtStart, calendarProperties.yearAtStart)
     }
 
-    override fun SmoothScrollToPositionParameters(): Int{
-        return calendar.dayOfMonth // day of months as Integer
+    fun a():HorizontalCalendarItem{
+        return HorizontalCalendarItem(calendar.dayOfMonth,calendar.dayOfMonth, R.color.colorAccent, calendar.year)
+    }
+
+    override fun SmoothScrollToPositionParameters(): HorizontalCalendarItem{
+        val a = HorizontalCalendarItem(calendar.dayOfMonth,calendar.monthValue, R.color.colorAccent, calendar.year)
+        Timber.i("${a.day }. ${a.month} ${a.year} ${a.backgroundColor} ")
+        return a
     }
 
     fun bindView(horizontalCalendarViewClassInterface: HorizontalCalendarViewClassInterface){
@@ -85,11 +92,12 @@ class HorizontalCalendarController(val getTasksInteractorInterface: GetTasksInte
        horizontalCalendarViewClassInterface.initHorizontalCalendar()
     }
 
-    fun getCalendarItems(month: Int, year: Int): MutableList<HorizontalCalendarItem> {
+    private fun getCalendarItems(month: Int, year: Int): MutableList<HorizontalCalendarItem> {
         val items = ArrayList<HorizontalCalendarItem>()
         for (day in 0 until HorizontalCalendarUtils.calculateMonthLength(month,year)) {
             items.add(HorizontalCalendarItem(day + 1, month, R.color.colorAccent, year))
         }
+        Timber.i("${items}")
         return items
     }
 

@@ -9,10 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
 import com.fyp.kweku.cbtoganisation.databinding.ItemcardViewtasksbydayBinding
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
-import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModelDiffCallback
+import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.diffutilcallbacks.TaskPresentationModelDiffCallback
 import com.google.android.material.card.MaterialCardView
 
-class TasksBySpecificDayAdapter : ListAdapter<TaskPresentationModel, TasksBySpecificDayAdapter.TasksByDayViewHolder>(TaskPresentationModelDiffCallback()) {
+class TasksBySpecificDayAdapter : ListAdapter<TaskPresentationModel, TasksBySpecificDayAdapter.TasksByDayViewHolder>(
+    TaskPresentationModelDiffCallback()
+) {
 
 
 
@@ -43,7 +45,7 @@ class TasksBySpecificDayAdapter : ListAdapter<TaskPresentationModel, TasksBySpec
         private lateinit var itemcardViewtasksbydayBinding: ItemcardViewtasksbydayBinding
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksByDayViewHolder {
-            itemcardViewtasksbydayBinding = ItemcardViewtasksbydayBinding.inflate(LayoutInflater.from(parent.context))
+            itemcardViewtasksbydayBinding = ItemcardViewtasksbydayBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             val viewHolder = TasksByDayViewHolder(itemcardViewtasksbydayBinding.root)
             viewHolder.taskName = itemcardViewtasksbydayBinding.textViewTaskName
             viewHolder.taskLocation = itemcardViewtasksbydayBinding.textViewTaskLocation
@@ -56,7 +58,7 @@ class TasksBySpecificDayAdapter : ListAdapter<TaskPresentationModel, TasksBySpec
         }
 
 
-        override fun onBindViewHolder(holder: TasksBySpecificDayAdapter.TasksByDayViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: TasksByDayViewHolder, position: Int) {
             holder.bind(getItem((position)))
         }
 

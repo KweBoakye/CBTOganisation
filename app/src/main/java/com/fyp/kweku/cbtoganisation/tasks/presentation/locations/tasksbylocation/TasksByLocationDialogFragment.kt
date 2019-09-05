@@ -6,14 +6,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 
 import com.fyp.kweku.cbtoganisation.R
+import com.fyp.kweku.cbtoganisation.common.CBTOrganisationApplication
+import com.fyp.kweku.cbtoganisation.tasks.domain.outputinterfaces.TasksByLocationOutput
+
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
-import org.koin.android.ext.android.get
+import javax.inject.Inject
 
 
 class TasksByLocationDialogFragment : DialogFragment() , TasksByLocationViewClassInterface.TasksByLocationViewClassFragmentListener{
@@ -22,12 +24,13 @@ class TasksByLocationDialogFragment : DialogFragment() , TasksByLocationViewClas
         val TAG: String = "TasksByLocationDialogFragment"
     }
 
-    private lateinit var tasksByLocationController: TasksByLocationController
+    @Inject lateinit var tasksByLocationController: TasksByLocationController
     var location: String? = null
+    @Inject lateinit var tasksByLocationOutput: TasksByLocationOutput
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        tasksByLocationController = get()
+        CBTOrganisationApplication.getComponent().inject(this)
         val locationBundle: Bundle? = arguments
 
 
@@ -73,8 +76,7 @@ class TasksByLocationDialogFragment : DialogFragment() , TasksByLocationViewClas
         }
     }
 
-    fun tasksByLocationLivedata():MutableLiveData<List<TaskPresentationModel>>{
-        @Suppress("UNCHECKED_CAST")
-       return tasksByLocationController.getTasksByLocationInteractorInterface.getTasksByLocationLiveDataAsAny() as MutableLiveData<List<TaskPresentationModel>>
+    private fun tasksByLocationLivedata(): LiveData<List<TaskPresentationModel>> {
+       return tasksByLocationOutput.getTasksByLocation()
     }
 }

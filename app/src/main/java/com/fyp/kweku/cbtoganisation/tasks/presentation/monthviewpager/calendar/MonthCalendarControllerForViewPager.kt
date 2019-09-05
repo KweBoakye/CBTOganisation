@@ -2,17 +2,17 @@ package com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.calendar
 
 import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
 import com.fyp.kweku.cbtoganisation.tasks.domain.interactors.GetTasksInteractorInterface
+import com.fyp.kweku.cbtoganisation.tasks.domain.interactors.MonthCalendarInteractorInterface
+import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.diffutilcallbacks.MonthViewDay
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
-import timber.log.Timber
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class MonthCalendarControllerForViewPager(val getTasksInteractorInterface: GetTasksInteractorInterface) {
+class MonthCalendarControllerForViewPager @Inject constructor(val getTasksInteractorInterface: GetTasksInteractorInterface,
+                                                              val monthCalendarInteractorInterface: MonthCalendarInteractorInterface) {
 
 
     private var parentJob = Job()
@@ -20,30 +20,36 @@ class MonthCalendarControllerForViewPager(val getTasksInteractorInterface: GetTa
         get() = parentJob + Dispatchers.Main
     private val scope = CoroutineScope(coroutineContext)
     private lateinit var monthCalendarViewClassForViewPagerInterface: MonthCalendarViewClassForViewPagerInterface
+    private lateinit var month: YearMonth
+    private  var calendarData: Deferred<List<Triple<LocalDate, Boolean, MutableList<String>>>> = CompletableDeferred()
+    private var isViewBound: Boolean = false
 
 
-    private fun calculateDates(month: YearMonth):MutableList<Pair<LocalDate, Boolean>>{
-        val dayOfWeekMonthStartsOn = getDayOfWeekMonthStartsOn(month)
-        val numberOfOverflowDaysBeforeMonthStarts = getNumberOfOverflowDaysBeforeMonthStarts(dayOfWeekMonthStartsOn)
-        val overflowAsDate = getOverflowAsDate(numberOfOverflowDaysBeforeMonthStarts, month)
-        Timber.i("$overflowAsDate")
-        val listOfDates = (calculatesDatesAndBoolean(overflowAsDate,month)).map {
-                date -> Pair(LocalDate.parse(date.first.format(ProjectDateTimeUtils.getCustomDateFormatter()),
-            ProjectDateTimeUtils.getCustomDateFormatter() ), date.second) }.toMutableList()
-        return listOfDates
+    fun setMonth(month: YearMonth){
+        this.month = month
     }
+
+    fun generateCalendar() = scope.launch {
+        monthCalendarViewClassForViewPagerInterface.setAdapterData(monthCalendarInteractorInterface.generateCalendarData(month)) }  //scope.launch(Dispatchers.IO){calendarData = async { monthCalendarInteractorInterface.generateCalendarData(month)}}
+
+
+       fun setAdapterData() = scope.launch(Dispatchers.IO) {
+           val calendarDataRecieved = calendarData.await()
+           withContext(Dispatchers.Main) {
+               monthCalendarViewClassForViewPagerInterface.setAdapterData(calendarDataRecieved)
+
+                 }
+           }
+
 
     fun bindView(monthCalendarViewClassForViewPagerInterface: MonthCalendarViewClassForViewPagerInterface){
         this.monthCalendarViewClassForViewPagerInterface = monthCalendarViewClassForViewPagerInterface
+        isViewBound = true
     }
 
-  fun initRecyclerview(datesAndTasks: List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>>){
 
-  }
 
-    fun loadAllTasksForRecycler() = scope.launch(Dispatchers.IO){ getTasksInteractorInterface.sendTasksToPresentationLayer()}
-    fun filterTasksByMonth(month: YearMonth) = scope.launch(Dispatchers.IO){ getTasksInteractorInterface.filterTasksByMonth(calculateDates(month))}
-    fun getDatesAndTasksByMonthAsAny() = getTasksInteractorInterface.getDatesAndTasksByMonthAsAny()
+
     private fun getNumberOfOverflowDaysBeforeMonthStarts(dayOfWeek:Int):Int{
         return dayOfWeek-1
     }
@@ -56,13 +62,7 @@ class MonthCalendarControllerForViewPager(val getTasksInteractorInterface: GetTa
         return (yearMonth.atDay(1)).dayOfWeek.value
     }
 
-    fun calculatesDatesAndBoolean(date: LocalDate, month: YearMonth): MutableList<Pair<LocalDate, Boolean>>{
-        return MutableList(42){ Pair(date.plusDays(it.toLong()), checkisPartOfCurrentMonth(date.plusDays(it.toLong()), month))}
-    }
 
-    private fun getListOfDates(date: LocalDate):MutableList<LocalDate>{
-        return MutableList(42) {date.plusDays(it.toLong())}
-    }
 
     private fun getOverflowAsDate(overFlowDays:Int, currentMonth: YearMonth): LocalDate {
         return if (overFlowDays == 0) currentMonth.atDay(1) else {
@@ -75,7 +75,6 @@ class MonthCalendarControllerForViewPager(val getTasksInteractorInterface: GetTa
 
 
 
-    // MayNotNeed
 
 
 }

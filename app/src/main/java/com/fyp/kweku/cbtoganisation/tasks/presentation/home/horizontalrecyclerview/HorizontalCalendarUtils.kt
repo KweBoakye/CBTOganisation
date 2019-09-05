@@ -12,7 +12,7 @@ import org.threeten.bp.Year
 class HorizontalCalendarUtils {
     companion object {
         fun calculateMonthLength(month: Int,year: Int): Int {
-            var monthLength: Int = 0
+            var monthLength = 0
             when (month) {
                 1,3,5,8,10,12 -> {
                     monthLength = 31
@@ -36,7 +36,7 @@ class HorizontalCalendarUtils {
 
 
         fun configCallLayout(context: Context, layout: View, color: Int) {
-            val shape: GradientDrawable = GradientDrawable()
+            val shape = GradientDrawable()
             // instead of context.getResources().getColor(color))as this depreciated and the
             // version
             shape.setColor(ContextCompat.getColor(context, color))
@@ -44,8 +44,6 @@ class HorizontalCalendarUtils {
             shape.alpha = 0
             with(layout){
                 background = shape
-                elevation = 6f
-                translationZ = 6f
             }
 
         }

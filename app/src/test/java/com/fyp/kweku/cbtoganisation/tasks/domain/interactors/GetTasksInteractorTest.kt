@@ -1,7 +1,7 @@
 package com.fyp.kweku.cbtoganisation.tasks.domain.interactors
 
 
-import com.fyp.kweku.cbtoganisation.tasks.domain.TaskOutput
+import com.fyp.kweku.cbtoganisation.tasks.domain.outputinterfaces.TaskOutput
 import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
 import com.fyp.kweku.cbtoganisation.tasks.domain.repository.TaskRepositoryInterface
 import io.mockk.mockk
@@ -41,11 +41,7 @@ class GetTasksInteractorTest {
           verify(exactly = 1) { runBlocking{taskrepositorymock.getTaskById(task.taskID) }}
     }
 
-    @Test
-    fun testSendSingleTaskToPresentationLayer(){
-        getTasksInteractor.sendSingleTaskToPresentationLayer(task)
-        verify(exactly = 1) { taskOutput.showTask(task) }
-    }
+
 
     @Test
     fun testSendTasksToPresentationLayer(){
