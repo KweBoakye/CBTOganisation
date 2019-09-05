@@ -101,6 +101,10 @@ class HorizontalCalendarLayoutManager: LinearLayoutManager, ScrollVectorProvider
         }
     }
 
+    override fun assertNotInLayoutOrScroll(message: String?) {
+        super.assertNotInLayoutOrScroll(message)
+    }
+
     override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State) {
         super.onLayoutChildren(recycler, state)
         scrollHorizontallyBy(0, recycler, state)

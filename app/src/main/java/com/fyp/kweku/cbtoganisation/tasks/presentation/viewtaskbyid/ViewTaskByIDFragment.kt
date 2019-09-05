@@ -1,38 +1,45 @@
 package com.fyp.kweku.cbtoganisation.tasks.presentation.viewtaskbyid
 
 import android.app.Dialog
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 
 import com.fyp.kweku.cbtoganisation.R
-import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskViewModel
+import com.fyp.kweku.cbtoganisation.common.CBTOrganisationApplication
+import com.fyp.kweku.cbtoganisation.tasks.domain.outputinterfaces.TaskOutput
 import com.fyp.kweku.cbtoganisation.tasks.presentation.edittasks.EditTaskFragment
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
-import org.koin.android.ext.android.get
-import timber.log.Timber
+import com.fyp.kweku.cbtoganisation.tasks.presentation.utils.CircularRevealAnimationUtilClass
+import javax.inject.Inject
+
 
 class ViewTaskByIDFragment : DialogFragment(), ViewTaskByIDViewClassInterface.ViewTaskByIDViewClassFragmentListener {
 
-    lateinit var viewTaskByIDController: ViewTaskByIDController
+
+   @Inject
+   lateinit var viewTaskByIDController: ViewTaskByIDController
+
 
     companion object {
         val TAG: String = "ViewTaskByIDFragment"
+
     }
 
     var taskID: String? = null
+    @Inject
+    lateinit var taskOutput: TaskOutput
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewTaskByIDController = get()
+
+        CBTOrganisationApplication.getComponent().inject(this)
+        //viewTaskByIDController = get()
+        //taskOutput = get()
         val taskIDBundle: Bundle? = arguments
         taskID = taskIDBundle?.getString("taskID")
         viewTaskByIDController.loadTask(taskID!!)
@@ -45,18 +52,23 @@ class ViewTaskByIDFragment : DialogFragment(), ViewTaskByIDViewClassInterface.Vi
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
        val viewTaskByIDViewClassInterface: ViewTaskByIDViewClassInterface = ViewTaskByIDViewClass(inflater, container)
+        viewTaskByIDController.setViewTaskByIDViewClassInterface(viewTaskByIDViewClassInterface)
+       val root = viewTaskByIDViewClassInterface.getRoot()
+
        val taskObserver = Observer<TaskPresentationModel>{ task -> viewTaskByIDViewClassInterface.populateTextViews(task)}
         getSingleTaskLiveDataAsLiveData().observe(viewLifecycleOwner, taskObserver)
         viewTaskByIDViewClassInterface.setFragmentListener(this)
         viewTaskByIDViewClassInterface.setupToolbar()
-        return viewTaskByIDViewClassInterface.getRoot()
+
+        return root
     }
 
 
     private fun getSingleTaskLiveDataAsLiveData(): LiveData<TaskPresentationModel>{
-        @Suppress("UNCHECKED_CAST")
-       return viewTaskByIDController.observeTask() as LiveData<TaskPresentationModel>
+       return taskOutput.getSingleTaskLiveData()
+
     }
 
 
@@ -74,30 +86,19 @@ class ViewTaskByIDFragment : DialogFragment(), ViewTaskByIDViewClassInterface.Vi
         this.dismiss()
     }
 
-    /*override fun onOptionsItemSelected(item: MenuItem):Boolean= when(item.itemId) {
-        R.id.edit_task ->{
-            Timber.i("${taskID==null}")
-            taskID?.let { launchDialog(it) }
-            true
-        }
-        else ->{
-            super.onOptionsItemSelected(item)
-        }
-
-    }*/
-
-    override fun launchEditTaskFragment(){
-        taskID?.let { launchEditTaskDialog(it) }
+    override fun launchEditTaskFragment(revealSettings: CircularRevealAnimationUtilClass.RevealAnimationSetting){
+        taskID?.let {
+            launchDialogFragmentWithArguments(it, revealSettings) }
     }
 
-    private fun launchEditTaskDialog(taskID: String){
-        launchDialogFragmentWithArguments(taskID)
-    }
 
-    private fun launchDialogFragmentWithArguments(taskID: String){
+
+    private fun launchDialogFragmentWithArguments(taskID: String,revealSettings: CircularRevealAnimationUtilClass.RevealAnimationSetting){
 
         val taskIDBundle = Bundle()
         taskIDBundle.putString("taskID", taskID)
+        taskIDBundle.putParcelable("ARG_REVEAL_SETTINGS", revealSettings)
+        //Timber.i("${taskIDBundle.getParcelable<CircularRevealAnimationUtilClass.RevealAnimationSetting?>("ARG_REVEAL_SETTINGS").centerX}")
         launchDialog(taskIDBundle)
     }
 
@@ -105,7 +106,7 @@ class ViewTaskByIDFragment : DialogFragment(), ViewTaskByIDViewClassInterface.Vi
     private fun launchDialog(taskIDBundle: Bundle){
         val dialog = EditTaskFragment()
         dialog.arguments = taskIDBundle
-        val fragmentTransaction: FragmentTransaction = parentFragment!!.fragmentManager!!.beginTransaction()
+        val fragmentTransaction = parentFragment!!.fragmentManager!!.beginTransaction()
         dialog.show(fragmentTransaction, "EditTaskFragment")
     }
 

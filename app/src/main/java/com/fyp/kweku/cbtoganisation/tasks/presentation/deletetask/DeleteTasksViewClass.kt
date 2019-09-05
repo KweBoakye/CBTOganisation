@@ -4,8 +4,10 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.snackbar.Snackbar
 
-class DeleteTasksViewClass: DeleteTasksViewClassInterface {
+class DeleteTasksViewClass(private val CoordinatorLayout: CoordinatorLayout): DeleteTasksViewClassInterface {
 
     private lateinit var listener: DeleteTasksViewClassInterface.DeleteTasksViewClassListener
 
@@ -13,6 +15,16 @@ class DeleteTasksViewClass: DeleteTasksViewClassInterface {
         this.listener = listener
     }
 
+    override fun showSnackbar(){
+        Snackbar.make(CoordinatorLayout, "Task Deleted", Snackbar.LENGTH_INDEFINITE)
+            .setAction("Undo Delete") {
+                listener.restoreTask()
+            }.show()
+    }
+
+    fun showConfirmTaskRestoredSnackbar(){
+       Snackbar.make(CoordinatorLayout, "Task Restored", Snackbar.LENGTH_INDEFINITE).show()
+    }
 
 
     fun deleteAlert(view: View) {
@@ -33,7 +45,6 @@ class DeleteTasksViewClass: DeleteTasksViewClassInterface {
             setBackgroundColor(Color.RED)
             setPadding(0, 0, 20, 0)
             setTextColor(Color.WHITE)
-
         }
     }
 }

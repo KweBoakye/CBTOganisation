@@ -10,8 +10,9 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="4dp"
-        android:background="@color/primaryColor"
-        android:layout_marginBottom="2dp">
+        android:layout_marginBottom="2dp"
+
+        android:background="?attr/selectableItemBackground">
 
         <LinearLayout
             android:id="@+id/date_layout"
@@ -26,9 +27,9 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/calendar_day"
-                android:background="@color/primaryColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="14sp"
@@ -37,9 +38,9 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/calendar_month"
-                android:background="@color/primaryColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="12sp"
@@ -47,9 +48,9 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/calendar_year"
-                android:background="@color/primaryColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="12sp"

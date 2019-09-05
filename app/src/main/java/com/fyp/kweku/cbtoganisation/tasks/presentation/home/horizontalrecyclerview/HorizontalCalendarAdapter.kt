@@ -9,9 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.fyp.kweku.cbtoganisation.R
 import com.fyp.kweku.cbtoganisation.databinding.HorizontalCalendarItemBinding
 import timber.log.Timber
 
@@ -19,7 +17,7 @@ import timber.log.Timber
 class HorizontalCalendarAdapter(private val context: Context,
                                 private val onDaySelectedListener: OnDaySelectedListener,
 
-                                val onEndReachedListener: OnEndReachedListener): RecyclerView.Adapter<HorizontalCalendarAdapter.HorizontalCalendarViewHolder>() {
+                                private val onEndReachedListener: OnEndReachedListener): RecyclerView.Adapter<HorizontalCalendarAdapter.HorizontalCalendarViewHolder>() {
 
     fun onScrollStopped(layoutPosition: Int) {
         onDaySelectedListener.onDayScrolled( HorizontalCalendarUtils.returnStringDate(data[layoutPosition].day,data[layoutPosition].month, data[layoutPosition].year))
@@ -28,25 +26,25 @@ class HorizontalCalendarAdapter(private val context: Context,
 
     private lateinit var data: MutableList<HorizontalCalendarItem>
 
+   fun getData():MutableList<HorizontalCalendarItem> {
+       return this.data
+   }
 
-
-    lateinit var viewHolderBinding: HorizontalCalendarItemBinding
-    lateinit var  horizontalCalendarViewHolder: HorizontalCalendarViewHolder
+    private lateinit var horizontalCalendarItemBinding: HorizontalCalendarItemBinding
+    private lateinit var  horizontalCalendarViewHolder: HorizontalCalendarViewHolder
     private var isFirstBind: Boolean = true
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): HorizontalCalendarViewHolder {
-        viewHolderBinding  = DataBindingUtil.inflate( LayoutInflater.from(parent.context), R.layout.horizontal_calendar_item,
-            parent,
-            false)
-        horizontalCalendarViewHolder = HorizontalCalendarViewHolder( viewHolderBinding.root)
-        horizontalCalendarViewHolder.day = viewHolderBinding.calendarDay
-        horizontalCalendarViewHolder.month = viewHolderBinding.calendarMonth
-        horizontalCalendarViewHolder.year = viewHolderBinding.calendarYear
-        horizontalCalendarViewHolder.itemLayout = viewHolderBinding.calendarItem
-        horizontalCalendarViewHolder.dateLayout = viewHolderBinding.dateLayout
+        horizontalCalendarItemBinding  = HorizontalCalendarItemBinding.inflate(LayoutInflater.from(parent.context), parent, false) // DataBindingUtil.inflate
+        horizontalCalendarViewHolder = HorizontalCalendarViewHolder( horizontalCalendarItemBinding.root)
+        horizontalCalendarViewHolder.day = horizontalCalendarItemBinding.calendarDay
+        horizontalCalendarViewHolder.month = horizontalCalendarItemBinding.calendarMonth
+        horizontalCalendarViewHolder.year = horizontalCalendarItemBinding.calendarYear
+        horizontalCalendarViewHolder.itemLayout = horizontalCalendarItemBinding.calendarItem
+        horizontalCalendarViewHolder.dateLayout = horizontalCalendarItemBinding.dateLayout
 
         return horizontalCalendarViewHolder
     }
@@ -56,11 +54,9 @@ class HorizontalCalendarAdapter(private val context: Context,
     }
 
 
-
     override fun onBindViewHolder(holder: HorizontalCalendarViewHolder, position: Int) {
 
         if (position == 0 && !isFirstBind) {notifyEndReached()}
-        else if (isFirstBind) {notifyEndReached()}
         else if ((position ) >= (itemCount-1)){notifyStartReached()}
         isFirstBind = false
         holder.day.text = data[position].day.toString()
@@ -104,13 +100,13 @@ class HorizontalCalendarAdapter(private val context: Context,
 
 
 
-    fun notifyEndReached(){
+    private fun notifyEndReached(){
         val handler = Handler(Looper.getMainLooper())
         Timber.i("End called")
         handler.postDelayed( { onEndReachedListener.onEndReached()},50)
     }
 
-    fun notifyStartReached(){
+    private fun notifyStartReached(){
         val handler = Handler(Looper.getMainLooper())
         Timber.i("Start called")
         handler.postDelayed({ onEndReachedListener.onStartReached()},50)

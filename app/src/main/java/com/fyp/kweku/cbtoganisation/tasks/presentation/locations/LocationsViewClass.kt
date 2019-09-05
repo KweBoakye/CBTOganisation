@@ -14,14 +14,11 @@ import com.google.android.flexbox.FlexWrap.WRAP
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent.CENTER
 
-class LocationsViewClass(val inflater: LayoutInflater, val parent: ViewGroup?,  val locationsViewClassFragmentListener: LocationsViewClassInterface.LocationsViewClassFragmentListener ): LocationsViewClassInterface, LocationsRecyclerViewAdapter.LocationListener {
+class LocationsViewClass(val inflater: LayoutInflater, val parent: ViewGroup?, private val locationsViewClassFragmentListener: LocationsViewClassInterface.LocationsViewClassFragmentListener ): LocationsViewClassInterface, LocationsRecyclerViewAdapter.LocationListener {
     override fun setListener(locationsViewClassListener: LocationsViewClassInterface.LocationsViewClassListener) {
         this.locationsViewClassListener = locationsViewClassListener
     }
 
-   /* override fun setFragmentListener(locationsViewClassFragmentListener: LocationsViewClassInterface.LocationsViewClassFragmentListener) {
-        this.locationsViewClassFragmentListener = locationsViewClassFragmentListener
-    }*/
 
     override fun locationSelected(location: String) {
         locationsViewClassFragmentListener.launchDialog(location)
@@ -34,13 +31,9 @@ class LocationsViewClass(val inflater: LayoutInflater, val parent: ViewGroup?,  
     private val locationsRecyclerView: RecyclerView = locationBinding.locationsRecyclerView
     private val flexboxLayoutManager: FlexboxLayoutManager = FlexboxLayoutManager(parent!!.context)
     private val locationsRecyclerViewAdapter: LocationsRecyclerViewAdapter = LocationsRecyclerViewAdapter(this)
-   // lateinit var locationsViewClassFragmentListener: LocationsViewClassInterface.LocationsViewClassFragmentListener
-    lateinit var locationsViewClassListener: LocationsViewClassInterface.LocationsViewClassListener
+    private lateinit var locationsViewClassListener: LocationsViewClassInterface.LocationsViewClassListener
 
-
-
-
-    fun initSearchView(){
+    private fun initSearchView(){
         locationsSearch.setOnQueryTextListener(
             locationsViewClassFragmentListener.getDebouncingQueryTextListener())
     }
@@ -52,8 +45,7 @@ class LocationsViewClass(val inflater: LayoutInflater, val parent: ViewGroup?,  
 
     override fun setAdapterLocations(locations: List<String>)= locationsRecyclerViewAdapter.setLocations(locations)
 
-
-    fun initLocationsRecyclerview(){
+    private fun initLocationsRecyclerview(){
         with(flexboxLayoutManager) {
             flexDirection = ROW
             flexWrap = WRAP
@@ -64,10 +56,6 @@ class LocationsViewClass(val inflater: LayoutInflater, val parent: ViewGroup?,  
         locationsRecyclerView.layoutManager = flexboxLayoutManager
         locationsRecyclerView.adapter = locationsRecyclerViewAdapter
     }
-
-
-
-
 
     override fun getRoot(): View {
         return this.root

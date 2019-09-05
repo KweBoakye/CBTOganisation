@@ -12,6 +12,7 @@ interface CreateNewTaskViewClassInterface {
 
     interface CreateNewTaskListener {
         fun onSaveNewTaskButtonClick(input: Array<String>)
+        fun stringValid(string: String): Boolean
     }
 
     interface FragmentListener{
@@ -22,7 +23,6 @@ interface CreateNewTaskViewClassInterface {
     }
 
     fun getRootView(): View
-
     fun setListener(listener: CreateNewTaskListener?)
     fun updateStartDate(date: LocalDate)
     fun updateEndDate(date: LocalDate)

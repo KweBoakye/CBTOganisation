@@ -28,5 +28,10 @@
         android:title="@string/monthviewpager">
     </item>
 
+    <item
+        android:id="@+id/monthViewAsRecyclerViewFragment"
+        android:title="@string/monthviewpager">
+    </item>
+
 </group>
 </menu>

@@ -1,29 +1,21 @@
 package com.fyp.kweku.cbtoganisation.tasks.presentation.home.tasksbybydayrecyclerview
 
 import android.content.Context
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ProgressBar
-import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
-import com.fyp.kweku.cbtoganisation.databinding.FragmentHomeBinding
-import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskViewModel
-import com.fyp.kweku.cbtoganisation.tasks.presentation.home.CoordinatorLayoutWithCollapsingToolBarLayoutDisabled
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.HomeFragment
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
-import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_home.view.*
-import org.threeten.bp.LocalDate
-import timber.log.Timber
 
 
-class TasksByDayRecyclerViewClass(val context: Context, val view: View,val homeFragment: HomeFragment):TasksByDayRecyclerViewClassInterface, TasksByDayRecyclerAdapter.TasksByDayAdpterListener
+
+class TasksByDayRecyclerViewClass(val context: Context, val view: View,homeFragment: HomeFragment):TasksByDayRecyclerViewClassInterface, TasksByDayRecyclerAdapter.TasksByDayAdpterListener
      {
+         override fun deleteTask(taskID: String) {
+             tasksByDayRecyclerViewClassListener.deleteTask(taskID)
+         }
+
          override fun setTasks(tasks: MutableList<TaskPresentationModel>) {
              noTasksLayout.visibility = View.GONE
              tasksByDayRecyclerAdapter.submitList(tasks.toMutableList())
@@ -42,6 +34,7 @@ class TasksByDayRecyclerViewClass(val context: Context, val view: View,val homeF
 
          private var tasksByDayRecyclerAdapter: TasksByDayRecyclerAdapter
          private val fragmentListener: TasksByDayRecyclerViewClassInterface.TasksByDayRecyclerViewClassFragmentListener = homeFragment
+         private lateinit var tasksByDayRecyclerViewClassListener: TasksByDayRecyclerViewClassInterface.TasksByDayRecyclerViewClassListener
 
     val noTasksLayout= view.empty_text
 
@@ -61,9 +54,11 @@ class TasksByDayRecyclerViewClass(val context: Context, val view: View,val homeF
 
         tasksByDayRecycler.adapter = tasksByDayRecyclerAdapter
 
-
     }
 
+        override fun setTasksByDayRecyclerViewClassListener(tasksByDayRecyclerViewClassListener: TasksByDayRecyclerViewClassInterface.TasksByDayRecyclerViewClassListener){
+             this.tasksByDayRecyclerViewClassListener = tasksByDayRecyclerViewClassListener
+         }
 
 
          /*override fun setFragmentListener(fragmentListener: TasksByDayRecyclerViewClassInterface.TasksByDayRecyclerViewClassFragmentListener){
@@ -71,30 +66,6 @@ class TasksByDayRecyclerViewClass(val context: Context, val view: View,val homeF
          }*/
 
 
-
-/*fun setObserver(){
-
-    taskViewModel.tasksByDay.observe(viewLifecycleOwner,tasksByDayObserver)
-}
-
-    fun unSetObserver(){
-        taskViewModel.tasksByDay.removeObserver(tasksByDayObserver)}*/
-
-
-
- /*fun onDaySelected(date: String){
-    val dateAsLocalDate = LocalDate.parse(date,ProjectDateTimeUtils.getCustomDateFormatter())
-    Timber.i("$date , ${dateAsLocalDate.format(ProjectDateTimeUtils.getCustomDateFormatter())} is null")
-    if (tasksByDayRecyclerAdapter.getAllTasks() == null){ noTasksLayout.visibility = View.VISIBLE
-    }
-    else{
-    val filteredTaskList = tasksByDayRecyclerAdapter.getAllTasks()!!.filter {task -> ProjectDateTimeUtils.checkIfDateIsInRange(dateAsLocalDate,task.taskStartDate, task.taskEndDate) }
-        Timber.i("{${tasksByDayRecyclerAdapter.getAllTasks()}")
-    val sortedList = filteredTaskList.sortedWith(compareBy({it.taskStartDate},{it.taskStartTime}))
-        Timber.i("$sortedList")
-    tasksByDayRecyclerAdapter.setData(sortedList)
-    noTasksLayout.visibility = View.GONE}
-}*/
 
 
 

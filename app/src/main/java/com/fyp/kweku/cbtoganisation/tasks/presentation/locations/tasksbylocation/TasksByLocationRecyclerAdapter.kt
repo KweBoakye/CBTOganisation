@@ -11,9 +11,8 @@ import com.fyp.kweku.cbtoganisation.R
 import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
 import com.fyp.kweku.cbtoganisation.databinding.ItemcardViewtasksbydayBinding
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
-import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModelDiffCallback
+import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.diffutilcallbacks.TaskPresentationModelDiffCallback
 import com.google.android.material.card.MaterialCardView
-import com.google.android.material.checkbox.MaterialCheckBox
 
 class TasksByLocationRecyclerAdapter(): ListAdapter<TaskPresentationModel, TasksByLocationRecyclerAdapter.TasksByLocationViewHolder>(
     TaskPresentationModelDiffCallback()

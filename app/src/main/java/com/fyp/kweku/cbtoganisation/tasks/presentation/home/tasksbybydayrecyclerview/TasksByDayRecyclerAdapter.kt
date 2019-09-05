@@ -13,7 +13,8 @@ import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
 
 import com.fyp.kweku.cbtoganisation.databinding.ItemcardViewtasksbydayBinding
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
-import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModelDiffCallback
+import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.diffutilcallbacks.TaskPresentationModelDiffCallback
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 
 
@@ -33,6 +34,7 @@ class TasksByDayRecyclerAdapter(private val context:  Context, val tasksByDayAda
       lateinit   var taskStartTime: TextView
       lateinit   var taskEndTime : TextView
       lateinit  var card: MaterialCardView
+        lateinit var deleteTaskButton: MaterialButton
         lateinit var taskID: String
 
         fun bind(taskPresentationModel: TaskPresentationModel){
@@ -43,6 +45,9 @@ class TasksByDayRecyclerAdapter(private val context:  Context, val tasksByDayAda
             this.taskStartTime.text= taskPresentationModel.taskStartTime.toString()
             this.taskEndTime.text= taskPresentationModel.taskEndTime.toString()
             this.taskID = taskPresentationModel.taskID
+            this.deleteTaskButton.setOnClickListener {
+               tasksByDayAdapterListener.deleteTask(taskID)
+            }
             this.card.setOnClickListener { tasksByDayAdapterListener.taskSelected(taskID) }
         }
 
@@ -65,6 +70,7 @@ class TasksByDayRecyclerAdapter(private val context:  Context, val tasksByDayAda
             taskStartTime = viewTasksByDayBinding.textviewTaskStartTime
             taskEndTime = viewTasksByDayBinding.textviewTaskEndTime
             card = viewTasksByDayBinding.cardViewTaskItem
+            deleteTaskButton = viewTasksByDayBinding.deleteTaskButton
         }
         /*tasksByDayViewHolder.taskName          = viewTasksByDayBinding.textViewTaskName
         tasksByDayViewHolder.taskLocation = viewTasksByDayBinding.textViewTaskLocation
@@ -107,6 +113,7 @@ class TasksByDayRecyclerAdapter(private val context:  Context, val tasksByDayAda
 
     interface TasksByDayAdpterListener{
         fun taskSelected(taskID: String)
+        fun deleteTask(taskID: String)
     }
 
 }

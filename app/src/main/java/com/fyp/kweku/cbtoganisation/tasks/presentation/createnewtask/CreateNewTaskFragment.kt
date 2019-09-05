@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.fyp.kweku.cbtoganisation.common.CBTOrganisationApplication
+import com.fyp.kweku.cbtoganisation.di.AppComponent
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 import org.koin.android.ext.android.get
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
+import javax.inject.Inject
 
 
 class CreateNewTaskFragment : Fragment(), DatePickerDialog.OnDateSetListener ,
@@ -21,7 +24,7 @@ class CreateNewTaskFragment : Fragment(), DatePickerDialog.OnDateSetListener ,
 lateinit var datePickerDialogEnd: DatePickerDialog
     lateinit var timePickerDialogStart: TimePickerDialog
     lateinit var timePickerDialogEnd: TimePickerDialog
-    private lateinit var createNewTaskController: CreateNewTaskController
+    @Inject  lateinit var createNewTaskController: CreateNewTaskController
     private var today = LocalDate.now()
 
     override fun onCreateView(
@@ -30,11 +33,12 @@ lateinit var datePickerDialogEnd: DatePickerDialog
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        CBTOrganisationApplication.getComponent().inject(this)
 
         val createNewTaskViewClass: CreateNewTaskViewClassInterface =
             CreateNewTaskViewClass(layoutInflater, container, this)
 
-        createNewTaskController = get()
+        //createNewTaskController = get()
         createNewTaskController.bindView(createNewTaskViewClass)
         initDatePickers()
         initTimePickers()
@@ -68,25 +72,11 @@ lateinit var datePickerDialogEnd: DatePickerDialog
     }
 
     private fun showDatePickerStart(){
-        //val today = LocalDate.now()
-        /*datePickerDialogStart = DatePickerDialog.newInstance(this,
-            today.year,
-            today.monthValue-1,
-            today.dayOfMonth)
-        datePickerDialogStart.isThemeDark = true*/
-
         fragmentManager?.let { datePickerDialogStart.show(it, "Datepickerdialog") }
     }
 
     private fun showDatePickerEnd(){
-        //val today = LocalDate.now()
-       /* datePickerDialogEnd = DatePickerDialog.newInstance(this,
-            today.year,
-            today.monthValue-1,
-            today.dayOfMonth)
-        datePickerDialogEnd.isThemeDark = true*/
-
-        fragmentManager?.let { datePickerDialogEnd.show(it, "Datepickerdialog") }
+            fragmentManager?.let { datePickerDialogEnd.show(it, "Datepickerdialog") }
     }
 
     private fun initTimePickers(){
@@ -100,17 +90,11 @@ lateinit var datePickerDialogEnd: DatePickerDialog
     }
 
     private fun showTimePickerDialogStart(){
-       /* val currentTime = LocalTime.now()
-        timePickerDialogStart = TimePickerDialog.newInstance(this,currentTime.hour, currentTime.minute, true)
-        timePickerDialogStart.isThemeDark = true*/
 
         fragmentManager?.let { timePickerDialogStart.show(it,"Timepickerdialog" ) }
     }
 
     private fun showTimePickerDialogEnd(){
-       // val currentTime = LocalTime.now()
-        /*timePickerDialogEnd = TimePickerDialog.newInstance(this,currentTime.hour, currentTime.minute, true)
-        timePickerDialogEnd.isThemeDark = true*/
 
         fragmentManager?.let { timePickerDialogEnd.show(it,"Timepickerdialog" ) }
     }

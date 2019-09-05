@@ -38,15 +38,6 @@ class CreateNewTaskViewClass(val inflater: LayoutInflater, val parent: ViewGroup
     private val dateFormatter = ProjectDateTimeUtils.getCustomDateFormatter()
     private var listener : CreateNewTaskViewClassInterface.CreateNewTaskListener? = null
 
-  /*  private val calendar: Calendar = Calendar.getInstance()
-    private val startDatePicker = object :DatePickerDialog.OnDateSetListener{
-        override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-            calendar.set(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH)
-            updateStartDate()
-        }
-
-    }*/
-
     override fun updateStartDate(date: LocalDate){
         taskStartDateInput.setText(date.format(dateFormatter))
     }
@@ -58,27 +49,6 @@ class CreateNewTaskViewClass(val inflater: LayoutInflater, val parent: ViewGroup
     override fun updateStartTime(time:LocalTime) = taskStartTimeInput.setText(time.toString())
 
     override fun updateEndTime(time:LocalTime) = taskEndTimeInput.setText(time.toString())
-
-
-   // private var taskDescriptionInput TextInputLayout = binding.
-
-
-
-
-/*
-    private fun onDateClicked(): OnClickListener {
-        return object : OnClickListener() {
-            fun onClick(v: View) {
-                val newFragment = object : DatePickerFragment() {
-                    fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-                        salePaymentCustomView.setBtDateText("" + day + "/" + month + 1 + "/" + year)
-                    }
-                }
-                newFragment.show(getActivity().getSupportFragmentManager(), "datePicker")
-            }
-        }
-    }
-*/
 
     init {
         saveNewTaskButton.setOnClickListener {
@@ -112,31 +82,57 @@ class CreateNewTaskViewClass(val inflater: LayoutInflater, val parent: ViewGroup
         return rootView
     }
 
+    private fun errorMessageWhenEmpty(textInputLayout: TextInputLayout){
+        when(textInputLayout){
+            taskNameInputLayout-> taskNameInputLayout.error = "Name Can't Be Empty"
+            taskStartDateInputLayout-> taskStartDateInputLayout.error = "Date Can't Be Empty"
+                taskEndDateInputLayout-> taskEndDateInputLayout.error = "Date Can't Be Empty"
+            taskStartTimeInputLayout-> taskStartTimeInputLayout.error = "Time Can't Be Empty"
+            taskEndTimeInputLayout-> taskEndTimeInputLayout.error = "Time can't be Empty"
+        }
+    }
+
+
+
+
+
     private fun taskNameValid():Boolean{
        val nameInput : String = taskNameInputLayout.editText?.text.toString().trim()
+       val result = nameInput.isEmpty()
+        when(result){
+            true -> errorMessageWhenEmpty(taskNameInputLayout)
+            false -> taskNameInputLayout.error = null
+        }
+        return result
 
-        return if (nameInput.isEmpty()) {taskNameInputLayout.error = "Name Can't Be Empty"
+        /*return if (nameInput.isEmpty()) {taskNameInputLayout.error = "Name Can't Be Empty"
             false
         } else {taskNameInput.error = null
             true
-        }
+        }*/
     }
 
     private fun startDateValid():Boolean{
         val startDateInput : String = taskStartDateInput.text.toString().trim()
 
-        return if (startDateInput.isEmpty()) {taskStartDateInputLayout.error = "Date Can't Be Empty"
+        val result =startDateInput.isEmpty()
+        when(result){
+            true -> errorMessageWhenEmpty(taskStartDateInputLayout)
+            false -> taskStartDateInputLayout.error = null
+        }
+        return result
+        /*return if (startDateInput.isEmpty()) {taskStartDateInputLayout.error = "Date Can't Be Empty"
             false
         } else {taskStartDateInputLayout.error = null
             true
-        }
+        }*/
     }
 
     private fun endDateValid():Boolean{
         val endDateInput : String = taskEndDateInput.text.toString().trim()
 
         return when {
-            endDateInput.isEmpty() -> {taskEndDateInputLayout.error = "Date Can't Be Empty"
+            endDateInput.isEmpty() -> {errorMessageWhenEmpty(taskEndDateInputLayout)
                 false
             }
             LocalDate.parse(taskStartDateInput.text.toString().trim(), dateFormatter).isAfter(LocalDate.parse(taskEndDateInput.text.toString().trim(), dateFormatter)) -> {
@@ -153,7 +149,7 @@ class CreateNewTaskViewClass(val inflater: LayoutInflater, val parent: ViewGroup
         val startTimeInput: String = taskStartTimeInput.text.toString().trim()
 
         return if (startTimeInput.isEmpty()){
-            taskStartTimeInputLayout.error = "Time Can't Be Empty"
+            errorMessageWhenEmpty(taskStartTimeInputLayout)
             true
         }
 
@@ -162,6 +158,7 @@ class CreateNewTaskViewClass(val inflater: LayoutInflater, val parent: ViewGroup
             true
         }
     }
+
 
     private fun startAndEndDateSameDay():Boolean{
         return if (taskStartDateInput.text.toString().trim() != "" && taskEndDateInput.text.toString().trim() != ""){
@@ -175,7 +172,7 @@ class CreateNewTaskViewClass(val inflater: LayoutInflater, val parent: ViewGroup
 
       return when{
           endTimeInput.isEmpty() || endTimeInput == ""->{
-                taskEndTimeInputLayout.error = "Time can't be Empty"
+                errorMessageWhenEmpty(taskEndTimeInputLayout)
                 false
             }
           startAndEndDateSameDay()->{
@@ -195,8 +192,6 @@ class CreateNewTaskViewClass(val inflater: LayoutInflater, val parent: ViewGroup
 
     }
 
-
-
     private fun getTaskInput(): Array<String>{
         return if (taskNameValid() and startDateValid() and endDateValid() and startTimeValid() and endTimeValid()){
             val input = arrayOf(
@@ -214,6 +209,6 @@ class CreateNewTaskViewClass(val inflater: LayoutInflater, val parent: ViewGroup
 
     }
 
-//Validation functions for Ui that stem from Valdiation functions in the Controller
+
 
 }

@@ -6,7 +6,6 @@ import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPre
 interface EditTaskViewClassInterface {
 
     interface EditTaskViewClassListener{
-        fun onUpdateTaskButtonClick(input: Array<String>)
     }
 
     fun getRoot(): View

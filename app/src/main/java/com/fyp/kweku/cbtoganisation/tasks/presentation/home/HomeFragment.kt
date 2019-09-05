@@ -9,10 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.fyp.kweku.cbtoganisation.R
+import com.fyp.kweku.cbtoganisation.common.CBTOrganisationApplication
+import com.fyp.kweku.cbtoganisation.tasks.domain.outputinterfaces.TaskDeletionOutput
+import com.fyp.kweku.cbtoganisation.tasks.domain.outputinterfaces.TaskOutput
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskActivity
-import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskViewModel
+import com.fyp.kweku.cbtoganisation.tasks.presentation.deletetask.DeleteTasksController
+import com.fyp.kweku.cbtoganisation.tasks.presentation.deletetask.DeleteTasksViewClass
+import com.fyp.kweku.cbtoganisation.tasks.presentation.deletetask.DeleteTasksViewClassInterface
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerview.mvc.HorizontalCalendarController
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerview.mvc.HorizontalCalendarViewClass
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.horizontalrecyclerview.mvc.HorizontalCalendarViewClassInterface
@@ -21,18 +26,25 @@ import com.fyp.kweku.cbtoganisation.tasks.presentation.home.tasksbybydayrecycler
 import com.fyp.kweku.cbtoganisation.tasks.presentation.home.tasksbybydayrecyclerview.TasksByDayRecyclerViewClassInterface
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
 import com.fyp.kweku.cbtoganisation.tasks.presentation.viewtaskbyid.ViewTaskByIDFragment
-import org.koin.android.ext.android.get
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.threeten.bp.LocalDate
+import javax.inject.Inject
 
 
-class HomeFragment : Fragment(), TasksByDayRecyclerViewClassInterface.TasksByDayRecyclerViewClassFragmentListener {
+class HomeFragment : Fragment(),HomeViewClassInterface.HomeFragmentListener,
+    TasksByDayRecyclerViewClassInterface.TasksByDayRecyclerViewClassFragmentListener{
 
-    private lateinit var taskActivity: TaskActivity
-    private lateinit var homeController: HomeController
-    private lateinit var horizontalCalendarController: HorizontalCalendarController
-    private lateinit var tasksByDayController: TasksByDayController
-    val taskViewModel by sharedViewModel<TaskViewModel>()
+    lateinit var taskActivity: TaskActivity
+    @Inject
+     lateinit var homeController: HomeController
+    @Inject
+     lateinit var horizontalCalendarController: HorizontalCalendarController
+    @Inject
+    lateinit var tasksByDayController: TasksByDayController
+    @Inject
+    lateinit var deleteTasksController: DeleteTasksController
+    @Inject
+    lateinit var taskDeletionOutput: TaskDeletionOutput
+    @Inject
+    lateinit var taskOutput: TaskOutput
     var dayPosition: Parcelable? = null
     private var dayPositionState: String = "Day Position"
 
@@ -45,7 +57,11 @@ class HomeFragment : Fragment(), TasksByDayRecyclerViewClassInterface.TasksByDay
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-tasksByDayController = get()
+        CBTOrganisationApplication.getComponent().inject(this)
+        /*tasksByDayController = get()
+        taskDeletionOutput = get()
+        taskOutput = get()*/
+
         tasksByDayController.loadAllTasksForRecycler()
 
 
@@ -56,45 +72,51 @@ tasksByDayController = get()
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val homeViewClassInterface: HomeViewClassInterface = HomeViewClass(layoutInflater, container)
-        homeViewClassInterface.bindTaskViewModel(taskViewModel)
-        homeController = get()
+        val homeViewClassInterface: HomeViewClassInterface = HomeViewClass(layoutInflater, container, this)
+        homeViewClassInterface.setTaskActivity(taskActivity)
+        //homeController = get()
         homeController.bindView(homeViewClassInterface)
-        homeController.onCreateView(taskActivity)
+        val deleteTasksViewClassInterface: DeleteTasksViewClassInterface =  DeleteTasksViewClass(homeViewClassInterface.gethomeCoordinatorLayout())
+        //deleteTasksController = get()
+        deleteTasksController.setDeleteTasksViewClassInterface(deleteTasksViewClassInterface)
         homeViewClassInterface.setToolbar()
         val horizontalCalendarViewClassInterface: HorizontalCalendarViewClassInterface =
             HorizontalCalendarViewClass(this.context!!, container,homeViewClassInterface.getRootView())
         val tasksByDayRecyclerViewClassInterface: TasksByDayRecyclerViewClassInterface = TasksByDayRecyclerViewClass(this.context!!, homeViewClassInterface.getRootView(),this)
-        horizontalCalendarController = get()
+        tasksByDayController.run {
+            setTasksByDayRecyclerViewClassInterface(tasksByDayRecyclerViewClassInterface)
+            setDeleteTasksController(deleteTasksController)
+        }
+
+        //horizontalCalendarController = get()
         horizontalCalendarController.let {horizontalCalendarController ->
             horizontalCalendarController.bindView(horizontalCalendarViewClassInterface)
             horizontalCalendarController.setControllerAsHorizontalCalendarViewClassListener()
             horizontalCalendarController.initHorizontalCalendar()
 
-           val selectedDateObserver = Observer<LocalDate> { date -> homeViewClassInterface.setToolbarDate(date) }
 
-            getSelectedDateForHomeTitleAsLiveData().observe(this, selectedDateObserver)
+
+            //getSelectedDateForHomeTitleAsLiveData().observe(this, selectedDateObserver)
         }
 
         val tasksByDayObserver = Observer<MutableList<TaskPresentationModel>> {tasks -> tasksByDayRecyclerViewClassInterface.setTasks(tasks)}
 
-        reConvertedTasksByDayLiveData().observe(
+       taskOutput.getMediatorTasksByDay().observe(
             this,
             tasksByDayObserver
         )
 
+
+
         return homeViewClassInterface.getRootView()
     }
 
-    private fun reConvertedTasksByDayLiveData(): LiveData<MutableList<TaskPresentationModel>> {
-        @Suppress("UNCHECKED_CAST")
-        return   ( tasksByDayController.getTasksInteractorInterface.getTasksByLiveDataAsAny() as LiveData<MutableList<TaskPresentationModel>>)
-    }
 
-    private fun getSelectedDateForHomeTitleAsLiveData():LiveData<LocalDate>{
+
+   /* private fun getSelectedDateForHomeTitleAsLiveData():LiveData<LocalDate>{
         @Suppress("UNCHECKED_CAST")
         return homeController.getSelectedDate() as LiveData<LocalDate>
-    }
+    }*/
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -111,9 +133,19 @@ tasksByDayController = get()
         outState.putParcelable(dayPositionState, dayPosition)
     }
 
-    override fun onResume() {
-        super.onResume()
-        tasksByDayController.loadAllTasksForRecycler()
+    override fun onStart() {
+        super.onStart()
+        taskDeletionOutput.getShouldSnackBarBeLaunched().observe(viewLifecycleOwner, showSnackbarObserver())
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        taskDeletionOutput.getShouldSnackBarBeLaunched().removeObservers(viewLifecycleOwner)
+    }
+
+    override fun onGoToCreateNewTaskFragmentButtonClicked(taskActivity: TaskActivity) {
+        taskActivity.navController.navigate(R.id.action_homeFragment_to_createNewTaskFragment)
     }
 
     override fun launchDialog(taskID: String){
@@ -130,8 +162,13 @@ tasksByDayController = get()
     fun launchDialog(taskIDBundle: Bundle){
         val dialog = ViewTaskByIDFragment()
         dialog.arguments = taskIDBundle
-        val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
+        val fragmentTransaction: FragmentTransaction = fragmentManager!!
+            .beginTransaction()
         dialog.show(fragmentTransaction, ViewTaskByIDFragment.TAG)
+    }
+
+    private fun showSnackbarObserver():Observer<Boolean>{
+        return Observer{ showSnackbar -> deleteTasksController.askToRestoreTask(showSnackbar) }
     }
 
 

@@ -1,18 +1,26 @@
 package com.fyp.kweku.cbtoganisation.tasks.presentation.viewtaskbyid
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.MotionEvent.ACTION_DOWN
+import android.view.MotionEvent.ACTION_UP
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import com.fyp.kweku.cbtoganisation.R
 import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
 import com.fyp.kweku.cbtoganisation.databinding.ViewTaskByIdFragmentBinding
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.fyp.kweku.cbtoganisation.tasks.presentation.utils.CircularRevealAnimationUtilClass
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import org.threeten.bp.format.DateTimeFormatter
+import timber.log.Timber
+import java.util.*
+import kotlin.concurrent.schedule
+import kotlin.coroutines.CoroutineContext
 
 class ViewTaskByIDViewClass(val  inflater: LayoutInflater, val parent: ViewGroup?): ViewTaskByIDViewClassInterface {
+
 
     private val viewTaskByIDBinding: ViewTaskByIdFragmentBinding = ViewTaskByIdFragmentBinding.inflate(inflater, parent, false)
     private val root: View = viewTaskByIDBinding.root
@@ -28,16 +36,53 @@ class ViewTaskByIDViewClass(val  inflater: LayoutInflater, val parent: ViewGroup
     private val descriptionTextView: TextView = viewTaskByIDBinding.descriptionTextView
     private lateinit var taskID: String
     private val formatter: DateTimeFormatter = ProjectDateTimeUtils.getCustomDateFormatter()
+    private  lateinit var editButton:View
+    private var pressX: Int =0
+    private var pressY:Int = 0
+    private lateinit var revealSettings: CircularRevealAnimationUtilClass.RevealAnimationSetting
+    val scope: CoroutineScope = CoroutineScope(Job() + Dispatchers.Main )
+
+
+    private val editButtonTouchHandler: View.OnTouchListener = View.OnTouchListener { v, event ->
+        if (event != null) {
+
+
+            when(event.action){
+
+                ACTION_DOWN->{
+                    val x = event.rawX.toInt()
+                    val y = event.rawY.toInt()
+                    createRevealSettings(x,y)
+                }
+                ACTION_UP -> {
+                    /*Timer().schedule(1000){
+                        v!!.performClick()}*/
+                    v.performClick()
+                    fragmentListener.launchEditTaskFragment(revealSettings)
+
+                    }
+
+            }
+        }
+
+        true
+    }
+
 
    override fun setupToolbar(){
        with(viewTasksByIDToolbar){
+           val editMenuItem =  R.id.edit_task
+           editButton = findViewById(editMenuItem)
+           editButton.setOnTouchListener(editButtonTouchHandler)
            setNavigationIcon(R.drawable.ic_close_white_24dp)
            title = ""
            setNavigationOnClickListener { fragmentListener.dismissDialogFragment() }
            setOnMenuItemClickListener {
+
+
+
                when(it.itemId){
-                   R.id.edit_task -> {
-                       fragmentListener.launchEditTaskFragment()
+                   editMenuItem -> {
                        true
                    }
                    else ->{false}
@@ -45,6 +90,21 @@ class ViewTaskByIDViewClass(val  inflater: LayoutInflater, val parent: ViewGroup
            }
        }
    }
+
+    private fun createRevealSettings(x:Int, y: Int){
+        Timber.i("$x,$y")
+        revealSettings = CircularRevealAnimationUtilClass.RevealAnimationSetting(
+           x,
+            y,
+            root.width,
+            root.height
+
+        )
+    }
+
+    override fun getRevealSettings():CircularRevealAnimationUtilClass.RevealAnimationSetting{
+        return revealSettings
+    }
 
     override fun populateTextViews(task: TaskPresentationModel){
         with(task){

@@ -10,21 +10,28 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-
+import com.fyp.kweku.cbtoganisation.common.CBTOrganisationApplication
+import com.fyp.kweku.cbtoganisation.tasks.domain.outputinterfaces.LocationsOutput
 import com.fyp.kweku.cbtoganisation.tasks.presentation.locations.tasksbylocation.TasksByLocationDialogFragment
-import org.koin.android.ext.android.get
+import javax.inject.Inject
 
 
 class LocationsFragment : Fragment(), LocationsViewClassInterface.LocationsViewClassFragmentListener {
 
 
-
-    lateinit var locationsController: LocationsController
-    private var searchActive: Boolean = false
+    @Inject lateinit var locationsController: LocationsController
+    @Inject  lateinit var locationsOutput: LocationsOutput
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        locationsController = get()
+        CBTOrganisationApplication.getComponent().inject(this)
+        //locationsController = component.locationsController
+        //component = DaggerAppComponent.builder().build()
+
+
+
+        //locationsOutput =
+        //locationsController = get()
         locationsController.loadLocations()
     }
     override fun onCreateView(
@@ -33,30 +40,16 @@ class LocationsFragment : Fragment(), LocationsViewClassInterface.LocationsViewC
     ): View? {
         // Inflate the layout for this fragment
         val locationsViewClassInterface: LocationsViewClassInterface = LocationsViewClass(inflater, container,this)
-        //locationsViewClassInterface.setFragmentListener(this)
+
        locationsController.bindView(locationsViewClassInterface)
 
         val root: View = locationsViewClassInterface.getRoot()
-
-        val allLocationsLiveDataObserver = Observer<List<String>>{ allLocations -> locationsViewClassInterface.setAdapterLocations(
-            allLocations
-        )}
-
         setAllLocationsAsLiveDataObserver(locationsObserver())
         setFilteredLocationsLiveDataObserver(locationsObserver())
 
-
-       // getAllLocationsAsLiveData().observe(this,allLocationsLiveDataObserver )
-        //getFilteredLocationsAsLiveData().observe(this, allLocationsLiveDataObserver)
         return root
     }
 
-    private fun setLiveDataToObserve():LiveData<List<String>>{
-        return if (searchActive){
-            getFilteredLocationsAsLiveData()
-        }
-        else getAllLocationsAsLiveData()
-    }
 
     private fun locationsObserver():Observer<List<String>>{
         return  Observer{ locations -> locationsController.setAdapterLocations(locations) }
@@ -86,7 +79,7 @@ class LocationsFragment : Fragment(), LocationsViewClassInterface.LocationsViewC
             } else{
                 setFilteredLocationsLiveDataObserver(locationsObserver())
                 removeAllLocationsAsLiveDataObserver(locationsObserver())
-                locationsController.locationsquery(it)
+                locationsController.locationsQuery(it)
             }
         }}
     }
@@ -96,7 +89,7 @@ class LocationsFragment : Fragment(), LocationsViewClassInterface.LocationsViewC
     }
 
 
-    fun launchDialogFragmentWithArguments(location: String){
+    private fun launchDialogFragmentWithArguments(location: String){
         val locationBundle = Bundle()
         locationBundle.putString("location", location)
         launchDialog(locationBundle)
@@ -110,13 +103,11 @@ class LocationsFragment : Fragment(), LocationsViewClassInterface.LocationsViewC
 
 
     private fun getAllLocationsAsLiveData(): LiveData<List<String>>{
-        @Suppress("UNCHECKED_CAST")
-        return locationsController.getTasksByLocationInteractorInterface.getAllLocationsAsAny() as LiveData<List<String>>
+        return locationsOutput.getAllLocations()
     }
 
     private fun getFilteredLocationsAsLiveData(): LiveData<List<String>>{
-        @Suppress("UNCHECKED_CAST")
-        return locationsController.getFilteredLocations() as LiveData<List<String>>
+        return locationsOutput.getFilteredLocations()
     }
 
 

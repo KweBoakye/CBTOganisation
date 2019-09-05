@@ -6,9 +6,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class TasksBySpecificDayController(val getTasksInteractorInterface: GetTasksInteractorInterface) {
+class TasksBySpecificDayController @Inject constructor(val getTasksInteractorInterface: GetTasksInteractorInterface) {
 
     private var parentJob = Job()
     private val coroutineContext: CoroutineContext
