@@ -1,4 +1,4 @@
-# CBTOganisation
+# CBTOrganisation
 
 * Kotlin
 * Coroutines
