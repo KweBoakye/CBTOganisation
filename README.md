@@ -1,6 +1,8 @@
 # CBTOrganisation
 
 * Kotlin
+* Single Activity Architecture
+* Clean Architecture
 * Coroutines
 * Room
 * LiveData
