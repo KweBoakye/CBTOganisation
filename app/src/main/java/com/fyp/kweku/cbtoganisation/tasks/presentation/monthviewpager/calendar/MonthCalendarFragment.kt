@@ -2,18 +2,16 @@ package com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.calendar
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.fyp.kweku.cbtoganisation.common.CBTOrganisationApplication
-
 import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskActivity
 import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.taskbydaydialog.TasksBySpecificDayDialogFragment
-import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
 import org.threeten.bp.LocalDate
@@ -36,24 +34,16 @@ class MonthCalendarFragment : Fragment(), MonthCalendarViewClassForViewPagerInte
         CompletableDeferred()
 
 
-    /*override fun onAttach(context: Context) {
-        super.onAttach(context)
 
-        val pContext =   as ParentListener
-            parentListener = pContext
-
-    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         CBTOrganisationApplication.getComponent().inject(this)
-       // monthCalendarControllerForViewPager = get()
-        //monthCalendarControllerForViewPager.loadAllTasksForRecycler()
+
         val monthString = arguments?.getString(MONTH) ?: throw IllegalStateException()//monthBundle!!["month"] as YearMonth
         currentMonth = YearMonth.parse(monthString)
         monthCalendarControllerForViewPager.setMonth(currentMonth)
-        //monthCalendarControllerForViewPager.setDates()
-       // monthCalendarControllerForViewPager.filterTasks(parentListener.getAllTasks())
+
         calendarData = monthCalendarControllerForViewPager.generateCalendarAsync()
 
         taskActivity = context as TaskActivity
@@ -67,23 +57,17 @@ class MonthCalendarFragment : Fragment(), MonthCalendarViewClassForViewPagerInte
     ): View? {
         // Inflate the layout for this fragment
 
-        //monthCalendarControllerForViewPager.filterTasksByMonth(currentMonth)
+
          monthCalendarViewClassForViewPagerInterface = MonthCalendarViewClassForViewPager(inflater, context,container,this)
         monthCalendarControllerForViewPager.bindView(monthCalendarViewClassForViewPagerInterface)
-        //monthCalendarViewClassForViewPagerInterface.setFragmentListener(this)
-        //getAllTasksLiveData().observe(this, allTasksObserver())
-        monthCalendarControllerForViewPager.setAdapterData(calendarData)
 
-        /*val datesAndTasksByMonthLiveDataObserver = Observer<List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>>>{datesAndTasks -> monthCalendarViewClassForViewPagerInterface.setAdapterData(datesAndTasks)}
-        getDatesAndTasksByMonthAsLiveData().observe(viewLifecycleOwner, datesAndTasksByMonthLiveDataObserver)*/
+        monthCalendarControllerForViewPager.setAdapterData(calendarData)
 
 
         return monthCalendarViewClassForViewPagerInterface.getRoot()
     }
 
-   /* fun observe():Observer<List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>>>{
-        return Observer<List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>>>{datesAndTasks -> monthCalendarControllerForViewPager.initRecyclerview(datesAndTasks) }
-    }*/
+
 
 
 
@@ -97,21 +81,12 @@ class MonthCalendarFragment : Fragment(), MonthCalendarViewClassForViewPagerInte
 
 
 
-    /*override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(MONTH, currentMonth.toString())
-    }*/
 
-    fun convertDates(){}
-
-    //region used to launch a new dialogFragment to display a specific day
     override fun launchDialog(date: LocalDate) {
         launchDialogFragmentWithArguments(date)
     }
 
-    /*fun allTasksObserver(): Observer<List<TaskPresentationModel>>{
-        return Observer { tasks -> monthCalendarControllerForViewPager.filterTasks(tasks) }
-    }*/
+
 
     private fun launchDialogFragmentWithArguments(day: LocalDate){
         val dayString = day.format(ProjectDateTimeUtils.getCustomDateFormatter())
@@ -126,11 +101,10 @@ class MonthCalendarFragment : Fragment(), MonthCalendarViewClassForViewPagerInte
         val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
         dialog.show(fragmentTransaction, TasksBySpecificDayDialogFragment.TAG)
     }
-    //endregion
+
 
 
     interface ParentListener{
-        fun getAllTasks(): List<TaskPresentationModel>
         fun getViewPool(): RecyclerView.RecycledViewPool
     }
 

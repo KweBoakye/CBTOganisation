@@ -1,24 +1,21 @@
 package com.fyp.kweku.cbtoganisation.tasks.presentation.utils
 
-import android.content.Context
-import android.os.Parcelable
-import android.view.View
-import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
-import androidx.core.content.ContextCompat
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ArgbEvaluator
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import android.view.ViewAnimationUtils
-import android.annotation.TargetApi
-import android.os.Build
 import android.animation.ValueAnimator
-
+import android.annotation.TargetApi
+import android.content.Context
+import android.os.Build
+import android.os.Parcelable
+import android.view.View
 import android.view.View.GONE
+import android.view.ViewAnimationUtils
 import android.view.animation.AccelerateInterpolator
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 import kotlinx.android.parcel.Parcelize
-import kotlin.math.hypot
 import kotlin.math.sqrt
 
 
@@ -60,12 +57,12 @@ class CircularRevealAnimationUtilClass {
                     val width = revealSettings.width
                     val height = revealSettings.height
 
-                    //Simply use the diagonal of the view
+                    // use the diagonal of the view
                     val finalRadius:Float = sqrt(((width * width) + (height * height)).toDouble()).toFloat()
                     val anim = ViewAnimationUtils.createCircularReveal(v, cx, cy, 0f, finalRadius)
                     val duration:Int = getMediumDuration(context)
                     anim.duration = duration.toLong()
-                    anim.interpolator =AccelerateInterpolator()// FastOutSlowInInterpolator()
+                    anim.interpolator =AccelerateInterpolator()
                     anim.addListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator) {
                             listener.onAnimationFinished()
@@ -113,16 +110,6 @@ class CircularRevealAnimationUtilClass {
                                       val centerY: Int,
                                       val width:Int,
                                       val height:Int) : Parcelable{
-
-
-       /* abstract fun getCenterX(): Int
-        abstract fun getCenterY(): Int
-        abstract fun getWidth(): Int
-        abstract fun getHeight(): Int*/
-
-
-
-
 
         companion object {
 

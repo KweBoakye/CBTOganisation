@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.fyp.kweku.cbtoganisation.databinding.MonthCalendarCellBinding
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.diffutilcallbacks.MonthCalendarDiffUtilItemCallback
-import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
 import com.google.android.flexbox.FlexboxLayoutManager
 import kotlinx.coroutines.*
 import org.threeten.bp.LocalDate
@@ -19,11 +18,7 @@ class MonthCalendarRecyclerAdapterForViewPager( val dayListener: DayListener,val
     MonthCalendarDiffUtilItemCallback()
 ) {
 
-  // private var datesAndTasks: List<Pair<LocalDate, MutableList<TaskPresentationModel>>> = listOf()
 
-   /* fun setAdapterData(datesAndTasks: List<Pair<LocalDate, MutableList<TaskPresentationModel>>>){
-        this.datesAndTasks = datesAndTasks
-    }*/
 
     private var parentJob = Job()
     private val coroutineContext: CoroutineContext
@@ -32,24 +27,8 @@ class MonthCalendarRecyclerAdapterForViewPager( val dayListener: DayListener,val
     private  var height:Int = 0
 
 
-
-
-   private var datesAndTasks: List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>> = listOf()
-
-    fun setDatesAndTasks(datesAndTasks: List<Triple<LocalDate, Boolean, MutableList<TaskPresentationModel?>>>){
-        this.datesAndTasks = datesAndTasks
-        notifyDataSetChanged()
-    }
-
-    //override fun getItemCount(): Int= datesAndTasks.size
-   //lateinit var c: Color
-
     private lateinit var monthCalendarCellBinding: MonthCalendarCellBinding
 
-    val DATE: Int = 0
-    val TASKPRESENTATIONMODEL: Int = 1
-
-    //private var days: MutableList<LocalDate> = mutableListOf()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MonthCalendarViewHolder {
@@ -73,7 +52,6 @@ class MonthCalendarRecyclerAdapterForViewPager( val dayListener: DayListener,val
         scope.launch(Dispatchers.Main){holder.bind(getItem(position), dayTextboxBackgroundColor, position)}
     }
 
-
     inner class MonthCalendarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         lateinit var taskTextView1: TextView
         lateinit var taskTextView2: TextView
@@ -84,21 +62,18 @@ class MonthCalendarRecyclerAdapterForViewPager( val dayListener: DayListener,val
         lateinit var dayCell: LinearLayout
 
 
-        private  fun nullAndOrOutOfBoundsCheckAndReplaceAsync(item: Triple<LocalDate, Boolean, MutableList<String>>, index: Int)= scope.async(Dispatchers.Default){
+        private  fun nullAndOrOutOfBoundsCheckAndReplaceAsync(item: Triple<LocalDate, Boolean, MutableList<String>>, index: Int)=
+            scope.async(Dispatchers.Default){
           runCatching { item.third[index] }.getOrDefault("")
         }
 
-
-
         private suspend fun indicateDayIsPartOfMonth(isPartOfMonthBoolean: Boolean, dayTextboxBackgroundColor: Int)= withContext(Dispatchers.Default){
-
             if (!isPartOfMonthBoolean) monthDayTextView.setBackgroundColor( dayTextboxBackgroundColor)
-
         }
 
-        fun setFlexboxLayoutParams(position: Int){
+        private fun setFlexboxLayoutParams(position: Int){
             val layoutParams: ViewGroup.LayoutParams = dayCell.layoutParams
-            //val flexboxLayoutParams: FlexboxLayoutManager.LayoutParams = layoutParams as FlexboxLayoutManager.LayoutParams
+
             val flexboxLayoutParams: FlexboxLayoutManager.LayoutParams =
                 layoutParams as FlexboxLayoutManager.LayoutParams
             flexboxLayoutParams.maxHeight = height
@@ -115,7 +90,7 @@ class MonthCalendarRecyclerAdapterForViewPager( val dayListener: DayListener,val
             }
         }
 
-        suspend fun setText( item: Triple<LocalDate, Boolean, MutableList<String>>){
+        private suspend fun setText(item: Triple<LocalDate, Boolean, MutableList<String>>){
             monthDayTextView.text =
                 item.first.dayOfMonth.toString() //days[position].dayOfMonth.toString()
             indicateDayIsPartOfMonth(item.second, dayTextboxBackgroundColor)
@@ -132,39 +107,8 @@ class MonthCalendarRecyclerAdapterForViewPager( val dayListener: DayListener,val
 
 
            suspend fun bind( item: Triple<LocalDate, Boolean, MutableList<String>>,dayTextboxBackgroundColor: Int, position: Int) {
-              /* val layoutParams: ViewGroup.LayoutParams = dayCell.layoutParams
-               //val flexboxLayoutParams: FlexboxLayoutManager.LayoutParams = layoutParams as FlexboxLayoutManager.LayoutParams
-               val flexboxLayoutParams: FlexboxLayoutManager.LayoutParams =
-                   layoutParams as FlexboxLayoutManager.LayoutParams
-               flexboxLayoutParams.maxHeight = height
-               flexboxLayoutParams.flexBasisPercent = (1f / 7f)
-               flexboxLayoutParams.flexGrow = 1f
-               flexboxLayoutParams.flexShrink = 1f
-               when (position) {
-                   0, 7, 14, 21, 28, 35 -> {
-                       flexboxLayoutParams.isWrapBefore = true
-                   }
-                   else -> {
-                       flexboxLayoutParams.isWrapBefore = false
-                   }
-               }*/
-
                setFlexboxLayoutParams(position)
-
-               monthDayTextView.text =
-                   item.first.dayOfMonth.toString() //days[position].dayOfMonth.toString()
-               indicateDayIsPartOfMonth(item.second, dayTextboxBackgroundColor)
-               taskTextView1.text = nullAndOrOutOfBoundsCheckAndReplaceAsync(
-                   item,
-                   0
-               ).await()//getItem(position)[0].taskName
-               taskTextView2.text = nullAndOrOutOfBoundsCheckAndReplaceAsync(item, 1).await()
-               taskTextView3.text = nullAndOrOutOfBoundsCheckAndReplaceAsync(item, 2).await()
-               taskTextView4.text = nullAndOrOutOfBoundsCheckAndReplaceAsync(item, 3).await()
-               taskTextView5.text = nullAndOrOutOfBoundsCheckAndReplaceAsync(item, 4).await()
-               dayCell.setOnClickListener { dayListener.daySelected(item.first) }
-
-
+              setText(item)
            }
     }
 

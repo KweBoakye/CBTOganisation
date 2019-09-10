@@ -2,11 +2,7 @@ package com.fyp.kweku.cbtoganisation.tasks.presentation.locations
 
 import com.fyp.kweku.cbtoganisation.tasks.domain.interactors.LocationInteractorInterface
 import dagger.Reusable
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
 @Reusable
 class LocationsController @Inject constructor (private val locationInteractorInterface: LocationInteractorInterface): LocationsViewClassInterface.LocationsViewClassListener {

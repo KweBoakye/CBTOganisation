@@ -16,5 +16,5 @@ interface LocationsViewClassInterface {
     fun setAdapterLocations(locations: List<String>)
     fun getRoot(): View
     fun setListener(locationsViewClassListener: LocationsViewClassListener)
-   // fun setFragmentListener(locationsViewClassFragmentListener: LocationsViewClassFragmentListener)
+
 }

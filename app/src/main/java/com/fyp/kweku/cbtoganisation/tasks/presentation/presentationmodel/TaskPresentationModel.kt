@@ -12,12 +12,6 @@ data class TaskPresentationModel(
     val taskEndDate: LocalDate,/* Date task will take place*/
     val taskStartTime: LocalTime, /* Time task will start*/
     val taskEndTime: LocalTime/* Length/duration of task*/
-//val taskCompleted: Boolean = false
-){
-   /* override fun equals(other: Any?): Boolean {
-        return if(other == this) true
-        else {var taskPresentationModel: TaskPresentationModel = other as TaskPresentationModel
-            taskPresentationModel.taskID == this.taskID
-        }
-    }*/
-}
+
+)
+

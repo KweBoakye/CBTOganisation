@@ -1,10 +1,13 @@
 package com.fyp.kweku.cbtoganisation.tasks.domain.interactors
 
 import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
-import com.fyp.kweku.cbtoganisation.tasks.domain.outputinterfaces.TaskOutput
 import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
+import com.fyp.kweku.cbtoganisation.tasks.domain.outputinterfaces.TaskOutput
 import com.fyp.kweku.cbtoganisation.tasks.domain.repository.TaskRepositoryInterface
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.withContext
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import timber.log.Timber
@@ -14,18 +17,13 @@ import kotlin.coroutines.CoroutineContext
 class MonthCalendarInteractor @Inject constructor(private val taskRepositoryInterface: TaskRepositoryInterface, private val taskOutput: TaskOutput):
     MonthCalendarInteractorInterface {
 
-   var today = LocalDate.now()
-    var currentMonth: YearMonth = YearMonth.now()
+
     private var parentJob = Job()
     private val coroutineContext: CoroutineContext
         get() = parentJob + Dispatchers.Main
     private val scope = CoroutineScope(coroutineContext)
 
-    suspend fun getTasksByMonth(startDate: LocalDate, endDate: LocalDate): List<Task>{
-        return taskRepositoryInterface.getTaskBy42CalendarMonth(startDate, endDate)
-    }
 
-    suspend fun allTasks(): List<Task> = taskRepositoryInterface.getAlltasks()
 
     private fun getDayOfWeekMonthStartsOn(yearMonth: YearMonth):Int{
         return (yearMonth.atDay(1)).dayOfWeek.value
@@ -43,15 +41,15 @@ class MonthCalendarInteractor @Inject constructor(private val taskRepositoryInte
         }
     }
 
-    private fun processTasksv2(tasks: List<Task?>, index: Int, listOfDates:List<LocalDate>):MutableList<String>{
+    private fun processTasks(tasks: List<Task?>, index: Int, listOfDates:List<LocalDate>):MutableList<String>{
 
         return tasks.asSequence()
             .filter {
-                    taskPresentationModel ->
+                    task ->
                 ProjectDateTimeUtils.checkIfDateIsInRange(
                     listOfDates[index],
-                    taskPresentationModel!!.taskStartDate,
-                    taskPresentationModel.taskEndDate
+                    task!!.taskStartDate,
+                    task.taskEndDate
                 )
             }.map { taskPresentationModel -> taskPresentationModel!!.taskName }
             .toMutableList()
@@ -65,14 +63,14 @@ class MonthCalendarInteractor @Inject constructor(private val taskRepositoryInte
         val dates = List<LocalDate>(42){overflowAsDate.plusDays(it.toLong()) }
 
        val list = List(42){Triple(dates[it],
-           checkisPartOfCurrentMonth(dates[it],month),
-           processTasksv2(taskRepositoryInterface
+           checkIsPartOfCurrentMonth(dates[it],month),
+           processTasks(taskRepositoryInterface
                .getTaskBy42CalendarMonth(dates.first(),dates.last()), it, dates) )}
        Timber.i("$list")
        return@withContext list
     }
 
-    fun  checkisPartOfCurrentMonth(date: LocalDate, month: YearMonth):Boolean{
+    private fun  checkIsPartOfCurrentMonth(date: LocalDate, month: YearMonth):Boolean{
         return YearMonth.from(date) == month
     }
 

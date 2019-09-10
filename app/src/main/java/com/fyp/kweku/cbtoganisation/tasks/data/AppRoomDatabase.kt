@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.fyp.kweku.cbtoganisation.common.prepopulation.prepoulator
+import com.fyp.kweku.cbtoganisation.common.prepopulation.Prepoulator
 import com.fyp.kweku.cbtoganisation.tasks.data.model.TaskDataModel
 import timber.log.Timber
 //define the entities and related classes and the version number
@@ -42,7 +42,7 @@ abstract class AppRoomDatabase : RoomDatabase() {
 
         private fun prepopulateDb(db: AppRoomDatabase) {
 
-           val a:List<Long> = db.taskDao().insertTasks(*prepoulator.getResult()!!.toTypedArray())
+           val a:List<Long> = db.taskDao().insertTasks(*Prepoulator.getResult()!!.toTypedArray())
             Timber.i("$a")
         }
 

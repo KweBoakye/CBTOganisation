@@ -1,8 +1,10 @@
 package com.fyp.kweku.cbtoganisation.tasks.presentation.viewtaskbyid
 
-import android.view.*
+import android.view.LayoutInflater
 import android.view.MotionEvent.ACTION_DOWN
 import android.view.MotionEvent.ACTION_UP
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import com.fyp.kweku.cbtoganisation.R
@@ -15,9 +17,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import org.threeten.bp.format.DateTimeFormatter
 import timber.log.Timber
-import java.util.*
-import kotlin.concurrent.schedule
-import kotlin.coroutines.CoroutineContext
 
 class ViewTaskByIDViewClass(val  inflater: LayoutInflater, val parent: ViewGroup?): ViewTaskByIDViewClassInterface {
 
@@ -55,16 +54,11 @@ class ViewTaskByIDViewClass(val  inflater: LayoutInflater, val parent: ViewGroup
                     createRevealSettings(x,y)
                 }
                 ACTION_UP -> {
-                    /*Timer().schedule(1000){
-                        v!!.performClick()}*/
                     v.performClick()
                     fragmentListener.launchEditTaskFragment(revealSettings)
-
                     }
-
             }
         }
-
         true
     }
 
@@ -78,8 +72,6 @@ class ViewTaskByIDViewClass(val  inflater: LayoutInflater, val parent: ViewGroup
            title = ""
            setNavigationOnClickListener { fragmentListener.dismissDialogFragment() }
            setOnMenuItemClickListener {
-
-
 
                when(it.itemId){
                    editMenuItem -> {
@@ -98,7 +90,6 @@ class ViewTaskByIDViewClass(val  inflater: LayoutInflater, val parent: ViewGroup
             y,
             root.width,
             root.height
-
         )
     }
 

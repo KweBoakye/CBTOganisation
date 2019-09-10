@@ -1,7 +1,6 @@
 package com.fyp.kweku.cbtoganisation.tasks.presentation.locations
 
-import android.content.Context
-import android.location.LocationListener
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

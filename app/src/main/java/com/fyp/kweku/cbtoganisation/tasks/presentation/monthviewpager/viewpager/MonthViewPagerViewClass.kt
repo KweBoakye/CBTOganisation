@@ -3,14 +3,15 @@ package com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.viewpager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout.HORIZONTAL
 import androidx.appcompat.widget.Toolbar
 import androidx.viewpager2.widget.ViewPager2
 import com.fyp.kweku.cbtoganisation.databinding.FragmentMonthViewPagerBinding
 import com.fyp.kweku.cbtoganisation.tasks.presentation.TaskActivity
 import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.recyclerview.ViewPagerRecyclerAdapter
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import org.threeten.bp.YearMonth
 
 class MonthViewPagerViewClass(val inflater: LayoutInflater, val parent: ViewGroup?, monthViewPagerFragment: MonthViewPagerFragment):
@@ -31,8 +32,7 @@ class MonthViewPagerViewClass(val inflater: LayoutInflater, val parent: ViewGrou
     private lateinit var taskActivity: TaskActivity
     private lateinit var toolbar: Toolbar
     private var currentMonthIndex: Int = 0
-    //private val coroutineContext: CoroutineContext
-    //get() = Job() + Dispatchers.Main
+
     private val scope = CoroutineScope(Job() + Dispatchers.Main)
     private var firstLoad : Boolean = true
 
@@ -72,8 +72,7 @@ class MonthViewPagerViewClass(val inflater: LayoutInflater, val parent: ViewGrou
         val positionChanged: Boolean = currentMonthIndex != position
 
         if (positionChanged or firstLoad) {
-            //monthViewPagerViewClassListener.setCalendar(viewPagerAdapter.getMonth(position))
-            //setTitle(position)
+
             createAndSetTitleString(position)
             currentMonthIndex = position
         }
@@ -99,16 +98,6 @@ class MonthViewPagerViewClass(val inflater: LayoutInflater, val parent: ViewGrou
         if (state == ViewPager2.SCROLL_STATE_IDLE)
             checkIfTitleChangeNeeded()
     }
-
-
-    override fun onPageSelected(position: Int) {
-        super.onPageSelected(position)
-       /* if (firstLoad){
-            // monthViewPagerViewClassListener.setCalendar(viewPagerAdapter.getMonth(position))
-        firstLoad = false}
-*/
-    }
-
 
     override fun setListener(monthViewPagerViewClassListener: MonthViewPagerViewClassInterface.MonthViewPagerViewClassListener) {
         this.monthViewPagerViewClassListener = monthViewPagerViewClassListener

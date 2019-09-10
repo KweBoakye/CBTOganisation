@@ -18,9 +18,6 @@ class MonthCalendarControllerForViewPager @Inject constructor(val getTasksIntera
     private val scope = CoroutineScope(coroutineContext)
     private lateinit var monthCalendarViewClassForViewPagerInterface: MonthCalendarViewClassForViewPagerInterface
     private lateinit var month: YearMonth
-    private var calendarData: Deferred<List<Triple<LocalDate, Boolean, MutableList<String>>>> =
-        CompletableDeferred()
-    private var isViewBound: Boolean = false
 
 
     fun setMonth(month: YearMonth) {
@@ -31,12 +28,8 @@ class MonthCalendarControllerForViewPager @Inject constructor(val getTasksIntera
         return@async monthCalendarInteractorInterface.generateCalendarData(month)
     }
 
-    fun a(){
-        generateCalendarAsync().onAwait
-    }
 
-
-       fun setAdapterData(calendarData:Deferred<List<Triple<LocalDate, Boolean, MutableList<String>>>>) = scope.launch(Dispatchers.Main) {
+    fun setAdapterData(calendarData:Deferred<List<Triple<LocalDate, Boolean, MutableList<String>>>>) = scope.launch(Dispatchers.Main) {
                monthCalendarViewClassForViewPagerInterface.setAdapterData(calendarData.await())
                  }
 
@@ -44,7 +37,7 @@ class MonthCalendarControllerForViewPager @Inject constructor(val getTasksIntera
 
     fun bindView(monthCalendarViewClassForViewPagerInterface: MonthCalendarViewClassForViewPagerInterface){
         this.monthCalendarViewClassForViewPagerInterface = monthCalendarViewClassForViewPagerInterface
-        isViewBound = true
+
     }
 
 }

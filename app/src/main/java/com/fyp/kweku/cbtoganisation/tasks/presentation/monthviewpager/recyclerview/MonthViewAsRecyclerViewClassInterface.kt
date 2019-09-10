@@ -1,7 +1,6 @@
 package com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.recyclerview
 
 import android.view.View
-import android.widget.Toolbar
 import com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.calendar.MonthCalendarViewClassForViewPagerInterface
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
 

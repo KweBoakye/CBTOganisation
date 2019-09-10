@@ -1,11 +1,11 @@
 package com.fyp.kweku.cbtoganisation.tasks.domain.repository
 
-import com.fyp.kweku.cbtoganisation.tasks.data.model.TaskDataModel
+
 import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
 import org.threeten.bp.LocalDate
 
 interface TaskRepositoryInterface {
-    suspend fun getAlltasks(): List<Task>
+    suspend fun getAllTasks(): List<Task>
     suspend fun getTaskById(taskId: String): Task
     suspend fun saveTask(vararg tasks: Task)
     suspend fun getAllLocations():List<String>

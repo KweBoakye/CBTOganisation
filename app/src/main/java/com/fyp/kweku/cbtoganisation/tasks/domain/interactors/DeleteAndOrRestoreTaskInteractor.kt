@@ -1,8 +1,8 @@
 package com.fyp.kweku.cbtoganisation.tasks.domain.interactors
 
+import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
 import com.fyp.kweku.cbtoganisation.tasks.domain.outputinterfaces.TaskDeletionOutput
 import com.fyp.kweku.cbtoganisation.tasks.domain.outputinterfaces.TaskOutput
-import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
 import com.fyp.kweku.cbtoganisation.tasks.domain.repository.TaskRepositoryInterface
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
@@ -30,7 +30,7 @@ class DeleteAndOrRestoreTaskInteractor @Inject constructor(private val taskRepos
 
 
 
-    private suspend fun reloadTasks() =  taskOutput.showAllTasks(taskRepositoryInterface.getAlltasks())
+    private suspend fun reloadTasks() =  taskOutput.showAllTasks(taskRepositoryInterface.getAllTasks())
 
     private fun getTaskToBeDeleted(taskID: String):Deferred<Task> = scope.async(Dispatchers.IO){
        return@async  taskRepositoryInterface.getTaskById(taskID)

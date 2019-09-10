@@ -6,9 +6,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class ViewTaskByIDController(val getTasksInteractorInterface: GetTasksInteractorInterface) {
+class ViewTaskByIDController @Inject constructor(val getTasksInteractorInterface: GetTasksInteractorInterface) {
 
     private var parentJob = Job()
     private val coroutineContext: CoroutineContext

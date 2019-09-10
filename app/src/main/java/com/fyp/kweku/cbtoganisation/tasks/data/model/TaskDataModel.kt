@@ -1,7 +1,5 @@
 package com.fyp.kweku.cbtoganisation.tasks.data.model
-import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 

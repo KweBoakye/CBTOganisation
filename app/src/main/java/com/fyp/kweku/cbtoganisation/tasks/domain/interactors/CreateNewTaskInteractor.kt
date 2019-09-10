@@ -1,8 +1,8 @@
 package com.fyp.kweku.cbtoganisation.tasks.domain.interactors
 
 import com.fyp.kweku.cbtoganisation.common.UuidSource
-import com.fyp.kweku.cbtoganisation.tasks.domain.outputinterfaces.TaskOutput
 import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
+import com.fyp.kweku.cbtoganisation.tasks.domain.outputinterfaces.TaskOutput
 import com.fyp.kweku.cbtoganisation.tasks.domain.repository.TaskRepositoryInterface
 import javax.inject.Inject
 
@@ -17,9 +17,9 @@ class CreateNewTaskInteractor @Inject constructor(private val taskRepositoryInte
      override fun createNewTaskObject(task: Task):Task{val newTaskObject  = task.copy(taskID = generateTaskID())
         return newTaskObject}
 
-override suspend fun SendTaskToDataLayer(task: Task):Task {
+override suspend fun sendTaskToDataLayer(task: Task):Task {
     val newTaskObject = createNewTaskObject(task)
     taskRepositoryInterface.saveTask(newTaskObject)
-    taskOutput.showAllTasks(taskRepositoryInterface.getAlltasks())
+    taskOutput.showAllTasks(taskRepositoryInterface.getAllTasks())
     return newTaskObject}
 }

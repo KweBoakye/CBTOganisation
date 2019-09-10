@@ -11,12 +11,14 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.fyp.kweku.cbtoganisation.R
+import com.fyp.kweku.cbtoganisation.common.CBTOrganisationApplication
 import com.fyp.kweku.cbtoganisation.tasks.domain.outputinterfaces.TaskOutput
 import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
 import com.fyp.kweku.cbtoganisation.tasks.presentation.utils.CircularRevealAnimationUtilClass
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
-import org.koin.android.ext.android.get
+
 import timber.log.Timber
+import javax.inject.Inject
 
 
 class EditTaskFragment :DialogFragment(), DatePickerDialog.OnDateSetListener {
@@ -27,21 +29,22 @@ class EditTaskFragment :DialogFragment(), DatePickerDialog.OnDateSetListener {
     }
 
    private var taskID: String? = null
-    private lateinit var editTaskController: EditTaskController
+    @Inject
+  lateinit var editTaskController: EditTaskController
     private lateinit var revealSettings: CircularRevealAnimationUtilClass.RevealAnimationSetting
-    private lateinit var taskOutput: TaskOutput
+    @Inject
+     lateinit var taskOutput: TaskOutput
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        taskOutput = get()
+       CBTOrganisationApplication.getComponent().inject(this)
         val taskIDBundle: Bundle? = arguments
         taskID = taskIDBundle?.getString("taskID")
         revealSettings = taskIDBundle!!.getParcelable(ARG_REVEAL_SETTINGS)!!
         Timber.i("${revealSettings.centerX}")
         Timber.i(taskID)
         setStyle(STYLE_NORMAL, R.style.FullScreenDialogStyle)
-        editTaskController = get()
         taskID?.let { editTaskController.getTask(it) }
     }
 
@@ -72,7 +75,7 @@ class EditTaskFragment :DialogFragment(), DatePickerDialog.OnDateSetListener {
             }
         })
         editTaskController.bindView(editTaskViewClassInterface)
-       // editTaskController.setTaskData()
+
 
         val taskObserver = Observer<TaskPresentationModel>{task ->
             Timber.i(task.taskID)
@@ -111,5 +114,5 @@ class EditTaskFragment :DialogFragment(), DatePickerDialog.OnDateSetListener {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    fun onBackPressed(){}
+
 }

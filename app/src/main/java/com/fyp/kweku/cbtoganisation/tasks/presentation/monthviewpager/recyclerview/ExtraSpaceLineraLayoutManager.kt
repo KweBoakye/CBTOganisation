@@ -1,11 +1,8 @@
 package com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.recyclerview
 
 import android.content.Context
-import android.graphics.Point
 import android.util.AttributeSet
-import android.view.Display
-import android.view.WindowManager
-import androidx.core.content.getSystemService
+
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 

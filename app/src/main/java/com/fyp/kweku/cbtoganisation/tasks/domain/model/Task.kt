@@ -5,15 +5,14 @@ import org.threeten.bp.LocalTime
 
 data class Task(
     val taskID: String,
-    val taskName: String,       /*Denotes task Name*/
-    val taskLocation: String,   /*Denotes Location Task will take place */
-    val taskDescription: String,/*Description of the task*/
-    val taskStartDate: LocalDate, /* Date task will take place*/
+    val taskName: String,
+    val taskLocation: String,
+    val taskDescription: String,
+    val taskStartDate: LocalDate,
     val taskEndDate: LocalDate,
-    val taskStartTime: LocalTime, /* Time task will start*/
-    val taskEndTime: LocalTime /* Length/duration of task*/
-    //val taskCompleted: Boolean = false
-)
+    val taskStartTime: LocalTime,
+    val taskEndTime: LocalTime
+ )
 
 
 

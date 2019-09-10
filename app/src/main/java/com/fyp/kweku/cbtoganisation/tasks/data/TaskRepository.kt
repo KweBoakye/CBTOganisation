@@ -1,24 +1,20 @@
 package com.fyp.kweku.cbtoganisation.tasks.data
 
-import android.app.Application
+
 import androidx.annotation.WorkerThread
-import com.fyp.kweku.cbtoganisation.common.ProjectDateTimeUtils
-import com.fyp.kweku.cbtoganisation.tasks.data.model.TaskDataModel
 import com.fyp.kweku.cbtoganisation.tasks.data.model.TaskMapper
 import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
 import com.fyp.kweku.cbtoganisation.tasks.domain.repository.TaskRepositoryInterface
-import timber.log.Timber
-import com.google.android.material.appbar.AppBarLayout.ScrollingViewBehavior
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
+import timber.log.Timber
 
 class TaskRepository(private val taskDao: TaskDao) : TaskRepositoryInterface {
 
-//all funtions here suspending functions as  database operations will use Coroutines
 
     private val taskMapper = TaskMapper()
 
-    override suspend fun getAlltasks(): List<Task> {
+    override suspend fun getAllTasks(): List<Task> {
 
         return this.taskDao.loadAllTasks().map { taskMapper.fromEntity(it) }
     }

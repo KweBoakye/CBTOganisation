@@ -6,7 +6,7 @@ import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -31,13 +31,13 @@ class TaskRepositoryTest{
 
     @Test
     fun testGetAllTasksReturnType(){
-        val tasks =runBlocking { taskRepository.getAlltasks()}
+        val tasks =runBlocking { taskRepository.getAllTasks()}
         assertTrue(tasks is List<Task>)
     }
 
     @Test
     fun testsGetAllTasksCallsDAOMethod(){
-       runBlocking {   taskRepository.getAlltasks()}
+       runBlocking {   taskRepository.getAllTasks()}
         verify(exactly = 1) {taskDao.loadAllTasks()}
     }
 

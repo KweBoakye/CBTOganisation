@@ -9,8 +9,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
+import javax.inject.Inject
 
-class EditTasksInteractor(private val taskRepositoryInterface: TaskRepositoryInterface): EditTasksInteractorInterface {
+class EditTasksInteractor @Inject constructor(private val taskRepositoryInterface: TaskRepositoryInterface): EditTasksInteractorInterface {
 
     private val dateFormatter = ProjectDateTimeUtils.getCustomDateFormatter()
     private val scope = CoroutineScope(Job() + Dispatchers.Main)

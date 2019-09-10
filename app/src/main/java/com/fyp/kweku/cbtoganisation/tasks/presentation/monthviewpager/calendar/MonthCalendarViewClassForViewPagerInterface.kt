@@ -2,7 +2,6 @@ package com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.calendar
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.fyp.kweku.cbtoganisation.tasks.presentation.presentationmodel.TaskPresentationModel
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 
@@ -22,6 +21,5 @@ interface MonthCalendarViewClassForViewPagerInterface {
     fun initRecyclerview()
     fun setAdapterData(datesAndTasks: List<Triple<LocalDate, Boolean, MutableList<String>>>)
     fun setViewPool(viewPool: RecyclerView.RecycledViewPool)
-    //fun setListener(monthCalendarViewClassListener: MonthCalendarViewClassListener)
-    //fun setFragmentListener(monthCalendarViewClassFragmentListener: MonthCalendarViewClassFragmentListener)
+
 }

@@ -2,10 +2,10 @@ package com.fyp.kweku.cbtoganisation.tasks.presentation.monthviewpager.viewpager
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -23,19 +23,11 @@ import javax.inject.Inject
 
 
 class MonthViewPagerFragment : Fragment(),MonthCalendarFragment.ParentListener , MonthCalendarViewClassForViewPagerInterface.MonthCalendarViewClassFragmentListener{
-    override fun getAllTasks(): List<TaskPresentationModel> {
-        return tasks
-    }
+
 
     override fun getViewPool(): RecyclerView.RecycledViewPool {
         return  this.viewPool
     }
-
-
-
-
-
-
 
     private lateinit var taskActivity: TaskActivity
     private lateinit var tasks: List<TaskPresentationModel>
@@ -50,10 +42,7 @@ class MonthViewPagerFragment : Fragment(),MonthCalendarFragment.ParentListener ,
         super.onCreate(savedInstanceState)
         CBTOrganisationApplication.getComponent().inject(this)
         taskActivity = context as TaskActivity
-        //monthViewPagerController = get()
-        //taskOutput = get()
 
-       // monthViewPagerController.loadAllTasksForRecycler()
 
     }
 
@@ -95,22 +84,12 @@ class MonthViewPagerFragment : Fragment(),MonthCalendarFragment.ParentListener ,
         return Observer { tasks -> monthViewPagerViewClassInterface.setTasks(tasks) }
     }
 
-    private fun setTasks(tasks: List<TaskPresentationModel>){
-        this.tasks = tasks
-    }
-
-    private fun reConvertedMonthCalendarTasksByDayLiveData(): LiveData<MutableList<MutableList<TaskPresentationModel>>> {
-
-        return     taskOutput.getMonthCalendarTasksByDay()
-    }
 
     override fun launchDialog(date: LocalDate) {
         launchDialogFragmentWithArguments(date)
     }
 
-    /*fun allTasksObserver(): Observer<List<TaskPresentationModel>>{
-        return Observer { tasks -> monthCalendarControllerForViewPager.filterTasks(tasks) }
-    }*/
+
 
     private fun launchDialogFragmentWithArguments(day: LocalDate){
         val dayString = day.format(ProjectDateTimeUtils.getCustomDateFormatter())

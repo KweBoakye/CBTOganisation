@@ -9,12 +9,6 @@
     android:title="@string/home_string_for_nav_drawer">
 
 </item>
-    <item
-        android:id="@+id/monthCalendarFragment"
-
-        android:title="@string/month_calendar_page">
-
-    </item>
 
     <item
         android:id="@+id/locationsFragment"

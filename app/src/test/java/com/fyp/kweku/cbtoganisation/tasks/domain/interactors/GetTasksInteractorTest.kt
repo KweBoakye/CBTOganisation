@@ -1,15 +1,14 @@
 package com.fyp.kweku.cbtoganisation.tasks.domain.interactors
 
 
-import com.fyp.kweku.cbtoganisation.tasks.domain.outputinterfaces.TaskOutput
 import com.fyp.kweku.cbtoganisation.tasks.domain.model.Task
+import com.fyp.kweku.cbtoganisation.tasks.domain.outputinterfaces.TaskOutput
 import com.fyp.kweku.cbtoganisation.tasks.domain.repository.TaskRepositoryInterface
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Test
-
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS) //generate new test ins
@@ -31,7 +30,7 @@ class GetTasksInteractorTest {
     @Test
     fun testGetAllTasks() {
         runBlocking { getTasksInteractor.allTasks() }
-        verify(exactly = 1) { runBlocking { taskrepositorymock.getAlltasks() }}
+        verify(exactly = 1) { runBlocking { taskrepositorymock.getAllTasks() }}
         }
 
 

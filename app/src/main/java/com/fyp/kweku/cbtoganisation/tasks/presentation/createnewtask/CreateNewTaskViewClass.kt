@@ -10,8 +10,8 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import org.threeten.bp.LocalDate
-import timber.log.Timber
 import org.threeten.bp.LocalTime
+import timber.log.Timber
 
 
 class CreateNewTaskViewClass(val inflater: LayoutInflater, val parent: ViewGroup?, private val fragmentListener: CreateNewTaskViewClassInterface.FragmentListener) :
@@ -105,11 +105,7 @@ class CreateNewTaskViewClass(val inflater: LayoutInflater, val parent: ViewGroup
         }
         return result
 
-        /*return if (nameInput.isEmpty()) {taskNameInputLayout.error = "Name Can't Be Empty"
-            false
-        } else {taskNameInput.error = null
-            true
-        }*/
+
     }
 
     private fun startDateValid():Boolean{
@@ -121,11 +117,7 @@ class CreateNewTaskViewClass(val inflater: LayoutInflater, val parent: ViewGroup
             false -> taskStartDateInputLayout.error = null
         }
         return result
-        /*return if (startDateInput.isEmpty()) {taskStartDateInputLayout.error = "Date Can't Be Empty"
-            false
-        } else {taskStartDateInputLayout.error = null
-            true
-        }*/
+
     }
 
     private fun endDateValid():Boolean{

@@ -2,11 +2,11 @@ package com.fyp.kweku.cbtoganisation.tasks.presentation.locations
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -25,20 +25,17 @@ class LocationsFragment : Fragment(), LocationsViewClassInterface.LocationsViewC
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         CBTOrganisationApplication.getComponent().inject(this)
-        //locationsController = component.locationsController
-        //component = DaggerAppComponent.builder().build()
 
 
 
-        //locationsOutput =
-        //locationsController = get()
+
         locationsController.loadLocations()
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         val locationsViewClassInterface: LocationsViewClassInterface = LocationsViewClass(inflater, container,this)
 
        locationsController.bindView(locationsViewClassInterface)
