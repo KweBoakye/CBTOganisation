@@ -28,6 +28,10 @@ Two iterations of a month calendar similar in function to the one in the Google 
 
 <img src="gifs/RecyclerviewMonthCalendar.gif" width= 300>  <img src="gifs/ViewpagerMonthCalendar.gif" width= 300>
 
+
+## Tasks By Day, View Task and Edit Task
 <img src="/gifs/TasksByDay.gif" width= 300>
 
+
+## Tasks By Location with Debouncing Search
 <img src="/gifs/TasksByLocation.gif" width= 300>
