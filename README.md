@@ -1,5 +1,8 @@
 # CBTOrganisation
 
+## Introduction
+This is an app I produced for my final year Project and to learn and practice various aspects of Android Development, Kotlin and Software Architecture/Seperation of concerns.
+
 * Kotlin
 * Single Activity Architecture
 * Clean Architecture
